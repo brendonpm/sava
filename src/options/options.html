@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat Avatar — Opções</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Chat Avatar</h1>
+      <p class="sub">A Sava reage às respostas da IA no Claude e no Gemini. Tudo roda no seu navegador.</p>
+      <span id="status" class="status" aria-live="polite"></span>
+    </header>
+
+    <section>
+      <h2>Sites ativos</h2>
+      <div id="sites" class="checks"></div>
+    </section>
+
+    <section>
+      <h2>Instrução para a IA</h2>
+      <p class="hint">Cole nas preferências do Claude ou nas instruções salvas do Gemini. A IA passa a agir como a Sava e marca a emoção de cada resposta; a extensão lê a tag, troca a expressão e esconde a tag da conversa.</p>
+      <textarea id="instruction" readonly rows="11"></textarea>
+      <button id="copy" type="button">Copiar instrução</button>
+    </section>
+
+    <section>
+      <h2>Mapa de emoções</h2>
+      <p class="hint">Cada emoção aponta para uma expressão do personagem. Clique numa linha para testar no personagem do canto. Dá para criar emoções novas (ex.: <code>surpresa</code> → Empolgada).</p>
+      <table id="map">
+        <thead><tr><th>Emoção (nome na tag)</th><th>Expressão</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <form id="add" class="add">
+        <input id="newName" placeholder="nova emoção" pattern="[\p{L}_\-]{1,30}" maxlength="30" aria-label="Nome da nova emoção" required>
+        <button type="submit">Adicionar</button>
+        <button type="button" id="resetMap" class="ghost">Restaurar padrão</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Comportamento</h2>
+      <div class="grid">
+        <label>Tamanho do personagem <output id="sizeOut"></output>
+          <input type="range" id="size" min="80" max="260" step="4">
+        </label>
+        <label>Voltar ao neutro depois de (segundos, 0 = nunca)
+          <input type="number" id="returnSec" min="0" max="120" step="1">
+        </label>
+        <label>Emoção quando nada for detectado
+          <select id="fallback"></select>
+        </label>
+        <label>Cochilar depois de (minutos sem atividade, 0 = nunca)
+          <input type="number" id="sleepMin" min="0" max="60" step="1">
+        </label>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" id="effects"> Movimentos e partículas (corações, estrelas, notas…)</label>
+        <label><input type="checkbox" id="reactToTyping"> Ficar atenta enquanto eu digito e pensativa depois que eu envio</label>
+        <label><input type="checkbox" id="useKeywords"> Detectar por palavras-chave quando não houver tag</label>
+        <label><input type="checkbox" id="hideTag"> Esconder a tag <code>[emo:…]</code> da conversa</label>
+        <label><input type="checkbox" id="showLabel"> Mostrar o nome da emoção sob o personagem</label>
+        <label><input type="checkbox" id="debug"> Registrar detecções no console (depuração)</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Testar detecção</h2>
+      <p class="hint">Escreva uma resposta de exemplo e veja qual emoção sairia.</p>
+      <textarea id="sample" rows="3">Ah, obrigada... fiquei até com vergonha 😳</textarea>
+      <button id="talk" type="button">Simular resposta</button>
+      <button id="think" type="button" class="ghost">Simular "pensando"</button>
+      <button id="nap" type="button" class="ghost">Simular cochilo</button>
+      <p id="result" class="result"></p>
+    </section>
+
+    <section class="privacy">
+      <h2>Privacidade</h2>
+      <p>O texto das conversas é lido só para escolher a expressão e nunca é enviado a lugar nenhum. A extensão pede apenas <code>storage</code> e acesso aos sites listados acima.</p>
+    </section>
+  </main>
+
+  <script src="../shared/settings.js"></script>
+  <script src="../shared/instruction.js"></script>
+  <script src="../emotion/emotions.js"></script>
+  <script src="../emotion/detect.js"></script>
+  <script src="../avatar/sprite-pack.js"></script>
+  <script src="../avatar/avatar.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

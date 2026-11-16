@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Imagens da loja</title>
+<style>
+  body { margin: 0; padding: 16px; background: #222; color: #eee; font: 14px system-ui, sans-serif; }
+  canvas { display: block; margin: 0 0 16px; max-width: 100%; border: 1px solid #555; }
+</style>
+</head>
+<body>
+<p>Gera as imagens da Chrome Web Store com a personagem de verdade. Abra servido por HTTP (dev/serve.ps1) com tools/receive.ps1 rodando para salvar em store/.</p>
+<div id="out"></div>
+<script>
+  const mem = {};
+  const area = { get: async (k) => (typeof k === 'string' ? { [k]: mem[k] } : { ...mem }), set: async (o) => Object.assign(mem, o) };
+  window.chrome = { runtime: { getURL: (p) => '/' + p, sendMessage() {} }, storage: { sync: area, local: area, onChanged: { addListener() {} } } };
+</script>
+<script src="/src/shared/settings.js"></script>
+<script src="/src/emotion/emotions.js"></script>
+<script src="/src/emotion/detect.js"></script>
+<script src="/src/avatar/sprite-pack.js"></script>
+<script src="/src/avatar/avatar.js"></script>
+<script>
+(async () => {
+  const CA = window.ChatAvatar;
+  const pack = await CA.SpritePack.load('default');
+  const settings = { ...CA.settings.DEFAULTS, size: 256 };
+  const avatar = new CA.Avatar(pack, settings);
+  avatar.hide();
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  const C = { bg: '#f6f3ee', ink: '#16303a', teal: '#2f8f99', teal2: '#1f6670', soft: '#d5ecee', amber: '#e89b2c', muted: '#5a6670', line: '#d9d2c5', card: '#fffdf9' };
+
+  function still(id) {
+    const f = pack.frames[id];
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const x = c.getContext('2d');
+    x.drawImage(f.base, 0, 0);
+    for (const o of f.overlays) x.drawImage(o.canvas, o.x, o.y);
+    return c;
+  }
+  // quadro "ao vivo" (com partículas): troca a emoção e espera as partículas aparecerem
+  async function live(id, intensity = 3, wait = 700) {
+    avatar.particles = []; // não deixa partículas da expressão anterior
+    avatar.setEmotion(id, { intensity });
+    // avança a animação "na mão" (não depende de requestAnimationFrame, que para em abas ocultas)
+    const t0 = performance.now();
+    avatar.lastNow = t0;
+    for (let i = 1; i <= Math.round(wait / 16.7); i++) {
+      avatar._loop(t0 + i * 16.7);
+      cancelAnimationFrame(avatar.raf);
+    }
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    c.getContext('2d').drawImage(avatar.canvas, 0, 0);
+    return c;
+  }
+
+  function rr(x, cx, cy, w, h, r) { x.beginPath(); x.roundRect(cx, cy, w, h, r); }
+  function wrapText(x, text, maxW) {
+    const words = text.split(' '); const lines = []; let line = '';
+    for (const w of words) { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }
+    if (line) lines.push(line);
+    return lines;
+  }
+  function pixelCard(x, img, cx, cy, size, shadow = 10) {
+    x.save();
+    rr(x, cx + shadow, cy + shadow, size, size, 26); x.fillStyle = C.ink; x.fill();
+    rr(x, cx, cy, size, size, 26); x.fillStyle = '#3b98a2'; x.fill(); x.clip();
+    x.imageSmoothingEnabled = false;
+    x.drawImage(img, cx, cy, size, size);
+    x.restore();
+    x.save(); rr(x, cx, cy, size, size, 26); x.lineWidth = 4; x.strokeStyle = C.ink; x.stroke(); x.restore();
+  }
+  function caption(x, title, sub) {
+    x.fillStyle = C.ink;
+    x.font = `800 46px ${FONT}`;
+    x.fillText(title, 64, 92);
+    x.fillStyle = C.muted;
+    x.font = `500 24px ${FONT}`;
+    x.fillText(sub, 64, 132);
+  }
+  // janela de chat genérica (sem marca de nenhum site)
+  function chatWindow(x, X, Y, W, H, msgs) {
+    x.save();
+    rr(x, X + 8, Y + 8, W, H, 18); x.fillStyle = 'rgba(22,48,58,.18)'; x.fill();
+    rr(x, X, Y, W, H, 18); x.fillStyle = '#ffffff'; x.fill(); x.clip();
+    x.fillStyle = '#f1efea'; x.fillRect(X, Y, 200, H);
+    x.fillStyle = '#d9d4ca';
+    for (let i = 0; i < 6; i++) { rr(x, X + 20, Y + 70 + i * 40, 150 - (i % 3) * 22, 14, 7); x.fill(); }
+    x.fillStyle = '#c9c3b7'; rr(x, X + 20, Y + 26, 110, 18, 9); x.fill();
+    let y = Y + 40;
+    const colX = X + 240, colW = W - 290;
+    for (const [who, text] of msgs) {
+      x.font = `400 21px ${FONT}`;
+      const lines = wrapText(x, text, colW - 120);
+      const bh = lines.length * 30 + 26;
+      const bw = Math.min(colW - 80, Math.max(...lines.map((l) => x.measureText(l).width)) + 36);
+      const bx = who === 'user' ? colX + colW - bw : colX;
+      rr(x, bx, y, bw, bh, 16);
+      x.fillStyle = who === 'user' ? C.teal : '#f3f1ec'; x.fill();
+      x.fillStyle = who === 'user' ? '#fff' : '#1c2630';
+      lines.forEach((l, i) => x.fillText(l, bx + 18, y + 34 + i * 30));
+      y += bh + 18;
+    }
+    rr(x, colX, Y + H - 86, colW, 56, 16); x.fillStyle = '#f6f4f0'; x.fill();
+    x.strokeStyle = '#ddd7cc'; x.lineWidth = 2; x.stroke();
+    x.fillStyle = '#9a9488'; x.font = `400 19px ${FONT}`; x.fillText('Escreva uma mensagem…', colX + 20, Y + H - 51);
+    rr(x, colX + colW - 48, Y + H - 76, 36, 36, 10); x.fillStyle = C.teal; x.fill();
+    x.restore();
+  }
+  function floatingSava(x, img, cx, cy, size) {
+    x.save();
+    x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = 24; x.shadowOffsetY = 8;
+    rr(x, cx, cy, size, size, 18); x.fillStyle = '#3b98a2'; x.fill();
+    x.restore();
+    x.save(); rr(x, cx, cy, size, size, 18); x.clip(); x.imageSmoothingEnabled = false; x.drawImage(img, cx, cy, size, size); x.restore();
+    x.save(); rr(x, cx, cy, size, size, 18); x.lineWidth = 3; x.strokeStyle = 'rgba(255,255,255,.6)'; x.stroke(); x.restore();
+  }
+  function canvas(w, h) {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d'); x.fillStyle = C.bg; x.fillRect(0, 0, w, h);
+    return [c, x];
+  }
+
+  const out = [];
+
+  // 1) reage às respostas
+  {
+    const [c, x] = canvas(1280, 800);
+    caption(x, 'A Sava reage a cada resposta da IA', 'Ri das piadas, fica sem graça com elogios, se assusta com bugs. Funciona no Claude e no Gemini.');
+    chatWindow(x, 64, 180, 1152, 580, [
+      ['user', 'Me conta uma piada de programador'],
+      ['ai', 'Por que o programador foi ao médico? Porque estava cheio de bugs! Hahaha, essa foi boa, vai 😄'],
+      ['user', 'kkkkk boa, Sava'],
+    ]);
+    floatingSava(x, await live('feliz', 3, 900), 940, 470, 250);
+    out.push(['screenshot-1-reage.png', c]);
+  }
+
+  // 2) 18 expressões
+  {
+    const [c, x] = canvas(1280, 800);
+    caption(x, '18 expressões, com movimento e efeitos', 'Corações, estrelas, notas musicais, fumacinha de raiva… e a intensidade muda a força da reação.');
+    const ids = pack.frameIds; const S = 170, G = 22, cols = 6;
+    const X0 = (1280 - (cols * S + (cols - 1) * G)) / 2;
+    ids.forEach((id, i) => {
+      const cx = X0 + (i % cols) * (S + G), cy = 176 + Math.floor(i / cols) * (S + 30);
+      x.save(); rr(x, cx, cy, S, S, 16); x.clip(); x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+      x.drawImage(still(id), cx, cy, S, S); x.restore();
+      x.save(); rr(x, cx, cy, S, S, 16); x.lineWidth = 3; x.strokeStyle = C.ink; x.stroke(); x.restore();
+      x.fillStyle = C.ink; x.font = `700 17px ${FONT}`; x.textAlign = 'center';
+      x.fillText(pack.frames[id].label, cx + S / 2, cy + S + 21); x.textAlign = 'start';
+    });
+    out.push(['screenshot-2-expressoes.png', c]);
+  }
+
+  // 3) um clique para ativar
+  {
+    const [c, x] = canvas(1280, 800);
+    caption(x, 'Um clique para ativar a Sava no chat', 'O botão 💬 envia a instrução que faz a IA falar como a Sava e marcar as emoções.');
+    chatWindow(x, 64, 180, 1152, 580, [
+      ['user', 'Você é a Sava, uma personagem simpática e provocadora… [instrução enviada pela extensão]'],
+      ['ai', 'Oi! Eu sou a Sava 😉 Pode mandar suas perguntas, prometo ajudar… e provocar só um pouquinho.'],
+    ]);
+    const img = await live('piscadinha', 2, 900);
+    floatingSava(x, img, 940, 470, 250);
+    // botões e balão, como aparecem ao passar o mouse
+    const bx = 1110, by = 455;
+    [['💬', true], ['⚙', false], ['×', false]].forEach(([t, hl], i) => {
+      x.beginPath(); x.arc(bx + i * 40, by, 17, 0, Math.PI * 2);
+      x.fillStyle = hl ? '#6b4fd8' : 'rgba(20,16,32,.92)'; x.fill();
+      x.fillStyle = '#fff'; x.font = `600 17px ${FONT}`; x.textAlign = 'center'; x.fillText(t, bx + i * 40, by + 6); x.textAlign = 'start';
+    });
+    const tx = 868, ty = 380, tw = 300, th = 44;
+    rr(x, tx, ty, tw, th, 12); x.fillStyle = 'rgba(20,16,32,.92)'; x.fill();
+    x.fillStyle = '#f2ecff'; x.font = `600 18px ${FONT}`; x.fillText('Instrução enviada! 😉', tx + 18, ty + 29);
+    out.push(['screenshot-3-ativar.png', c]);
+  }
+
+  // 4) privacidade + presta atenção em você
+  {
+    const [c, x] = canvas(1280, 800);
+    caption(x, 'Viva, discreta e privada', 'Ela presta atenção em você, cochila quando você some, e nada da conversa sai do seu navegador.');
+    const cards = [
+      ['pensativa', 'Pensando…', 'Fica pensativa enquanto a IA prepara a resposta.'],
+      ['sonolenta', 'Cochilando', 'Dorme se você sumir por alguns minutos.'],
+      ['piscadinha', 'Privada', 'Sem servidor, sem conta e sem rastreamento.'],
+    ];
+    for (let i = 0; i < cards.length; i++) {
+      const [id, t, d] = cards[i];
+      const cx = 64 + i * 392, cy = 190, w = 360, h = 560;
+      x.save(); rr(x, cx, cy, w, h, 20); x.fillStyle = C.card; x.fill(); x.lineWidth = 2; x.strokeStyle = C.line; x.stroke(); x.restore();
+      pixelCard(x, await live(id, 2, 900), cx + 40, cy + 40, 270, 8);
+      x.fillStyle = C.ink; x.font = `800 30px ${FONT}`; x.fillText(t, cx + 40, cy + 380);
+      x.fillStyle = C.muted; x.font = `500 21px ${FONT}`;
+      wrapText(x, d, w - 80).forEach((l, j) => x.fillText(l, cx + 40, cy + 420 + j * 30));
+    }
+    out.push(['screenshot-4-detalhes.png', c]);
+  }
+
+  // 5) bloco promocional pequeno 440x280
+  {
+    const [c, x] = canvas(440, 280);
+    const g = x.createLinearGradient(0, 0, 440, 280); g.addColorStop(0, '#2f8f99'); g.addColorStop(1, '#1f6670');
+    x.fillStyle = g; x.fillRect(0, 0, 440, 280);
+    pixelCard(x, await live('feliz', 2, 900), 262, 58, 150, 6);
+    x.fillStyle = '#fff'; x.font = `900 56px ${FONT}`; x.fillText('Sava', 26, 112);
+    x.font = `600 19px ${FONT}`; x.fillStyle = '#e4f6f8';
+    ['Personagem em pixel art', 'que reage aos seus', 'chats de IA'].forEach((l, i) => x.fillText(l, 28, 150 + i * 26));
+    rr(x, 26, 226, 170, 32, 10); x.fillStyle = '#e89b2c'; x.fill();
+    x.fillStyle = '#16303a'; x.font = `800 15px ${FONT}`; x.fillText('Claude · Gemini', 44, 247);
+    out.push(['promo-440x280.png', c]);
+  }
+
+  const box = document.getElementById('out');
+  for (const [name, c] of out) {
+    const p = document.createElement('p'); p.textContent = name; box.append(p, c);
+  }
+  // envia para o tools/receive.ps1 (tenta por alguns segundos, caso ele ainda esteja subindo)
+  window.STORE_ASSETS_SENT = [];
+  for (const [name, c] of out) {
+    for (let i = 0; i < 20; i++) {
+      try {
+        const r = await fetch('http://localhost:8766/' + name, { method: 'POST', body: c.toDataURL('image/png').split(',')[1] });
+        if (r.ok) { window.STORE_ASSETS_SENT.push(name); break; }
+      } catch (_) { await sleep(500); }
+    }
+  }
+  window.STORE_ASSETS_DONE = out.map(([n]) => n);
+})();
+</script>
+</body>
+</html>

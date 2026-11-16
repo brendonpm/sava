@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "Sava — personagem para chats de IA",
+  "short_name": "Sava",
+  "version": "0.5.0",
+  "description": "Sava, uma personagem em pixel art que reage às respostas do Claude e do Gemini.",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Sava — opções",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "options_page": "src/options/options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://claude.ai/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "src/shared/settings.js",
+        "src/shared/instruction.js",
+        "src/emotion/emotions.js",
+        "src/emotion/detect.js",
+        "src/avatar/sprite-pack.js",
+        "src/avatar/avatar.js",
+        "src/content/adapters/registry.js",
+        "src/content/adapters/claude.js",
+        "src/content/adapters/gemini.js",
+        "src/content/tag-hider.js",
+        "src/content/watcher.js",
+        "src/content/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/sprites/*"],
+      "matches": [
+        "https://claude.ai/*",
+        "https://gemini.google.com/*"
+      ]
+    }
+  ]
+}

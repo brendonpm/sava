@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat Avatar Playground</title>
+<style>
+  :root { --bg:#f4f2f8; --text:#1d1828; --card:#fff; --line:#ddd6ee; }
+  body { margin:0; font:15px/1.5 system-ui, sans-serif; background:var(--bg); color:var(--text); }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 200px; }
+  .chat { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .user { align-self:flex-end; background:#dcd3ff; padding:8px 12px; border-radius:12px; }
+  .dev-assistant { background:var(--card); border:1px solid var(--line); padding:8px 12px; border-radius:12px; white-space:pre-wrap; }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; }
+  button { padding:6px 10px; border-radius:8px; border:1px solid var(--line); background:#fff; cursor:pointer; }
+  #debug { display:grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+  #debug canvas { width:100%; image-rendering: pixelated; border:1px solid var(--line); }
+  #debug figure { margin:0; } #debug figcaption { font-size:12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Playground</h1>
+  <div class="bar" id="bar"></div>
+  <div class="chat" id="chat"></div>
+  <form class="bar" id="composer">
+    <textarea id="msg" rows="2" style="flex:1" placeholder="Digite e aperte Enter (simula o envio; a resposta começa depois de 2,5 s)"></textarea>
+    <button type="submit" aria-label="Enviar mensagem">Enviar</button>
+  </form>
+  <h2>Camadas (debug)</h2>
+  <div id="debug"></div>
+</main>
+<script>
+  // Stub mínimo da API chrome.* para rodar fora da extensão.
+  const mem = {};
+  const area = {
+    get: async (k) => (typeof k === 'string' ? { [k]: mem[k] } : { ...mem }),
+    set: async (o) => Object.assign(mem, o),
+  };
+  window.chrome = {
+    runtime: { getURL: (p) => '/' + p, sendMessage() {} },
+    storage: { sync: area, local: area, onChanged: { addListener() {} } },
+  };
+</script>
+<script src="/src/shared/settings.js"></script>
+<script src="/src/shared/instruction.js"></script>
+<script src="/src/emotion/emotions.js"></script>
+<script src="/src/emotion/detect.js"></script>
+<script src="/src/avatar/sprite-pack.js"></script>
+<script src="/src/avatar/avatar.js"></script>
+<script src="/src/content/adapters/registry.js"></script>
+<script>
+  ChatAvatar.adapters.register({ id: 'dev', label: 'Dev', hosts: ['localhost', '127.0.0.1'], messageSelectors: ['.dev-assistant'], composerSelectors: ['#msg'], sendSelectors: ['#composer button'] });
+</script>
+<script src="/src/content/tag-hider.js"></script>
+<script src="/src/content/watcher.js"></script>
+<script src="/src/content/main.js"></script>
+<script src="/dev/playground.js"></script>
+</body>
+</html>

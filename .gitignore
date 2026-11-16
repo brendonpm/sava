@@ -1,0 +1,14 @@
+# Arte de referência do protótipo: não é deste projeto, não pode ser publicada
+dev/legacy/
+
+# Pacotes gerados por tools/build.ps1 (o da loja); o do site (site/download/) é versionado
+dist/
+
+# Configuração local do editor/assistente
+.claude/
+
+# Lixo do sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log
