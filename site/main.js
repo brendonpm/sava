@@ -25,6 +25,13 @@
       $('store-badge').textContent = 'Em análise';
     }
   }
+  if (cfg.repoUrl) {
+    const link = document.createElement('a');
+    link.href = cfg.repoUrl;
+    link.textContent = 'Código no GitHub';
+    link.rel = 'noopener';
+    $('foot-contact').before(' · ', link);
+  }
   if (cfg.contact) {
     const c = $('foot-contact');
     const link = document.createElement('a');

@@ -5,9 +5,9 @@ Tudo o que o formulário da loja pede, pronto para copiar e colar. As imagens es
 ## Antes de começar
 
 1. Gere o pacote: `powershell -NoProfile -ExecutionPolicy Bypass -File tools/build.ps1`. Ele cria `dist/sava-<versão>.zip`.
-2. Publique o site (a loja exige o link da política de privacidade). Anote os dois endereços:
-   - site: `https://SEU-ENDERECO/`
-   - política: `https://SEU-ENDERECO/privacidade.html`
+2. O site já está publicado (a loja exige o link da política de privacidade):
+   - site: `https://brendonpm.github.io/sava/`
+   - política: `https://brendonpm.github.io/sava/privacidade.html`
 3. Crie a conta de desenvolvedor em https://chrome.google.com/webstore/devconsole. A taxa é única, de US$ 5, e você paga na própria página. Confirme o e-mail de contato que o painel pedir.
 
 ## Passo a passo no painel
@@ -66,8 +66,8 @@ Projeto independente, sem ligação com a Anthropic ou o Google. Claude é marca
 | Capturas de tela (1280×800) | `screenshot-1-reage.png`, `screenshot-2-expressoes.png`, `screenshot-3-ativar.png`, `screenshot-4-detalhes.png` |
 | Bloco promocional pequeno (440×280) | `promo-440x280.png` |
 
-**Site oficial:** `https://SEU-ENDERECO/`
-**URL de suporte:** `https://SEU-ENDERECO/` (ou um e-mail/página de contato)
+**Site oficial:** `https://brendonpm.github.io/sava/`
+**URL de suporte:** `https://brendonpm.github.io/sava/` (ou um e-mail/página de contato)
 
 ---
 
@@ -100,7 +100,7 @@ Marque as três declarações:
 - Não uso nem transfiro dados de usuários para fins não relacionados à finalidade única do item.
 - Não uso nem transfiro dados de usuários para determinar crédito ou para fins de empréstimo.
 
-**URL da política de privacidade:** `https://SEU-ENDERECO/privacidade.html`
+**URL da política de privacidade:** `https://brendonpm.github.io/sava/privacidade.html`
 
 ---
 
