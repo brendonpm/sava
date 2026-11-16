@@ -71,3 +71,7 @@ tbody tr:hover { background: var(--row-hover); }
 @media (max-width: 520px) {
   .status { position: static; display: block; margin-top: 6px; }
 }
+
+/* idioma da instrução e nome traduzido das emoções */
+label.inline { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+td.name .gloss { color: var(--muted); font-size: 12px; }

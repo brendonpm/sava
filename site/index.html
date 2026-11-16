@@ -1,27 +1,32 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sava — personagem em pixel art para chats de IA</title>
-  <meta name="description" content="Extensão gratuita para o Chrome: a Sava, uma personagem em pixel art, reage às respostas do Claude e do Gemini com 18 expressões. Tudo roda no seu navegador.">
-  <meta property="og:title" content="Sava — personagem em pixel art para chats de IA">
-  <meta property="og:description" content="Ela reage às respostas da IA: fica feliz, envergonhada, brava, apaixonada… Grátis e privada.">
-  <meta property="og:image" content="icon.png">
+  <title>Sava — a pixel art companion for your AI chats</title>
+  <meta name="description" content="Free Chrome extension: Sava, a pixel art character, reacts to Claude and Gemini replies with 18 expressions. Everything runs in your browser.">
+  <meta property="og:title" content="Sava — a pixel art companion for your AI chats">
+  <meta property="og:description" content="She reacts to AI replies: happy, embarrassed, angry, in love… Free and private. EN · PT · ES · FR · DE · JA">
+  <meta property="og:image" content="https://brendonpm.github.io/sava/icon.png">
   <link rel="icon" href="icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Textos em inglês por padrão; site/i18n.js troca pelo idioma escolhido (data-i18n). -->
   <header class="top">
     <div class="wrap">
       <a class="brand" href="#"><img src="icon.png" alt="" width="32" height="32">Sava</a>
-      <nav aria-label="Seções">
-        <a href="#experimente">Experimente</a>
-        <a href="#como-usar">Como usar</a>
-        <a href="#expressoes">Expressões</a>
-        <a href="#privacidade">Privacidade</a>
-        <a class="nav-cta" href="#instalar">Instalar</a>
+      <nav aria-label="Sections">
+        <a href="#experimente" data-i18n="nav_try">Try it</a>
+        <a href="#como-usar" data-i18n="nav_how">How to use</a>
+        <a href="#expressoes" data-i18n="nav_faces">Expressions</a>
+        <a href="#privacidade" data-i18n="nav_privacy">Privacy</a>
+        <a class="nav-cta" href="#instalar" data-i18n="nav_install">Install</a>
       </nav>
+      <label class="lang-pick"><span class="sr-only" data-i18n="lang_label">Language</span>
+        <span aria-hidden="true">🌐</span>
+        <select id="lang"></select>
+      </label>
     </div>
   </header>
 
@@ -29,23 +34,23 @@
     <section class="hero">
       <div class="wrap">
         <div>
-          <span class="eyebrow">Extensão gratuita para o Chrome</span>
-          <h1>Uma companheira em pixel art para os seus <span class="hl">chats de IA</span></h1>
-          <p class="lead">A Sava fica no cantinho da tela e reage a cada resposta da IA: ri das piadas, fica sem graça com elogios, se assusta com o banco apagado sem backup.</p>
+          <span class="eyebrow" data-i18n="hero_eyebrow">Free Chrome extension</span>
+          <h1 data-i18n="hero_title">A pixel art companion for your <span class="hl">AI chats</span></h1>
+          <p class="lead" data-i18n="hero_lead">Sava sits in the corner of your screen and reacts to every AI reply.</p>
           <div class="cta-row">
-            <a class="btn btn-primary" id="store-btn" href="#instalar">Instalar no Chrome</a>
-            <a class="btn btn-secondary" href="#experimente">Ver a Sava reagir</a>
+            <a class="btn btn-primary" id="store-btn" href="#instalar" data-i18n="hero_cta_install">Install on Chrome</a>
+            <a class="btn btn-secondary" href="#experimente" data-i18n="hero_cta_try">See Sava react</a>
           </div>
-          <p class="fine">Grátis, sem cadastro e sem anúncios. Nada da conversa sai do seu navegador.</p>
-          <div class="works" aria-label="Funciona com">
-            <span class="chip">✓ Funciona no Claude</span>
-            <span class="chip">✓ Funciona no Gemini</span>
-            <span class="chip">18 expressões</span>
+          <p class="fine" data-i18n="hero_fine">Free, no sign-up, no ads. Nothing from your chats ever leaves your browser.</p>
+          <div class="works">
+            <span class="chip" data-i18n="chip_claude">✓ Works on Claude</span>
+            <span class="chip" data-i18n="chip_gemini">✓ Works on Gemini</span>
+            <span class="chip" data-i18n="chip_faces">18 expressions</span>
           </div>
         </div>
         <div class="portrait" aria-hidden="true">
           <canvas id="portrait" width="256" height="256"></canvas>
-          <span class="tag" id="portrait-tag">Neutra</span>
+          <span class="tag" id="portrait-tag">Neutral</span>
         </div>
       </div>
     </section>
@@ -53,23 +58,20 @@
     <section id="experimente">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Experimente</span>
-          <h2>Escolha uma mensagem e veja a Sava reagir</h2>
-          <p>Esta é a mesma personagem da extensão, aqui no canto da página. Enquanto a "IA" escreve, ela fala; quando a resposta termina, ela muda de expressão.</p>
+          <span class="eyebrow" data-i18n="try_eyebrow">Try it</span>
+          <h2 data-i18n="try_title">Pick a message and watch Sava react</h2>
+          <p data-i18n="try_text">This is the same character as the extension, right here in the corner of the page.</p>
         </div>
         <div class="demo">
-          <div class="chat" aria-label="Chat de demonstração">
-            <div class="chat-head"><span class="dot"></span> Chat de demonstração</div>
+          <div class="chat">
+            <div class="chat-head"><span class="dot"></span> <span data-i18n="chat_title">Demo chat</span></div>
             <div class="chat-log" id="chat-log" aria-live="polite">
-              <p class="chat-empty" id="chat-empty">Escolha uma mensagem ao lado para começar 👉</p>
+              <p class="chat-empty" id="chat-empty" data-i18n="chat_empty">Pick a message to start 👉</p>
             </div>
           </div>
           <div>
             <div class="prompts" id="prompts"></div>
-            <div class="demo-note">
-              <p><b>Como ela sabe a emoção?</b> A IA recebe uma instrução para terminar cada resposta com uma etiqueta como <code>[emo:feliz:2]</code> (emoção e intensidade de 1 a 3). A extensão lê a etiqueta e a esconde da conversa. Aqui na demonstração ela aparece riscada para você ver.</p>
-              <p style="margin:0">Sem a etiqueta, a Sava ainda se vira com palavras e emojis do texto ("haha", "sinto muito", 😍…).</p>
-            </div>
+            <div class="demo-note" data-i18n="note_html"></div>
           </div>
         </div>
       </div>
@@ -78,33 +80,24 @@
     <section id="como-usar">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Como usar</span>
-          <h2>Três passos e pronto</h2>
+          <span class="eyebrow" data-i18n="how_eyebrow">How to use</span>
+          <h2 data-i18n="how_title">Three steps and you're done</h2>
         </div>
         <div class="steps">
-          <div class="card step">
-            <h3>Instale a extensão</h3>
-            <p>Pela Chrome Web Store ou baixando o arquivo e instalando manualmente (veja abaixo).</p>
-          </div>
-          <div class="card step">
-            <h3>Abra o Claude ou o Gemini</h3>
-            <p>A Sava aparece no canto inferior direito. Passe o mouse sobre ela e clique em <b>💬</b>: ela envia a instrução que faz a IA falar como a Sava e marcar as emoções.</p>
-          </div>
-          <div class="card step">
-            <h3>Converse normalmente</h3>
-            <p>A cada resposta ela reage. Arraste-a para onde quiser; clique no ícone da extensão para ajustar tamanho, emoções e efeitos.</p>
-          </div>
+          <div class="card step"><h3 data-i18n="step1_t">Install the extension</h3><p data-i18n="step1_p"></p></div>
+          <div class="card step"><h3 data-i18n="step2_t">Open Claude or Gemini</h3><p data-i18n="step2_p"></p></div>
+          <div class="card step"><h3 data-i18n="step3_t">Chat as usual</h3><p data-i18n="step3_p"></p></div>
         </div>
-        <p class="fine" style="margin-top:20px">Dica: se você usa sempre, cole a instrução uma vez nas preferências do Claude (Settings → Profile) ou nas instruções salvas do Gemini. A página de opções da extensão tem o texto pronto para copiar.</p>
+        <p class="fine" style="margin-top:20px" data-i18n="how_tip"></p>
       </div>
     </section>
 
     <section id="expressoes">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Expressões</span>
-          <h2>18 jeitos de reagir</h2>
-          <p>Cada expressão tem seu movimento e seus efeitos: corações, estrelas, notas musicais, fumacinha de raiva… Clique em uma para a Sava do canto mostrar.</p>
+          <span class="eyebrow" data-i18n="faces_eyebrow">Expressions</span>
+          <h2 data-i18n="faces_title">18 ways to react</h2>
+          <p data-i18n="faces_text"></p>
         </div>
         <div class="faces" id="faces"></div>
       </div>
@@ -113,16 +106,16 @@
     <section id="recursos">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Recursos</span>
-          <h2>Pequenos detalhes que deixam ela viva</h2>
+          <span class="eyebrow" data-i18n="feat_eyebrow">Features</span>
+          <h2 data-i18n="feat_title">Little details that make her feel alive</h2>
         </div>
         <div class="features">
-          <div class="card feature"><span class="ico">🗨️</span><h3>Fala enquanto a IA escreve</h3><p>A boca mexe durante a resposta e a expressão muda quando ela termina.</p></div>
-          <div class="card feature"><span class="ico">⌨️</span><h3>Presta atenção em você</h3><p>Dá pulinhos enquanto você digita e fica pensativa depois que você envia.</p></div>
-          <div class="card feature"><span class="ico">💤</span><h3>Cochila se você sumir</h3><p>Depois de alguns minutos sem atividade ela dorme, e acorda quando você volta.</p></div>
-          <div class="card feature"><span class="ico">✨</span><h3>Intensidade</h3><p>Uma emoção forte tem mais movimento e mais partículas que uma leve.</p></div>
-          <div class="card feature"><span class="ico">🎛️</span><h3>Do seu jeito</h3><p>Mude o tamanho, crie emoções novas, escolha qual expressão cada uma usa e desligue o que não quiser.</p></div>
-          <div class="card feature"><span class="ico">🔒</span><h3>Privada</h3><p>Sem servidor, sem conta, sem rastreamento. Tudo roda no seu navegador.</p></div>
+          <div class="card feature"><span class="ico">🗨️</span><h3 data-i18n="f1_t"></h3><p data-i18n="f1_p"></p></div>
+          <div class="card feature"><span class="ico">⌨️</span><h3 data-i18n="f2_t"></h3><p data-i18n="f2_p"></p></div>
+          <div class="card feature"><span class="ico">💤</span><h3 data-i18n="f3_t"></h3><p data-i18n="f3_p"></p></div>
+          <div class="card feature"><span class="ico">✨</span><h3 data-i18n="f4_t"></h3><p data-i18n="f4_p"></p></div>
+          <div class="card feature"><span class="ico">🎛️</span><h3 data-i18n="f5_t"></h3><p data-i18n="f5_p"></p></div>
+          <div class="card feature"><span class="ico">🔒</span><h3 data-i18n="f6_t"></h3><p data-i18n="f6_p"></p></div>
         </div>
       </div>
     </section>
@@ -130,29 +123,23 @@
     <section id="instalar">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Instalar</span>
-          <h2>Escolha como instalar</h2>
-          <p>Funciona no Google Chrome e em navegadores baseados nele (Edge, Brave, Opera, Vivaldi).</p>
+          <span class="eyebrow" data-i18n="inst_eyebrow">Install</span>
+          <h2 data-i18n="inst_title">Choose how to install</h2>
+          <p data-i18n="inst_text"></p>
         </div>
         <div class="install">
           <div class="card">
-            <span class="badge" id="store-badge">Recomendado</span>
-            <h3>Chrome Web Store</h3>
-            <p>Um clique para instalar, e as atualizações chegam sozinhas.</p>
-            <a class="btn btn-primary" id="store-btn-2" href="#">Abrir na Chrome Web Store</a>
+            <span class="badge" id="store-badge" data-i18n="store_badge">Recommended</span>
+            <h3 data-i18n="store_t">Chrome Web Store</h3>
+            <p data-i18n="store_p"></p>
+            <a class="btn btn-primary" id="store-btn-2" href="#" data-i18n="store_btn">Open in the Chrome Web Store</a>
           </div>
           <div class="card">
-            <span class="badge">Manual</span>
-            <h3>Baixar o arquivo</h3>
-            <ol>
-              <li>Baixe o arquivo e <b>extraia</b> a pasta (botão direito → Extrair tudo).</li>
-              <li>Abra <code>chrome://extensions</code> na barra de endereço.</li>
-              <li>Ative o <b>Modo do desenvolvedor</b> (canto superior direito).</li>
-              <li>Clique em <b>Carregar sem compactação</b> e escolha a pasta extraída.</li>
-              <li>Abra o Claude ou o Gemini (ou recarregue a aba) e diga oi para a Sava.</li>
-            </ol>
-            <a class="btn btn-secondary" id="zip-btn" href="download/sava.zip" download>Baixar sava.zip <small id="zip-version"></small></a>
-            <p class="fine" style="margin:0">Na instalação manual, as atualizações não são automáticas: baixe de novo e substitua a pasta.</p>
+            <span class="badge" data-i18n="man_badge">Manual</span>
+            <h3 data-i18n="man_t">Download the file</h3>
+            <ol data-i18n="man_steps"></ol>
+            <a class="btn btn-secondary" id="zip-btn" href="download/sava.zip" download><span data-i18n="man_btn">Download sava.zip</span> <small id="zip-version"></small></a>
+            <p class="fine" style="margin:0" data-i18n="man_note"></p>
           </div>
         </div>
       </div>
@@ -163,9 +150,9 @@
         <div class="privacy-box card">
           <div class="big" aria-hidden="true">🔒</div>
           <div>
-            <h2 style="margin-bottom:.3em">Sua conversa fica com você</h2>
-            <p>A extensão lê o texto das respostas <b>só no seu navegador</b>, para escolher a expressão. Nada é enviado para servidor nenhum, e não há cadastro, anúncios nem rastreamento. Ela pede apenas a permissão de guardar as próprias configurações e de rodar no Claude e no Gemini.</p>
-            <a href="privacidade.html">Ler a política de privacidade completa →</a>
+            <h2 style="margin-bottom:.3em" data-i18n="priv_title">Your chats stay with you</h2>
+            <p data-i18n="priv_text"></p>
+            <a href="privacidade.html" id="priv-link" data-i18n="priv_link">Read the full privacy policy →</a>
           </div>
         </div>
       </div>
@@ -174,46 +161,29 @@
     <section id="perguntas">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Perguntas</span>
-          <h2>Dúvidas comuns</h2>
+          <span class="eyebrow" data-i18n="faq_eyebrow">Questions</span>
+          <h2 data-i18n="faq_title">Common questions</h2>
         </div>
-        <details>
-          <summary>É de graça?</summary>
-          <p>Sim. Sem planos pagos, sem anúncios e sem cadastro.</p>
-        </details>
-        <details>
-          <summary>Em quais sites funciona?</summary>
-          <p>No Claude (claude.ai) e no Gemini (gemini.google.com). Outros sites podem chegar em versões futuras.</p>
-        </details>
-        <details>
-          <summary>Preciso mandar a instrução em toda conversa?</summary>
-          <p>Não precisa. Você pode clicar em 💬 quando quiser ativar a Sava num chat, ou colar a instrução uma vez nas preferências do Claude ou nas instruções salvas do Gemini para valer sempre. Mesmo sem a instrução, ela reage pelas palavras e emojis da resposta, só que com menos precisão.</p>
-        </details>
-        <details>
-          <summary>A instrução muda as respostas da IA?</summary>
-          <p>Ela pede que a IA fale como a Sava, com um jeito simpático e brincalhão, e que termine cada resposta com a etiqueta de emoção. A IA continua ajudando normalmente. Se preferir respostas no tom de sempre, use a extensão sem a instrução.</p>
-        </details>
-        <details>
-          <summary>Ela atrapalha a página?</summary>
-          <p>Não. A Sava fica numa camada separada, pode ser arrastada para qualquer canto e escondida com o ×. O tamanho é ajustável nas opções.</p>
-        </details>
-        <details>
-          <summary>Este projeto é ligado à Anthropic ou ao Google?</summary>
-          <p>Não. É um projeto independente que funciona nesses sites. Claude é marca da Anthropic e Gemini é marca do Google.</p>
-        </details>
+        <details><summary data-i18n="q1"></summary><p data-i18n="a1"></p></details>
+        <details><summary data-i18n="q2"></summary><p data-i18n="a2"></p></details>
+        <details><summary data-i18n="q3"></summary><p data-i18n="a3"></p></details>
+        <details><summary data-i18n="q4"></summary><p data-i18n="a4"></p></details>
+        <details><summary data-i18n="q5"></summary><p data-i18n="a5"></p></details>
+        <details><summary data-i18n="q6"></summary><p data-i18n="a6"></p></details>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <span>Sava <span id="foot-version"></span> · projeto independente</span>
-      <span><a href="privacidade.html">Privacidade</a><span id="foot-contact"></span></span>
+      <span>Sava <span id="foot-version"></span> · <span data-i18n="foot_indep">independent project</span></span>
+      <span><a href="privacidade.html" id="foot-priv" data-i18n="foot_privacy">Privacy</a><span id="foot-contact"></span></span>
     </div>
   </footer>
 
   <script src="config.js"></script>
   <script src="version.js"></script>
+  <script src="i18n.js"></script>
   <script>
     // A demonstração usa o código da própria extensão; estes stubs substituem a API do Chrome.
     const mem = {};
@@ -221,6 +191,7 @@
     window.chrome = { runtime: { getURL: (p) => 'app/' + p, sendMessage() {} }, storage: { sync: area, local: area, onChanged: { addListener() {} } } };
   </script>
   <script src="app/src/shared/settings.js"></script>
+  <script src="app/src/shared/i18n.js"></script>
   <script src="app/src/emotion/emotions.js"></script>
   <script src="app/src/emotion/detect.js"></script>
   <script src="app/src/avatar/sprite-pack.js"></script>

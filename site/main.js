@@ -1,9 +1,47 @@
-// Página do projeto: retrato animado, Sava flutuante, chat de demonstração e galeria de expressões.
+// Página do projeto: idioma, retrato animado, Sava flutuante, chat de demonstração e galeria.
 (async () => {
   const CA = window.ChatAvatar;
   const cfg = window.SAVA_CONFIG || {};
+  const ALL = window.SITE_I18N;
   const $ = (id) => document.getElementById(id);
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- idioma: ?lang=xx > escolha salva > idioma do navegador > inglês ----------
+  const LANGS = Object.keys(ALL);
+  const pickLang = () => {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (q && ALL[q]) return q;
+    try { const s = localStorage.getItem('sava-lang'); if (s && ALL[s]) return s; } catch (_) {}
+    for (const l of navigator.languages || [navigator.language]) {
+      const base = String(l).toLowerCase().split('-')[0];
+      if (ALL[base]) return base;
+    }
+    return 'en';
+  };
+  const lang = pickLang();
+  const S = ALL[lang];
+  const tr = (key, sub) => String(S[key] ?? ALL.en[key] ?? '').replace('$1', sub ?? '');
+
+  document.documentElement.lang = lang;
+  document.title = S.meta_title;
+  document.querySelector('meta[name="description"]').setAttribute('content', S.meta_desc);
+  for (const el of document.querySelectorAll('[data-i18n]')) {
+    const v = S[el.dataset.i18n];
+    if (v != null) el.innerHTML = v; // textos do próprio site (com <b>, <code>, <li>)
+  }
+  // links para a política no mesmo idioma
+  for (const a of [$('priv-link'), $('foot-priv')]) a.href = `privacidade.html?lang=${lang}`;
+
+  const sel = $('lang');
+  const NAMES = (CA.i18n && CA.i18n.LANG_NAMES) || {};
+  for (const l of LANGS) sel.add(new Option(NAMES[l] || l, l, false, l === lang));
+  sel.setAttribute('aria-label', S.lang_label);
+  sel.addEventListener('change', () => {
+    try { localStorage.setItem('sava-lang', sel.value); } catch (_) {}
+    const u = new URL(location.href);
+    u.searchParams.set('lang', sel.value);
+    location.href = u.toString();
+  });
 
   // ---------- links de instalação ----------
   const version = window.SAVA_VERSION || '';
@@ -19,28 +57,28 @@
       a.target = '_blank';
       a.rel = 'noopener';
     } else if (id === 'store-btn-2') {
-      a.textContent = 'Em breve na Chrome Web Store';
+      a.textContent = tr('store_soon');
       a.setAttribute('aria-disabled', 'true');
       a.removeAttribute('href');
-      $('store-badge').textContent = 'Em análise';
+      $('store-badge').textContent = tr('store_badge_soon');
     }
   }
   if (cfg.repoUrl) {
     const link = document.createElement('a');
     link.href = cfg.repoUrl;
-    link.textContent = 'Código no GitHub';
+    link.textContent = tr('foot_code');
     link.rel = 'noopener';
     $('foot-contact').before(' · ', link);
   }
   if (cfg.contact) {
-    const c = $('foot-contact');
     const link = document.createElement('a');
     link.href = cfg.contact.includes('@') && !cfg.contact.startsWith('http') ? 'mailto:' + cfg.contact : cfg.contact;
-    link.textContent = 'Contato';
-    c.append(' · ', link);
+    link.textContent = tr('foot_contact');
+    $('foot-contact').append(' · ', link);
   }
 
   // ---------- personagem ----------
+  const label = (id) => (CA.i18n ? CA.i18n.label(id, lang) : id);
   const settings = { ...CA.settings.DEFAULTS, size: innerWidth < 600 ? 92 : 150, sleepAfterMin: 0, returnToNeutralMs: 6000 };
   const pack = await CA.SpritePack.load('default');
   const avatar = new CA.Avatar(pack, settings);
@@ -68,6 +106,7 @@
   const order = ['neutro', 'feliz', 'provocar', 'surpresa', 'apaixonada', 'vergonha', 'piscadinha', 'empolgada', 'pensativa', 'raiva', 'sonolenta', 'orgulhosa'];
   let cur = 0, prev = null, changed = 0;
   px.drawImage(stills[order[0]], 0, 0);
+  $('portrait-tag').textContent = label(order[0]);
   function drawPortrait(now) {
     const k = Math.min(1, (now - changed) / 220);
     px.clearRect(0, 0, 256, 256);
@@ -86,7 +125,7 @@
       prev = cur;
       cur = (cur + 1) % order.length;
       changed = performance.now();
-      $('portrait-tag').textContent = pack.frames[order[cur]].label;
+      $('portrait-tag').textContent = label(order[cur]);
       requestAnimationFrame(drawPortrait);
     }, 2200);
   }
@@ -103,26 +142,16 @@
     x.imageSmoothingQuality = 'high';
     x.drawImage(stills[id], 0, 0, 128, 128);
     const name = document.createElement('span');
-    name.textContent = pack.frames[id].label;
+    name.textContent = label(id);
     const tag = document.createElement('small');
     tag.textContent = id;
     b.append(c, name, tag);
-    b.setAttribute('aria-label', `Mostrar a expressão ${pack.frames[id].label}`);
+    b.setAttribute('aria-label', tr('face_show', label(id)));
     b.addEventListener('click', () => avatar.setEmotion(id, { intensity: 2, returnAfter: 6000 }));
     faces.append(b);
   }
 
   // ---------- chat de demonstração ----------
-  const DEMO = [
-    ['Me conta uma piada', 'Por que o programador foi ao médico? Porque estava cheio de bugs! Hahaha, essa foi boa, vai 😄 [emo:feliz:2]'],
-    ['Meu app funcionou de primeira!', 'Sério?! De primeira?! Parabéns!! Eu sabia que você conseguia, que orgulho! [emo:empolgada:3]'],
-    ['Você é incrível, Sava', 'Ah... para com isso, assim eu fico sem graça 😳 Mas obrigada, viu? [emo:vergonha:2]'],
-    ['Apaguei o banco sem backup', 'Você O QUÊ?! Sem backup?! Calma, respira... vamos ver o que ainda dá pra salvar. [emo:assustada:3]'],
-    ['Aposto que você não sabe', 'Hehe, duvido que você saiba mais do que eu. Quer mesmo apostar? 😏 [emo:provocar:2]'],
-    ['Olha esse gatinho!', 'Aww, que fofura! Olha essas patinhas... eu amei esse gatinho 😍 [emo:apaixonada:3]'],
-    ['Explica recursão de novo?', 'De novo? Tá bom... recursão é quando a função chama ela mesma. Anota dessa vez 🙄 [emo:entediada:1]'],
-    ['Meu peixinho morreu', 'Ah, sinto muito... perder um bichinho dói de verdade. Se quiser falar sobre ele, estou aqui. [emo:triste:2]'],
-  ];
   const log = $('chat-log');
   const prompts = $('prompts');
   let busy = false;
@@ -151,16 +180,18 @@
     const body = m ? reply.slice(0, m.index).trimEnd() : reply;
     avatar.setTalking(true);
     avatar.setEmotion('neutro');
-    for (let i = 0; i <= body.length; i += 2) {
+    const step = lang === 'ja' ? 1 : 2; // japonês tem caracteres "maiores": escreve um por vez
+    for (let i = 0; i <= body.length; i += step) {
       ai.textContent = body.slice(0, i);
       log.scrollTop = log.scrollHeight;
-      await new Promise((r) => setTimeout(r, 28));
+      await new Promise((r) => setTimeout(r, lang === 'ja' ? 45 : 28));
     }
+    ai.textContent = body;
     avatar.setTalking(false);
     if (m) {
       const t = document.createElement('span');
       t.className = 'hidden-tag';
-      t.title = 'Na extensão, esta etiqueta fica escondida';
+      t.title = tr('tag_title');
       t.textContent = ' ' + m[0];
       ai.append(t);
     }
@@ -170,7 +201,7 @@
     for (const b of prompts.querySelectorAll('button')) b.disabled = false;
   }
 
-  for (const [q, a] of DEMO) {
+  for (const [q, a] of S.demo || ALL.en.demo) {
     const b = document.createElement('button');
     b.type = 'button';
     b.textContent = q;

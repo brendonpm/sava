@@ -11,7 +11,20 @@
   const mem = {};
   const area = { get: async (k) => (typeof k === 'string' ? { [k]: mem[k] } : { ...mem }), set: async (o) => Object.assign(mem, o) };
   window.chrome = { runtime: { getURL: (p) => '/' + p, sendMessage() {} }, storage: { sync: area, local: area, onChanged: { addListener() {} } } };
+  // chrome.i18n simulado: ?lang=pt_BR, ja, es... (padrão en), lendo os _locales da extensão
+  const LANG = new URLSearchParams(location.search).get('lang') || 'en';
+  let MSG = {};
+  chrome.i18n = {
+    getUILanguage: () => LANG.replace('_', '-'),
+    getMessage: (k, subs) => {
+      const m = MSG[k] && MSG[k].message;
+      if (!m) return '';
+      const list = subs == null ? [] : [].concat(subs);
+      return m.replace(/\$(\d)/g, (_, n) => list[n - 1] ?? '');
+    },
+  };
   addEventListener('DOMContentLoaded', async () => {
+    MSG = await (await fetch('/_locales/' + LANG + '/messages.json')).json();
     const html = await (await fetch('options.html')).text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const scripts = [...doc.querySelectorAll('script')].map((s) => s.getAttribute('src'));

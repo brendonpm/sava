@@ -1,6 +1,27 @@
 (async () => {
   const CA = globalThis.ChatAvatar;
   const $ = (id) => document.getElementById(id);
+  const t = (key, subs) => CA.i18n.t(key, subs);
+
+  // ---------- textos da página no idioma do navegador ----------
+  document.documentElement.lang = CA.i18n.uiLang();
+  for (const el of document.querySelectorAll('[data-i18n]')) {
+    const m = t(el.dataset.i18n);
+    if (!m) continue;
+    if (el.tagName === 'TEXTAREA') el.value = m;
+    else el.textContent = m;
+  }
+  for (const el of document.querySelectorAll('[data-i18n-html]')) {
+    const m = t(el.dataset.i18nHtml);
+    if (m) el.innerHTML = m; // textos da própria extensão (com <code>)
+  }
+  for (const el of document.querySelectorAll('[data-i18n-attr]')) {
+    for (const pair of el.dataset.i18nAttr.split(',')) {
+      const [attr, key] = pair.split(':');
+      const m = t(key);
+      if (m) el.setAttribute(attr, m);
+    }
+  }
 
   const SITES = [
     { id: 'claude', label: 'Claude' },
@@ -18,7 +39,7 @@
     saveTimer = setTimeout(async () => {
       await CA.settings.save(settings);
       avatar.updateSettings(settings);
-      $('status').textContent = 'Salvo';
+      $('status').textContent = t('opt_saved') || 'Saved';
       clearTimeout(statusTimer);
       statusTimer = setTimeout(() => ($('status').textContent = ''), 1400);
     }, 200);
@@ -42,10 +63,22 @@
   function renderInstruction() {
     $('instruction').value = CA.instruction(settings);
   }
+  // idioma da instrução: "o mesmo do navegador" ou um dos 6 idiomas
+  {
+    const sel = $('instrLang');
+    sel.add(new Option(t('opt_instrAuto') || 'Same as the browser', 'auto'));
+    for (const l of CA.i18n.LANGS) sel.add(new Option(CA.i18n.LANG_NAMES[l], l));
+    sel.value = settings.instructionLang || 'auto';
+    sel.addEventListener('change', () => {
+      settings.instructionLang = sel.value;
+      renderInstruction();
+      save();
+    });
+  }
   $('copy').addEventListener('click', async () => {
     await navigator.clipboard.writeText($('instruction').value);
-    $('copy').textContent = 'Copiado!';
-    setTimeout(() => ($('copy').textContent = 'Copiar instrução'), 1400);
+    $('copy').textContent = t('opt_copied') || 'Copied!';
+    setTimeout(() => ($('copy').textContent = t('opt_copy') || 'Copy instruction'), 1400);
   });
 
   // ---------- mapa de emoções ----------
@@ -68,15 +101,22 @@
       const tdName = document.createElement('td');
       tdName.className = 'name';
       tdName.textContent = emo;
+      // emoções padrão: mostra também o nome traduzido (o nome da tag continua o mesmo em todos os idiomas)
+      if (CA.i18n.LABELS.en[emo] && CA.i18n.uiLang() !== 'pt') {
+        const small = document.createElement('small');
+        small.className = 'gloss';
+        small.textContent = CA.i18n.label(emo);
+        tdName.append(document.createElement('br'), small);
+      }
 
       const tdExpr = document.createElement('td');
       const wrap = document.createElement('div');
       wrap.className = 'expr';
       let img = thumb(frameId);
       const sel = document.createElement('select');
-      sel.setAttribute('aria-label', `Expressão para ${emo}`);
+      sel.setAttribute('aria-label', t('opt_exprFor', [emo]) || emo);
       for (const id of pack.frameIds) {
-        const o = new Option(pack.frames[id].label, id, false, id === frameId);
+        const o = new Option(CA.i18n.label(id), id, false, id === frameId);
         sel.add(o);
       }
       sel.addEventListener('click', (e) => e.stopPropagation());
@@ -98,8 +138,8 @@
         del.className = 'icon';
         del.type = 'button';
         del.textContent = '×';
-        del.title = `Remover ${emo}`;
-        del.setAttribute('aria-label', `Remover ${emo}`);
+        del.title = t('opt_remove', [emo]) || emo;
+        del.setAttribute('aria-label', del.title);
         del.addEventListener('click', (e) => {
           e.stopPropagation();
           delete settings.emotionMap[emo];
@@ -134,7 +174,10 @@
   function renderFallback() {
     const sel = $('fallback');
     sel.textContent = '';
-    for (const emo of Object.keys(settings.emotionMap)) sel.add(new Option(emo, emo, false, emo === settings.fallbackEmotion));
+    for (const emo of Object.keys(settings.emotionMap)) {
+      const name = CA.i18n.LABELS.en[emo] ? `${CA.i18n.label(emo)} (${emo})` : emo;
+      sel.add(new Option(name, emo, false, emo === settings.fallbackEmotion));
+    }
   }
   $('fallback').addEventListener('change', (e) => { settings.fallbackEmotion = e.target.value; save(); });
 
@@ -180,11 +223,9 @@
   $('talk').addEventListener('click', () => {
     const text = $('sample').value;
     const r = CA.detect.detect(text, settings);
-    const how = { tag: 'pela tag', keywords: 'por palavras-chave', fallback: 'nenhuma regra bateu (padrão)' }[r.source];
-    $('result').textContent = '';
-    const b = document.createElement('b');
-    b.textContent = r.emotion;
-    $('result').append('Emoção: ', b, ` (intensidade ${r.intensity}) — ${how}`);
+    const how = t('opt_how_' + r.source) || r.source;
+    const name = CA.i18n.LABELS.en[r.emotion] ? `${CA.i18n.label(r.emotion)} (${r.emotion})` : r.emotion;
+    $('result').textContent = t('opt_result', [name, String(r.intensity), how]) || `${name} (${r.intensity}) — ${how}`;
     // finge um streaming curto: fala por um tempo proporcional ao texto, depois reage
     avatar.setEmotion('neutro');
     avatar.setTalking(true);

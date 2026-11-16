@@ -1,6 +1,6 @@
 # Publicação na Chrome Web Store
 
-Tudo o que o formulário da loja pede, pronto para copiar e colar. As imagens estão nesta pasta e o pacote em `dist/`.
+Tudo o que o formulário da loja pede, pronto para copiar e colar. As imagens estão em `images/<idioma>/`, os textos de cada idioma em `TEXTOS-POR-IDIOMA.md` e o pacote em `dist/`.
 
 ## Antes de começar
 
@@ -18,53 +18,28 @@ Tudo o que o formulário da loja pede, pronto para copiar e colar. As imagens es
 
 ---
 
-## Aba "Ficha da loja"
+## Aba "Ficha da loja" (6 idiomas)
 
-**Nome** (vem do manifest): `Sava — personagem para chats de IA`
+A extensão está em **inglês (padrão)**, português, espanhol, francês, alemão e japonês. O idioma padrão do pacote é o inglês (`default_locale: "en"`), então a ficha principal da loja fica em inglês e as outras aparecem como traduções.
 
-**Resumo** (até 132 caracteres; vem do `description` do manifest, mas pode ser este):
+- **Nome e resumo:** vêm sozinhos do pacote, em cada idioma (`_locales/*/messages.json`). Não precisa digitar.
+- **Descrição:** no painel, escolha cada idioma no seletor de idioma da ficha e cole a descrição correspondente de [TEXTOS-POR-IDIOMA.md](TEXTOS-POR-IDIOMA.md).
+- **Imagens:** em cada idioma, envie as 4 capturas e o bloco promocional da pasta `images/<idioma>/`:
 
-> Sava, uma personagem em pixel art que reage às respostas do Claude e do Gemini com 18 expressões. Grátis e privada.
+| Idioma no painel | Pasta |
+|---|---|
+| English | `images/en/` |
+| Português (Brasil) e Português (Portugal) | `images/pt/` |
+| Español | `images/es/` |
+| Français | `images/fr/` |
+| Deutsch | `images/de/` |
+| 日本語 | `images/ja/` |
 
-**Descrição:**
+Cada pasta tem `screenshot-1.png` a `screenshot-4.png` (1280×800) e `promo-440x280.png` (bloco promocional pequeno). O ícone de 128×128 já vem no pacote.
 
-```
-A Sava é uma personagem em pixel art que fica no cantinho da tela enquanto você conversa com o Claude ou com o Gemini — e reage a cada resposta da IA.
-
-Ela ri das piadas, fica sem graça com elogios, se assusta quando você conta que apagou o banco sem backup e faz carinha de apaixonada quando aparece um gatinho.
-
-O QUE ELA FAZ
-• 18 expressões: feliz, envergonhada, brava, triste, empolgada, surpresa, confusa, pensativa, apaixonada, assustada, sonolenta, piscadinha e mais.
-• Movimentos e efeitos para cada emoção: corações, estrelas, notas musicais, fumacinha de raiva, chuva, "zzz"…
-• Intensidade de 1 a 3: uma emoção forte tem mais movimento e mais partículas.
-• Fala (mexe a boca) enquanto a IA escreve.
-• Presta atenção em você: dá pulinhos enquanto você digita e fica pensativa depois que você envia.
-• Cochila se você ficar um tempo sem usar, e acorda quando você volta.
-• Botão 💬: com um clique, envia ao chat a instrução que faz a IA falar como a Sava e marcar a emoção de cada resposta.
-• Personalizável: tamanho, emoções novas, qual expressão cada emoção usa, efeitos e mais.
-• Arraste para qualquer canto da tela; a posição fica salva.
-
-COMO FUNCIONA
-A IA recebe uma instrução para terminar cada resposta com uma etiqueta como [emo:feliz:2]. A extensão lê a etiqueta, troca a expressão e esconde a etiqueta da conversa. Sem a etiqueta, ela usa palavras e emojis da resposta para adivinhar a emoção.
-
-PRIVACIDADE
-Tudo roda no seu navegador. A extensão não tem servidor, não faz requisições de rede, não coleta dados e não tem anúncios nem rastreamento. Ela só lê o texto das respostas, na hora, para escolher a expressão.
-
-Funciona em claude.ai e gemini.google.com.
-Projeto independente, sem ligação com a Anthropic ou o Google. Claude é marca da Anthropic e Gemini é marca do Google.
-```
+Se não quiser fazer todos os idiomas de uma vez, preencha só o inglês e o português. Os outros idiomas mostram a descrição em inglês até você completar, mas a extensão em si já aparece traduzida, porque nome, resumo e interface vêm do pacote.
 
 **Categoria:** Estilo de vida → Diversão (alternativa: Ferramentas)
-
-**Idioma:** Português (Brasil)
-
-**Imagens:**
-
-| Campo | Arquivo |
-|---|---|
-| Ícone da loja (128×128) | já vem no pacote (`assets/icons/icon128.png`) |
-| Capturas de tela (1280×800) | `screenshot-1-reage.png`, `screenshot-2-expressoes.png`, `screenshot-3-ativar.png`, `screenshot-4-detalhes.png` |
-| Bloco promocional pequeno (440×280) | `promo-440x280.png` |
 
 **Site oficial:** `https://brendonpm.github.io/sava/`
 **URL de suporte:** `https://brendonpm.github.io/sava/` (ou um e-mail/página de contato)

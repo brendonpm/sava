@@ -184,7 +184,7 @@
     let copied = false;
     try { await navigator.clipboard.writeText(text); copied = true; } catch (_) {}
     avatar.setEmotion('confusa', { returnAfter: 4000 });
-    avatar.toast(copied ? `${why} Copiei a instrução: é só colar no chat (Ctrl+V).` : why, 5000);
+    avatar.toast(copied ? CA.i18n.t('toastCopied', [why], '$1 I copied the instruction: just paste it into the chat (Ctrl+V).') : why, 5000);
   }
 
   let sendingInstruction = false;
@@ -194,17 +194,17 @@
     try {
       const text = CA.instruction(settings);
       const ed = findComposer();
-      if (!ed) return await copyFallback(text, 'Não achei o campo de mensagem.');
+      if (!ed) return await copyFallback(text, CA.i18n.t('toastNoField', null, "I couldn't find the message box."));
       const hadDraft = !!textOf(ed).trim();
-      if (!(await insertText(ed, text))) return await copyFallback(text, 'Não consegui escrever no campo.');
+      if (!(await insertText(ed, text))) return await copyFallback(text, CA.i18n.t('toastNoWrite', null, "I couldn't type in the message box."));
       if (hadDraft) {
         // não envia por cima de um rascunho seu: deixa para você revisar
-        avatar.toast('Coloquei a instrução depois do seu rascunho. Revise e envie quando quiser.', 4500);
+        avatar.toast(CA.i18n.t('toastDraft', null, "I added the instruction after your draft. Review it and send when you're ready."), 4500);
         return;
       }
       await submit(ed);
       startThinking();
-      avatar.toast('Instrução enviada! Agora eu sou a Sava 😉', 3000);
+      avatar.toast(CA.i18n.t('toastSent', null, "Instruction sent! Now I'm Sava 😉"), 3000);
       log('instrução enviada');
     } finally {
       sendingInstruction = false;

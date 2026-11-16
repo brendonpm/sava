@@ -208,15 +208,16 @@
         n.append(...kids);
         return n;
       };
-      this.canvas = el('canvas', { 'aria-label': 'Personagem do Chat Avatar', role: 'img' });
-      const sendBtn = el('button', {
-        class: 'send', hidden: '',
-        title: 'Enviar a instrução da Sava neste chat',
-        'aria-label': 'Enviar a instrução da Sava neste chat', text: '💬',
-      });
+      // textos no idioma do navegador (fora da extensão, ficam os textos em inglês)
+      const T = (key, fallback) => (CA.i18n ? CA.i18n.t(key, null, fallback) : fallback);
+      this.canvas = el('canvas', { 'aria-label': T('avatarAria', 'Sava, the chat companion'), role: 'img' });
+      const sendLabel = T('btnSend', "Send Sava's instruction in this chat");
+      const sendBtn = el('button', { class: 'send', hidden: '', title: sendLabel, 'aria-label': sendLabel, text: '💬' });
       this.sendBtn = sendBtn;
-      const optBtn = el('button', { class: 'opt', title: 'Opções', 'aria-label': 'Opções', text: '⚙' });
-      const closeBtn = el('button', { class: 'close', title: 'Esconder nesta aba', 'aria-label': 'Esconder', text: '×' });
+      const optLabel = T('btnOptions', 'Options');
+      const optBtn = el('button', { class: 'opt', title: optLabel, 'aria-label': optLabel, text: '⚙' });
+      const hideLabel = T('btnHide', 'Hide in this tab');
+      const closeBtn = el('button', { class: 'close', title: hideLabel, 'aria-label': hideLabel, text: '×' });
       this.motion = el('div', { class: 'motion' }, this.canvas);
       this.nudgeEl = el('div', { class: 'nudge' }, this.motion);
       this.stage = el('div', { class: 'stage' }, this.nudgeEl, el('div', { class: 'btns' }, sendBtn, optBtn, closeBtn));
@@ -317,7 +318,9 @@
 
     _updateLabel() {
       const tail = this.sleeping ? ' 💤' : this.thinking ? ' 💭' : this.intensity >= 3 ? '!' : '';
-      this.label.textContent = this.emotion + tail;
+      // emoções padrão aparecem traduzidas; as criadas pelo usuário, com o nome que ele deu
+      const known = CA.i18n && CA.i18n.LABELS.en[this.emotion];
+      this.label.textContent = (known ? CA.i18n.label(this.emotion) : this.emotion) + tail;
     }
 
     get effects() { return this.settings.effects !== false; }

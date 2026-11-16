@@ -1,82 +1,70 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Política de privacidade — Sava</title>
-  <meta name="description" content="Política de privacidade da extensão Sava para Chrome.">
+  <title>Privacy policy — Sava</title>
+  <meta name="description" content="Privacy policy of the Sava Chrome extension. EN · PT · ES · FR · DE · JA">
   <link rel="icon" href="icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- O texto vem de privacy-i18n.js (?lang=en|pt|es|fr|de|ja, ou o idioma do navegador). -->
   <header class="top">
     <div class="wrap">
-      <a class="brand" href="index.html"><img src="icon.png" alt="" width="32" height="32">Sava</a>
-      <nav aria-label="Seções"><a class="nav-cta" href="index.html#instalar">Instalar</a></nav>
+      <a class="brand" href="index.html" id="home"><img src="icon.png" alt="" width="32" height="32">Sava</a>
+      <nav aria-label="Sections"><a class="nav-cta" href="index.html#instalar" id="install-link">Install</a></nav>
+      <label class="lang-pick"><span class="sr-only">Language</span><span aria-hidden="true">🌐</span><select id="lang"></select></label>
     </div>
   </header>
 
   <main class="doc">
-    <h1>Política de privacidade</h1>
-    <p class="updated">Extensão “Sava — personagem para chats de IA” · Atualizada em 15 de novembro de 2026</p>
-
-    <p><b>Resumo:</b> a Sava não coleta, não guarda fora do seu navegador e não envia a ninguém nenhum dado seu. Tudo o que ela faz acontece no seu computador.</p>
-
-    <h2>O que a extensão acessa</h2>
-    <ul>
-      <li><b>Texto das respostas da IA</b> nos sites claude.ai e gemini.google.com. Ele é lido para escolher a expressão da personagem, na hora e no seu navegador. O texto não é salvo e não sai do seu computador.</li>
-      <li><b>Se você está digitando ou enviou uma mensagem</b> nesses sites, para a personagem ficar atenta ou pensativa. A extensão só percebe que uma tecla foi pressionada ou que o botão de enviar foi clicado; o conteúdo do que você digita não é lido nem guardado.</li>
-      <li><b>Campo de mensagem</b>, apenas quando você clica no botão 💬 da personagem: nesse momento a extensão escreve no campo o texto de instrução da Sava e o envia ao chat, como se você tivesse digitado. Esse texto é fixo e está visível na página de opções.</li>
-    </ul>
-
-    <h2>O que a extensão guarda</h2>
-    <ul>
-      <li>Suas <b>configurações</b> (tamanho, sites ativos, mapa de emoções, efeitos etc.), em <code>chrome.storage.sync</code>. Se a sincronização do Chrome estiver ligada, o próprio Chrome as copia entre os seus dispositivos, pela sua conta Google; a extensão não tem acesso a essa cópia.</li>
-      <li>A <b>posição</b> da personagem na tela, em <code>chrome.storage.local</code>, só neste computador.</li>
-    </ul>
-    <p>Nenhuma conversa, mensagem ou dado pessoal é guardado.</p>
-
-    <h2>O que a extensão não faz</h2>
-    <ul>
-      <li>Não envia dados para servidores: a extensão não tem servidor e não faz requisições de rede, a não ser para carregar as próprias imagens, que vêm de dentro dela.</li>
-      <li>Não usa cookies, análise de uso, rastreamento ou anúncios.</li>
-      <li>Não vende nem compartilha dados, porque não coleta nenhum.</li>
-      <li>Não roda em outros sites além de claude.ai e gemini.google.com.</li>
-    </ul>
-
-    <h2>Permissões</h2>
-    <ul>
-      <li><code>storage</code>: guardar as configurações e a posição da personagem.</li>
-      <li>Acesso a <code>https://claude.ai/*</code> e <code>https://gemini.google.com/*</code>: mostrar a personagem nesses sites e ler as respostas para escolher a expressão.</li>
-    </ul>
-
-    <h2>Os sites de IA</h2>
-    <p>As conversas que você tem no Claude ou no Gemini, incluindo a instrução enviada pelo botão 💬, seguem as políticas de privacidade da Anthropic e do Google. A Sava é um projeto independente e não tem ligação com essas empresas.</p>
-
-    <h2>Este site</h2>
-    <p>Esta página não usa cookies, análise de uso nem recursos de terceiros. O serviço de hospedagem pode registrar acessos (como endereço IP) por segurança, conforme a política dele.</p>
-
-    <h2>Alterações</h2>
-    <p>Se esta política mudar, a nova versão será publicada nesta página com a data atualizada.</p>
-
-    <h2>Contato</h2>
-    <p id="contact-line">Dúvidas sobre privacidade podem ser enviadas pelo contato informado na página da extensão na Chrome Web Store.</p>
+    <h1 id="h1">Privacy policy</h1>
+    <p class="updated" id="updated"></p>
+    <div id="body"></div>
+    <p id="contact-line"></p>
   </main>
 
   <footer>
-    <div class="wrap"><span>Sava · projeto independente</span><a href="index.html">Voltar ao início</a></div>
+    <div class="wrap"><span>Sava · <span id="indep">independent project</span></span><a href="index.html" id="back">Back to home</a></div>
   </footer>
   <script src="config.js"></script>
+  <script src="privacy-i18n.js"></script>
   <script>
-    const c = (window.SAVA_CONFIG || {}).contact;
-    if (c) {
-      const p = document.getElementById('contact-line');
-      const a = document.createElement('a');
-      a.href = c.includes('@') && !c.startsWith('http') ? 'mailto:' + c : c;
-      a.textContent = c;
-      p.textContent = 'Dúvidas sobre privacidade: ';
-      p.append(a, '.');
-    }
+    (() => {
+      const ALL = window.PRIVACY_I18N;
+      const NAMES = { en: 'English', pt: 'Português', es: 'Español', fr: 'Français', de: 'Deutsch', ja: '日本語' };
+      const q = new URLSearchParams(location.search).get('lang');
+      let lang = q && ALL[q] ? q : null;
+      if (!lang) { try { const s = localStorage.getItem('sava-lang'); if (s && ALL[s]) lang = s; } catch (_) {} }
+      if (!lang) for (const l of navigator.languages || [navigator.language]) { const b = String(l).toLowerCase().split('-')[0]; if (ALL[b]) { lang = b; break; } }
+      lang = lang || 'en';
+      const P = ALL[lang];
+      document.documentElement.lang = lang;
+      document.title = P.title;
+      document.getElementById('h1').textContent = P.h1;
+      document.getElementById('updated').textContent = P.updated;
+      document.getElementById('body').innerHTML = P.body; // texto do próprio site
+      document.getElementById('install-link').textContent = P.install;
+      document.getElementById('back').textContent = P.back;
+      document.getElementById('indep').textContent = P.indep;
+      for (const id of ['home', 'back']) document.getElementById(id).href = 'index.html?lang=' + lang;
+      document.getElementById('install-link').href = 'index.html?lang=' + lang + '#instalar';
+      const c = (window.SAVA_CONFIG || {}).contact;
+      const line = document.getElementById('contact-line');
+      if (c) {
+        const a = document.createElement('a');
+        a.href = c.includes('@') && !c.startsWith('http') ? 'mailto:' + c : c;
+        a.textContent = c;
+        line.append(P.contact_pre, a, '.');
+      } else line.textContent = P.contact_none;
+      const sel = document.getElementById('lang');
+      for (const l of Object.keys(ALL)) sel.add(new Option(NAMES[l], l, false, l === lang));
+      sel.addEventListener('change', () => {
+        try { localStorage.setItem('sava-lang', sel.value); } catch (_) {}
+        location.search = '?lang=' + sel.value;
+      });
+    })();
   </script>
 </body>
 </html>

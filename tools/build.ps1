@@ -6,7 +6,7 @@
 #   site/download/sava.zip        -> download manual no site (mesmo conteúdo)
 #   site/app/...                  -> cópia do código da personagem para a demonstração do site
 #
-# O ZIP leva só o que a extensão usa: manifest.json, src/ e assets/ (sem dev/, tools/, site/, README).
+# O ZIP leva só o que a extensão usa: manifest.json, _locales/, src/ e assets/ (sem dev/, tools/, site/, README).
 # Os caminhos dentro do ZIP usam "/" (o Compress-Archive do Windows PowerShell 5.1 usa "\", que a loja rejeita).
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
@@ -18,6 +18,7 @@ $version = $manifest.version
 # ---------- arquivos da extensão ----------
 $include = @('manifest.json')
 $include += Get-ChildItem (Join-Path $root 'src') -Recurse -File | ForEach-Object { $_.FullName.Substring($root.Length + 1) }
+$include += Get-ChildItem (Join-Path $root '_locales') -Recurse -File | ForEach-Object { $_.FullName.Substring($root.Length + 1) }
 $include += Get-ChildItem (Join-Path $root 'assets\icons') -File | ForEach-Object { $_.FullName.Substring($root.Length + 1) }
 $include += Get-ChildItem (Join-Path $root 'assets\sprites') -Recurse -File | ForEach-Object { $_.FullName.Substring($root.Length + 1) }
 
@@ -48,7 +49,7 @@ if (Test-Path $site) {
   $app = Join-Path $site 'app'
   if (Test-Path $app) { Remove-Item $app -Recurse -Force }
   foreach ($rel in @(
-      'src\shared\settings.js', 'src\shared\instruction.js',
+      'src\shared\settings.js', 'src\shared\i18n.js', 'src\shared\instruction.js',
       'src\emotion\emotions.js', 'src\emotion\detect.js',
       'src\avatar\sprite-pack.js', 'src\avatar\avatar.js')) {
     $dst = Join-Path $app $rel

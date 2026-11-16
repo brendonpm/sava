@@ -1,0 +1,264 @@
+{
+  "_comment": "Fonte dos textos da interface. Rode tools/gen-locales.ps1 para gerar _locales/*/messages.json. $1, $2... são substituições.",
+  "extName": {
+    "en": "Sava — pixel art companion for AI chats",
+    "pt_BR": "Sava — personagem para chats de IA",
+    "es": "Sava — compañera pixel art para chats de IA",
+    "fr": "Sava — compagne en pixel art pour les chats IA",
+    "de": "Sava — Pixel-Art-Begleiterin für KI-Chats",
+    "ja": "Sava — AIチャットのドット絵キャラクター"
+  },
+  "extDesc": {
+    "en": "Sava, a pixel art character who reacts to Claude and Gemini replies with 18 expressions. Free and private.",
+    "pt_BR": "Sava, uma personagem em pixel art que reage às respostas do Claude e do Gemini com 18 expressões. Grátis e privada.",
+    "es": "Sava, un personaje pixel art que reacciona a las respuestas de Claude y Gemini con 18 expresiones. Gratis y privada.",
+    "fr": "Sava, un personnage en pixel art qui réagit aux réponses de Claude et Gemini avec 18 expressions. Gratuit et privé.",
+    "de": "Sava, eine Pixel-Art-Figur, die mit 18 Gesichtsausdrücken auf Antworten von Claude und Gemini reagiert. Kostenlos und privat.",
+    "ja": "ClaudeとGeminiの返答に18種類の表情で反応するドット絵キャラクター「Sava」。無料でプライバシーも安心。"
+  },
+  "actionTitle": {
+    "en": "Sava — options", "pt_BR": "Sava — opções", "es": "Sava — opciones",
+    "fr": "Sava — options", "de": "Sava — Optionen", "ja": "Sava — 設定"
+  },
+  "avatarAria": {
+    "en": "Sava, the chat companion", "pt_BR": "Sava, a personagem do chat", "es": "Sava, la compañera del chat",
+    "fr": "Sava, la compagne du chat", "de": "Sava, die Chat-Begleiterin", "ja": "チャットキャラクターのSava"
+  },
+  "btnSend": {
+    "en": "Send Sava's instruction in this chat", "pt_BR": "Enviar a instrução da Sava neste chat",
+    "es": "Enviar la instrucción de Sava en este chat", "fr": "Envoyer l'instruction de Sava dans ce chat",
+    "de": "Savas Anweisung in diesem Chat senden", "ja": "このチャットにSavaの指示を送信"
+  },
+  "btnOptions": {
+    "en": "Options", "pt_BR": "Opções", "es": "Opciones", "fr": "Options", "de": "Optionen", "ja": "設定"
+  },
+  "btnHide": {
+    "en": "Hide in this tab", "pt_BR": "Esconder nesta aba", "es": "Ocultar en esta pestaña",
+    "fr": "Masquer dans cet onglet", "de": "In diesem Tab ausblenden", "ja": "このタブで非表示"
+  },
+  "toastSent": {
+    "en": "Instruction sent! Now I'm Sava 😉", "pt_BR": "Instrução enviada! Agora eu sou a Sava 😉",
+    "es": "¡Instrucción enviada! Ahora soy Sava 😉", "fr": "Instruction envoyée ! Maintenant, je suis Sava 😉",
+    "de": "Anweisung gesendet! Jetzt bin ich Sava 😉", "ja": "指示を送ったよ！これで私はSava 😉"
+  },
+  "toastDraft": {
+    "en": "I added the instruction after your draft. Review it and send when you're ready.",
+    "pt_BR": "Coloquei a instrução depois do seu rascunho. Revise e envie quando quiser.",
+    "es": "Puse la instrucción después de tu borrador. Revísala y envíala cuando quieras.",
+    "fr": "J'ai ajouté l'instruction après ton brouillon. Relis-la et envoie quand tu veux.",
+    "de": "Ich habe die Anweisung hinter deinen Entwurf gesetzt. Prüf sie und sende, wann du willst.",
+    "ja": "下書きのあとに指示を入れたよ。確認してから送信してね。"
+  },
+  "toastNoField": {
+    "en": "I couldn't find the message box.", "pt_BR": "Não achei o campo de mensagem.",
+    "es": "No encontré el campo de mensaje.", "fr": "Je n'ai pas trouvé la zone de message.",
+    "de": "Ich habe das Nachrichtenfeld nicht gefunden.", "ja": "メッセージ欄が見つからなかったよ。"
+  },
+  "toastNoWrite": {
+    "en": "I couldn't type in the message box.", "pt_BR": "Não consegui escrever no campo.",
+    "es": "No pude escribir en el campo.", "fr": "Je n'ai pas pu écrire dans la zone de message.",
+    "de": "Ich konnte nicht ins Nachrichtenfeld schreiben.", "ja": "メッセージ欄に書き込めなかったよ。"
+  },
+  "toastCopied": {
+    "en": "$1 I copied the instruction: just paste it into the chat (Ctrl+V).",
+    "pt_BR": "$1 Copiei a instrução: é só colar no chat (Ctrl+V).",
+    "es": "$1 Copié la instrucción: solo pégala en el chat (Ctrl+V).",
+    "fr": "$1 J'ai copié l'instruction : colle-la simplement dans le chat (Ctrl+V).",
+    "de": "$1 Ich habe die Anweisung kopiert: einfach in den Chat einfügen (Strg+V).",
+    "ja": "$1 指示をコピーしたよ。チャットに貼り付けてね（Ctrl+V）。"
+  },
+  "opt_title": {
+    "en": "Sava — Options", "pt_BR": "Sava — Opções", "es": "Sava — Opciones",
+    "fr": "Sava — Options", "de": "Sava — Optionen", "ja": "Sava — 設定"
+  },
+  "opt_sub": {
+    "en": "Sava reacts to AI replies on Claude and Gemini. Everything runs in your browser.",
+    "pt_BR": "A Sava reage às respostas da IA no Claude e no Gemini. Tudo roda no seu navegador.",
+    "es": "Sava reacciona a las respuestas de la IA en Claude y Gemini. Todo funciona en tu navegador.",
+    "fr": "Sava réagit aux réponses de l'IA sur Claude et Gemini. Tout fonctionne dans ton navigateur.",
+    "de": "Sava reagiert auf KI-Antworten in Claude und Gemini. Alles läuft in deinem Browser.",
+    "ja": "SavaはClaudeとGeminiのAIの返答に反応します。すべてブラウザ内で動作します。"
+  },
+  "opt_sitesH": {
+    "en": "Active sites", "pt_BR": "Sites ativos", "es": "Sitios activos",
+    "fr": "Sites actifs", "de": "Aktive Websites", "ja": "有効なサイト"
+  },
+  "opt_instrH": {
+    "en": "Instruction for the AI", "pt_BR": "Instrução para a IA", "es": "Instrucción para la IA",
+    "fr": "Instruction pour l'IA", "de": "Anweisung für die KI", "ja": "AIへの指示"
+  },
+  "opt_instrHint": {
+    "en": "Click 💬 on Sava to send it in the open chat, or paste it once into Claude's preferences or Gemini's saved info. The AI starts acting as Sava and tags the emotion of each reply; the extension reads the tag, changes the expression and hides the tag from the chat.",
+    "pt_BR": "Clique em 💬 na Sava para enviar no chat aberto, ou cole uma vez nas preferências do Claude ou nas instruções salvas do Gemini. A IA passa a agir como a Sava e marca a emoção de cada resposta; a extensão lê a tag, troca a expressão e esconde a tag da conversa.",
+    "es": "Haz clic en 💬 sobre Sava para enviarla en el chat abierto, o pégala una vez en las preferencias de Claude o en la información guardada de Gemini. La IA empieza a actuar como Sava y marca la emoción de cada respuesta; la extensión lee la etiqueta, cambia la expresión y la oculta del chat.",
+    "fr": "Clique sur 💬 sur Sava pour l'envoyer dans le chat ouvert, ou colle-la une fois dans les préférences de Claude ou les infos enregistrées de Gemini. L'IA se met à jouer Sava et indique l'émotion de chaque réponse ; l'extension lit la balise, change l'expression et masque la balise du chat.",
+    "de": "Klicke bei Sava auf 💬, um sie im offenen Chat zu senden, oder füge sie einmal in die Einstellungen von Claude bzw. die gespeicherten Infos von Gemini ein. Die KI verhält sich dann wie Sava und markiert die Emotion jeder Antwort; die Erweiterung liest die Markierung, ändert den Ausdruck und blendet die Markierung im Chat aus.",
+    "ja": "Savaの💬をクリックすると開いているチャットに送信されます。またはClaudeの設定（プリファレンス）やGeminiの保存済み情報に一度貼り付けてください。AIはSavaとして振る舞い、返答ごとに感情タグを付けます。拡張機能がタグを読み取って表情を変え、タグはチャットから隠されます。"
+  },
+  "opt_instrLang": {
+    "en": "Instruction language", "pt_BR": "Idioma da instrução", "es": "Idioma de la instrucción",
+    "fr": "Langue de l'instruction", "de": "Sprache der Anweisung", "ja": "指示の言語"
+  },
+  "opt_instrAuto": {
+    "en": "Same as the browser", "pt_BR": "O mesmo do navegador", "es": "El mismo del navegador",
+    "fr": "Celle du navigateur", "de": "Wie im Browser", "ja": "ブラウザと同じ"
+  },
+  "opt_copy": {
+    "en": "Copy instruction", "pt_BR": "Copiar instrução", "es": "Copiar instrucción",
+    "fr": "Copier l'instruction", "de": "Anweisung kopieren", "ja": "指示をコピー"
+  },
+  "opt_copied": {
+    "en": "Copied!", "pt_BR": "Copiado!", "es": "¡Copiado!", "fr": "Copié !", "de": "Kopiert!", "ja": "コピーしました！"
+  },
+  "opt_mapH": {
+    "en": "Emotion map", "pt_BR": "Mapa de emoções", "es": "Mapa de emociones",
+    "fr": "Carte des émotions", "de": "Emotionen zuordnen", "ja": "感情マップ"
+  },
+  "opt_mapHint": {
+    "en": "Each emotion points to one of the character's expressions. Click a row to try it on the character in the corner. You can create new emotions (e.g. <code>shock</code> → Surprised).",
+    "pt_BR": "Cada emoção aponta para uma expressão do personagem. Clique numa linha para testar no personagem do canto. Dá para criar emoções novas (ex.: <code>susto</code> → Surpresa).",
+    "es": "Cada emoción apunta a una expresión del personaje. Haz clic en una fila para probarla en el personaje de la esquina. Puedes crear emociones nuevas (p. ej., <code>susto</code> → Sorprendida).",
+    "fr": "Chaque émotion renvoie à une expression du personnage. Clique sur une ligne pour l'essayer sur le personnage dans le coin. Tu peux créer de nouvelles émotions (ex. : <code>choc</code> → Surprise).",
+    "de": "Jede Emotion verweist auf einen Gesichtsausdruck der Figur. Klicke auf eine Zeile, um sie an der Figur in der Ecke auszuprobieren. Du kannst neue Emotionen anlegen (z. B. <code>schock</code> → Überrascht).",
+    "ja": "それぞれの感情はキャラクターの表情に対応しています。行をクリックすると隅のキャラクターで試せます。新しい感情も作れます（例：<code>shock</code> → びっくり）。"
+  },
+  "opt_colEmotion": {
+    "en": "Emotion (name in the tag)", "pt_BR": "Emoção (nome na tag)", "es": "Emoción (nombre en la etiqueta)",
+    "fr": "Émotion (nom dans la balise)", "de": "Emotion (Name in der Markierung)", "ja": "感情（タグ内の名前）"
+  },
+  "opt_colExpr": {
+    "en": "Expression", "pt_BR": "Expressão", "es": "Expresión", "fr": "Expression", "de": "Ausdruck", "ja": "表情"
+  },
+  "opt_newPh": {
+    "en": "new emotion", "pt_BR": "nova emoção", "es": "nueva emoción", "fr": "nouvelle émotion", "de": "neue Emotion", "ja": "新しい感情"
+  },
+  "opt_newAria": {
+    "en": "Name of the new emotion", "pt_BR": "Nome da nova emoção", "es": "Nombre de la nueva emoción",
+    "fr": "Nom de la nouvelle émotion", "de": "Name der neuen Emotion", "ja": "新しい感情の名前"
+  },
+  "opt_add": {
+    "en": "Add", "pt_BR": "Adicionar", "es": "Agregar", "fr": "Ajouter", "de": "Hinzufügen", "ja": "追加"
+  },
+  "opt_reset": {
+    "en": "Restore defaults", "pt_BR": "Restaurar padrão", "es": "Restaurar valores", "fr": "Rétablir par défaut",
+    "de": "Standard wiederherstellen", "ja": "初期設定に戻す"
+  },
+  "opt_exprFor": {
+    "en": "Expression for $1", "pt_BR": "Expressão para $1", "es": "Expresión para $1",
+    "fr": "Expression pour $1", "de": "Ausdruck für $1", "ja": "$1 の表情"
+  },
+  "opt_remove": {
+    "en": "Remove $1", "pt_BR": "Remover $1", "es": "Quitar $1", "fr": "Supprimer $1", "de": "$1 entfernen", "ja": "$1 を削除"
+  },
+  "opt_behH": {
+    "en": "Behavior", "pt_BR": "Comportamento", "es": "Comportamiento", "fr": "Comportement", "de": "Verhalten", "ja": "動作"
+  },
+  "opt_size": {
+    "en": "Character size", "pt_BR": "Tamanho do personagem", "es": "Tamaño del personaje",
+    "fr": "Taille du personnage", "de": "Größe der Figur", "ja": "キャラクターの大きさ"
+  },
+  "opt_return": {
+    "en": "Back to neutral after (seconds, 0 = never)", "pt_BR": "Voltar ao neutro depois de (segundos, 0 = nunca)",
+    "es": "Volver a neutral después de (segundos, 0 = nunca)", "fr": "Revenir à neutre après (secondes, 0 = jamais)",
+    "de": "Zurück zu neutral nach (Sekunden, 0 = nie)", "ja": "ふつうに戻るまで（秒、0 = 戻らない）"
+  },
+  "opt_fallback": {
+    "en": "Emotion when nothing is detected", "pt_BR": "Emoção quando nada for detectado",
+    "es": "Emoción cuando no se detecta nada", "fr": "Émotion quand rien n'est détecté",
+    "de": "Emotion, wenn nichts erkannt wird", "ja": "何も検出されないときの感情"
+  },
+  "opt_sleep": {
+    "en": "Nap after (minutes without activity, 0 = never)", "pt_BR": "Cochilar depois de (minutos sem atividade, 0 = nunca)",
+    "es": "Dormir la siesta después de (minutos sin actividad, 0 = nunca)", "fr": "Faire une sieste après (minutes sans activité, 0 = jamais)",
+    "de": "Nickerchen nach (Minuten ohne Aktivität, 0 = nie)", "ja": "居眠りするまで（操作なしの分数、0 = しない）"
+  },
+  "opt_effects": {
+    "en": "Motion and particles (hearts, stars, notes…)", "pt_BR": "Movimentos e partículas (corações, estrelas, notas…)",
+    "es": "Movimientos y partículas (corazones, estrellas, notas…)", "fr": "Mouvements et particules (cœurs, étoiles, notes…)",
+    "de": "Bewegungen und Partikel (Herzen, Sterne, Noten…)", "ja": "動きとパーティクル（ハート、星、音符…）"
+  },
+  "opt_typing": {
+    "en": "Pay attention while I type and look thoughtful after I send",
+    "pt_BR": "Ficar atenta enquanto eu digito e pensativa depois que eu envio",
+    "es": "Estar atenta mientras escribo y pensativa después de enviar",
+    "fr": "Être attentive pendant que j'écris et pensive après l'envoi",
+    "de": "Aufmerksam sein, während ich tippe, und nachdenklich nach dem Senden",
+    "ja": "入力中は注目し、送信後は考え中になる"
+  },
+  "opt_keywords": {
+    "en": "Detect by keywords when there is no tag", "pt_BR": "Detectar por palavras-chave quando não houver tag",
+    "es": "Detectar por palabras clave cuando no haya etiqueta", "fr": "Détecter par mots-clés s'il n'y a pas de balise",
+    "de": "Über Schlüsselwörter erkennen, wenn keine Markierung vorhanden ist", "ja": "タグがないときはキーワードで判定"
+  },
+  "opt_hideTag": {
+    "en": "Hide the <code>[emo:…]</code> tag from the chat", "pt_BR": "Esconder a tag <code>[emo:…]</code> da conversa",
+    "es": "Ocultar la etiqueta <code>[emo:…]</code> del chat", "fr": "Masquer la balise <code>[emo:…]</code> du chat",
+    "de": "Die Markierung <code>[emo:…]</code> im Chat ausblenden", "ja": "チャットから <code>[emo:…]</code> タグを隠す"
+  },
+  "opt_showLabel": {
+    "en": "Show the emotion name under the character", "pt_BR": "Mostrar o nome da emoção sob o personagem",
+    "es": "Mostrar el nombre de la emoción bajo el personaje", "fr": "Afficher le nom de l'émotion sous le personnage",
+    "de": "Namen der Emotion unter der Figur anzeigen", "ja": "キャラクターの下に感情名を表示"
+  },
+  "opt_debug": {
+    "en": "Log detections to the console (debugging)", "pt_BR": "Registrar detecções no console (depuração)",
+    "es": "Registrar detecciones en la consola (depuración)", "fr": "Journaliser les détections dans la console (débogage)",
+    "de": "Erkennungen in der Konsole protokollieren (Debugging)", "ja": "検出結果をコンソールに記録（デバッグ）"
+  },
+  "opt_testH": {
+    "en": "Test detection", "pt_BR": "Testar detecção", "es": "Probar detección",
+    "fr": "Tester la détection", "de": "Erkennung testen", "ja": "検出をテスト"
+  },
+  "opt_testHint": {
+    "en": "Write a sample reply and see which emotion comes out.", "pt_BR": "Escreva uma resposta de exemplo e veja qual emoção sairia.",
+    "es": "Escribe una respuesta de ejemplo y mira qué emoción saldría.", "fr": "Écris une réponse d'exemple et vois quelle émotion en sort.",
+    "de": "Schreib eine Beispielantwort und sieh, welche Emotion herauskommt.", "ja": "返答の例を書いて、どの感情になるか試してみましょう。"
+  },
+  "opt_sample": {
+    "en": "Oh, thank you... now I'm blushing 😳", "pt_BR": "Ah, obrigada... fiquei até com vergonha 😳",
+    "es": "Ay, gracias... me da vergüenza 😳", "fr": "Oh, merci... je suis toute gênée 😳",
+    "de": "Oh, danke... jetzt werde ich ganz verlegen 😳", "ja": "えっ、ありがとう…照れちゃう 😳"
+  },
+  "opt_simulate": {
+    "en": "Simulate reply", "pt_BR": "Simular resposta", "es": "Simular respuesta",
+    "fr": "Simuler une réponse", "de": "Antwort simulieren", "ja": "返答をシミュレート"
+  },
+  "opt_think": {
+    "en": "Simulate \"thinking\"", "pt_BR": "Simular \"pensando\"", "es": "Simular \"pensando\"",
+    "fr": "Simuler « réflexion »", "de": "„Nachdenken“ simulieren", "ja": "「考え中」をシミュレート"
+  },
+  "opt_nap": {
+    "en": "Simulate nap", "pt_BR": "Simular cochilo", "es": "Simular siesta",
+    "fr": "Simuler une sieste", "de": "Nickerchen simulieren", "ja": "居眠りをシミュレート"
+  },
+  "opt_result": {
+    "en": "Emotion: $1 (intensity $2) — $3", "pt_BR": "Emoção: $1 (intensidade $2) — $3",
+    "es": "Emoción: $1 (intensidad $2) — $3", "fr": "Émotion : $1 (intensité $2) — $3",
+    "de": "Emotion: $1 (Intensität $2) — $3", "ja": "感情：$1（強さ $2）— $3"
+  },
+  "opt_how_tag": {
+    "en": "from the tag", "pt_BR": "pela tag", "es": "por la etiqueta", "fr": "par la balise", "de": "über die Markierung", "ja": "タグから"
+  },
+  "opt_how_keywords": {
+    "en": "from keywords", "pt_BR": "por palavras-chave", "es": "por palabras clave",
+    "fr": "par mots-clés", "de": "über Schlüsselwörter", "ja": "キーワードから"
+  },
+  "opt_how_fallback": {
+    "en": "no rule matched (default)", "pt_BR": "nenhuma regra bateu (padrão)", "es": "ninguna regla coincidió (predeterminado)",
+    "fr": "aucune règle ne correspond (par défaut)", "de": "keine Regel passte (Standard)", "ja": "該当なし（既定）"
+  },
+  "opt_privH": {
+    "en": "Privacy", "pt_BR": "Privacidade", "es": "Privacidad", "fr": "Confidentialité", "de": "Datenschutz", "ja": "プライバシー"
+  },
+  "opt_privText": {
+    "en": "Chat text is read only to pick the expression and is never sent anywhere. The extension only asks for <code>storage</code> and access to the sites listed above.",
+    "pt_BR": "O texto das conversas é lido só para escolher a expressão e nunca é enviado a lugar nenhum. A extensão pede apenas <code>storage</code> e acesso aos sites listados acima.",
+    "es": "El texto de las conversaciones solo se lee para elegir la expresión y nunca se envía a ningún lugar. La extensión solo pide <code>storage</code> y acceso a los sitios de arriba.",
+    "fr": "Le texte des conversations est lu uniquement pour choisir l'expression et n'est jamais envoyé nulle part. L'extension demande seulement <code>storage</code> et l'accès aux sites ci-dessus.",
+    "de": "Der Chattext wird nur gelesen, um den Ausdruck zu wählen, und nirgendwohin gesendet. Die Erweiterung benötigt nur <code>storage</code> und Zugriff auf die oben genannten Websites.",
+    "ja": "会話のテキストは表情を選ぶためだけに読み取られ、どこにも送信されません。拡張機能が求める権限は <code>storage</code> と上記サイトへのアクセスだけです。"
+  },
+  "opt_saved": {
+    "en": "Saved", "pt_BR": "Salvo", "es": "Guardado", "fr": "Enregistré", "de": "Gespeichert", "ja": "保存しました"
+  }
+}

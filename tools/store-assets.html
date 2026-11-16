@@ -17,6 +17,7 @@
   window.chrome = { runtime: { getURL: (p) => '/' + p, sendMessage() {} }, storage: { sync: area, local: area, onChanged: { addListener() {} } } };
 </script>
 <script src="/src/shared/settings.js"></script>
+<script src="/src/shared/i18n.js"></script>
 <script src="/src/emotion/emotions.js"></script>
 <script src="/src/emotion/detect.js"></script>
 <script src="/src/avatar/sprite-pack.js"></script>
@@ -60,8 +61,12 @@
 
   function rr(x, cx, cy, w, h, r) { x.beginPath(); x.roundRect(cx, cy, w, h, r); }
   function wrapText(x, text, maxW) {
-    const words = text.split(' '); const lines = []; let line = '';
-    for (const w of words) { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }
+    // japonês não tem espaços: quebra por caractere
+    const cjk = !text.includes(' ') || /[぀-ヿ一-龯]/.test(text);
+    const words = cjk ? [...text] : text.split(' ');
+    const sep = cjk ? '' : ' ';
+    const lines = []; let line = '';
+    for (const w of words) { const t = line ? line + sep + w : w; if (x.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }
     if (line) lines.push(line);
     return lines;
   }
@@ -79,8 +84,8 @@
     x.font = `800 46px ${FONT}`;
     x.fillText(title, 64, 92);
     x.fillStyle = C.muted;
-    x.font = `500 24px ${FONT}`;
-    x.fillText(sub, 64, 132);
+    x.font = `500 22px ${FONT}`;
+    wrapText(x, sub, 1150).slice(0, 2).forEach((l, i) => x.fillText(l, 64, 128 + i * 28));
   }
   // janela de chat genérica (sem marca de nenhum site)
   function chatWindow(x, X, Y, W, H, msgs) {
@@ -107,7 +112,7 @@
     }
     rr(x, colX, Y + H - 86, colW, 56, 16); x.fillStyle = '#f6f4f0'; x.fill();
     x.strokeStyle = '#ddd7cc'; x.lineWidth = 2; x.stroke();
-    x.fillStyle = '#9a9488'; x.font = `400 19px ${FONT}`; x.fillText('Escreva uma mensagem…', colX + 20, Y + H - 51);
+    x.fillStyle = '#9a9488'; x.font = `400 19px ${FONT}`; x.fillText(PH, colX + 20, Y + H - 51);
     rr(x, colX + colW - 48, Y + H - 76, 36, 36, 10); x.fillStyle = C.teal; x.fill();
     x.restore();
   }
@@ -125,94 +130,159 @@
     return [c, x];
   }
 
+  // Textos das imagens em cada idioma (nomes das expressões vêm de CA.i18n.LABELS)
+  const TXT = {
+    en: {
+      s1: ['Sava reacts to every AI reply', 'She laughs at jokes, blushes at compliments and panics over bugs. Works on Claude and Gemini.'],
+      chat1: [['user', 'Tell me a programmer joke'], ['ai', 'Why did the developer go broke? Because he used up all his cache! Haha, admit it, that was good 😄'], ['user', 'lol good one, Sava']],
+      s2: ['18 expressions, with motion and effects', 'Hearts, stars, music notes, puffs of angry smoke… and intensity changes how strong the reaction is.'],
+      s3: ['One click to turn Sava on in the chat', 'The 💬 button sends the instruction that makes the AI talk like Sava and tag its emotions.'],
+      chat3: [['user', 'You are Sava, a friendly character who likes to tease… [instruction sent by the extension]'], ['ai', "Hi! I'm Sava 😉 Ask me anything, I promise to help… and tease you just a little."]],
+      toast: 'Instruction sent! 😉',
+      s4: ['Lively, discreet and private', 'She pays attention to you, naps when you are away, and nothing from your chats leaves your browser.'],
+      cards: [['Thinking…', 'Looks thoughtful while the AI prepares the reply.'], ['Napping', 'Falls asleep if you are away for a few minutes.'], ['Private', 'No server, no account, no tracking.']],
+      promo: ['Pixel art character', 'who reacts to your', 'AI chats'],
+    },
+    pt: {
+      s1: ['A Sava reage a cada resposta da IA', 'Ri das piadas, fica sem graça com elogios, se assusta com bugs. Funciona no Claude e no Gemini.'],
+      chat1: [['user', 'Me conta uma piada de programador'], ['ai', 'Por que o programador foi ao médico? Porque estava cheio de bugs! Hahaha, essa foi boa, vai 😄'], ['user', 'kkkkk boa, Sava']],
+      s2: ['18 expressões, com movimento e efeitos', 'Corações, estrelas, notas musicais, fumacinha de raiva… e a intensidade muda a força da reação.'],
+      s3: ['Um clique para ativar a Sava no chat', 'O botão 💬 envia a instrução que faz a IA falar como a Sava e marcar as emoções.'],
+      chat3: [['user', 'Você é a Sava, uma personagem simpática e provocadora… [instrução enviada pela extensão]'], ['ai', 'Oi! Eu sou a Sava 😉 Pode mandar suas perguntas, prometo ajudar… e provocar só um pouquinho.']],
+      toast: 'Instrução enviada! 😉',
+      s4: ['Viva, discreta e privada', 'Ela presta atenção em você, cochila quando você some, e nada da conversa sai do seu navegador.'],
+      cards: [['Pensando…', 'Fica pensativa enquanto a IA prepara a resposta.'], ['Cochilando', 'Dorme se você sumir por alguns minutos.'], ['Privada', 'Sem servidor, sem conta e sem rastreamento.']],
+      promo: ['Personagem em pixel art', 'que reage aos seus', 'chats de IA'],
+    },
+    es: {
+      s1: ['Sava reacciona a cada respuesta de la IA', 'Se ríe con los chistes, se sonroja con los halagos y se asusta con los bugs. Funciona en Claude y Gemini.'],
+      chat1: [['user', 'Cuéntame un chiste de programadores'], ['ai', '¿Por qué el programador fue al médico? ¡Porque tenía muchos bugs! Jajaja, admítelo, estuvo bueno 😄'], ['user', 'jajaja buenísimo, Sava']],
+      s2: ['18 expresiones, con movimiento y efectos', 'Corazones, estrellas, notas musicales, humito de enojo… y la intensidad cambia la fuerza de la reacción.'],
+      s3: ['Un clic para activar a Sava en el chat', 'El botón 💬 envía la instrucción que hace que la IA hable como Sava y marque sus emociones.'],
+      chat3: [['user', 'Eres Sava, un personaje simpático y provocador… [instrucción enviada por la extensión]'], ['ai', '¡Hola! Soy Sava 😉 Pregúntame lo que quieras, prometo ayudarte… y provocarte solo un poquito.']],
+      toast: '¡Instrucción enviada! 😉',
+      s4: ['Viva, discreta y privada', 'Te presta atención, duerme la siesta cuando no estás, y nada de tus chats sale de tu navegador.'],
+      cards: [['Pensando…', 'Se pone pensativa mientras la IA prepara la respuesta.'], ['Durmiendo', 'Se duerme si desapareces unos minutos.'], ['Privada', 'Sin servidor, sin cuenta y sin rastreo.']],
+      promo: ['Personaje pixel art', 'que reacciona a tus', 'chats de IA'],
+    },
+    fr: {
+      s1: ["Sava réagit à chaque réponse de l'IA", 'Elle rit aux blagues, rougit aux compliments et panique devant les bugs. Fonctionne sur Claude et Gemini.'],
+      chat1: [['user', 'Raconte-moi une blague de développeur'], ['ai', "Pourquoi le développeur est allé chez le médecin ? Parce qu'il avait trop de bugs ! Haha, avoue, elle était bonne 😄"], ['user', 'mdr trop bien, Sava']],
+      s2: ['18 expressions, avec mouvements et effets', "Cœurs, étoiles, notes de musique, petite fumée de colère… et l'intensité change la force de la réaction."],
+      s3: ['Un clic pour activer Sava dans le chat', "Le bouton 💬 envoie l'instruction qui fait parler l'IA comme Sava et indiquer ses émotions."],
+      chat3: [['user', "Tu es Sava, un personnage sympathique et taquin… [instruction envoyée par l'extension]"], ['ai', "Salut ! Je suis Sava 😉 Pose-moi tes questions, je promets de t'aider… et de te taquiner juste un peu."]],
+      toast: 'Instruction envoyée ! 😉',
+      s4: ['Vivante, discrète et privée', "Elle fait attention à toi, fait la sieste quand tu t'absentes, et rien de tes conversations ne quitte ton navigateur."],
+      cards: [['Réflexion…', "Devient pensive pendant que l'IA prépare la réponse."], ['La sieste', "S'endort si tu t'absentes quelques minutes."], ['Privée', 'Pas de serveur, pas de compte, pas de pistage.']],
+      promo: ['Personnage en pixel art', 'qui réagit à tes', 'chats IA'],
+    },
+    de: {
+      s1: ['Sava reagiert auf jede KI-Antwort', 'Sie lacht über Witze, wird bei Komplimenten rot und gerät bei Bugs in Panik. Funktioniert mit Claude und Gemini.'],
+      chat1: [['user', 'Erzähl mir einen Programmierer-Witz'], ['ai', 'Warum ging der Programmierer zum Arzt? Weil er zu viele Bugs hatte! Haha, gib es zu, der war gut 😄'], ['user', 'haha gut, Sava']],
+      s2: ['18 Ausdrücke mit Bewegung und Effekten', 'Herzen, Sterne, Musiknoten, kleine Wutwölkchen… und die Intensität bestimmt, wie stark sie reagiert.'],
+      s3: ['Ein Klick, um Sava im Chat zu aktivieren', 'Der 💬-Button sendet die Anweisung, die die KI wie Sava sprechen und ihre Emotionen markieren lässt.'],
+      chat3: [['user', 'Du bist Sava, eine freundliche Figur, die gern neckt… [von der Erweiterung gesendete Anweisung]'], ['ai', 'Hallo! Ich bin Sava 😉 Frag mich, was du willst – ich helfe dir… und necke dich nur ein kleines bisschen.']],
+      toast: 'Anweisung gesendet! 😉',
+      s4: ['Lebendig, dezent und privat', 'Sie achtet auf dich, macht ein Nickerchen, wenn du weg bist, und nichts aus deinen Chats verlässt deinen Browser.'],
+      cards: [['Nachdenken…', 'Wird nachdenklich, während die KI die Antwort vorbereitet.'], ['Nickerchen', 'Schläft ein, wenn du ein paar Minuten weg bist.'], ['Privat', 'Kein Server, kein Konto, kein Tracking.']],
+      promo: ['Pixel-Art-Figur, die', 'auf deine KI-Chats', 'reagiert'],
+    },
+    ja: {
+      s1: ['SavaはAIの返答ひとつひとつに反応', '冗談には笑い、ほめられると照れて、バグには大あわて。ClaudeとGeminiに対応。'],
+      chat1: [['user', 'プログラマーの冗談を言って'], ['ai', 'プログラマーが病院に行った理由は？ バグだらけだったから！ 笑、今のはよかったでしょ 😄'], ['user', 'ウケる笑、Sava']],
+      s2: ['動きとエフェクト付きの18種類の表情', 'ハート、星、音符、怒りのけむり…。強さによってリアクションの大きさも変わります。'],
+      s3: ['ワンクリックでSavaをチャットに登場', '💬 ボタンで、AIがSavaとして話し感情タグを付けるための指示を送信します。'],
+      chat3: [['user', 'あなたはSavaというキャラクターです。親しみやすく、ちょっぴりからかうのが好き…［拡張機能が送信した指示］'], ['ai', 'こんにちは！Savaだよ 😉 なんでも聞いてね。ちゃんと手伝うよ…ちょっとだけからかうけど。']],
+      toast: '指示を送ったよ！😉',
+      s4: ['いきいき、控えめ、プライバシー重視', 'あなたを見ていて、いないときは居眠り。会話の内容がブラウザの外に出ることはありません。'],
+      cards: [['考え中…', 'AIが返答を準備している間、考え込みます。'], ['居眠り', '数分間いないと眠ってしまいます。'], ['プライバシー', 'サーバーなし、アカウントなし、トラッキングなし。']],
+      promo: ['AIチャットに反応する', 'ドット絵キャラクター', ''],
+    },
+  };
+
+  let PH = '';
+  const PLACEHOLDER = { en: 'Write a message…', pt: 'Escreva uma mensagem…', es: 'Escribe un mensaje…', fr: 'Écris un message…', de: 'Schreib eine Nachricht…', ja: 'メッセージを入力…' };
   const out = [];
+  for (const L of CA.i18n.LANGS) {
+    const T = TXT[L];
+    PH = PLACEHOLDER[L];
+    const label = (id) => CA.i18n.label(id, L);
 
-  // 1) reage às respostas
-  {
-    const [c, x] = canvas(1280, 800);
-    caption(x, 'A Sava reage a cada resposta da IA', 'Ri das piadas, fica sem graça com elogios, se assusta com bugs. Funciona no Claude e no Gemini.');
-    chatWindow(x, 64, 180, 1152, 580, [
-      ['user', 'Me conta uma piada de programador'],
-      ['ai', 'Por que o programador foi ao médico? Porque estava cheio de bugs! Hahaha, essa foi boa, vai 😄'],
-      ['user', 'kkkkk boa, Sava'],
-    ]);
-    floatingSava(x, await live('feliz', 3, 900), 940, 470, 250);
-    out.push(['screenshot-1-reage.png', c]);
-  }
-
-  // 2) 18 expressões
-  {
-    const [c, x] = canvas(1280, 800);
-    caption(x, '18 expressões, com movimento e efeitos', 'Corações, estrelas, notas musicais, fumacinha de raiva… e a intensidade muda a força da reação.');
-    const ids = pack.frameIds; const S = 170, G = 22, cols = 6;
-    const X0 = (1280 - (cols * S + (cols - 1) * G)) / 2;
-    ids.forEach((id, i) => {
-      const cx = X0 + (i % cols) * (S + G), cy = 176 + Math.floor(i / cols) * (S + 30);
-      x.save(); rr(x, cx, cy, S, S, 16); x.clip(); x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
-      x.drawImage(still(id), cx, cy, S, S); x.restore();
-      x.save(); rr(x, cx, cy, S, S, 16); x.lineWidth = 3; x.strokeStyle = C.ink; x.stroke(); x.restore();
-      x.fillStyle = C.ink; x.font = `700 17px ${FONT}`; x.textAlign = 'center';
-      x.fillText(pack.frames[id].label, cx + S / 2, cy + S + 21); x.textAlign = 'start';
-    });
-    out.push(['screenshot-2-expressoes.png', c]);
-  }
-
-  // 3) um clique para ativar
-  {
-    const [c, x] = canvas(1280, 800);
-    caption(x, 'Um clique para ativar a Sava no chat', 'O botão 💬 envia a instrução que faz a IA falar como a Sava e marcar as emoções.');
-    chatWindow(x, 64, 180, 1152, 580, [
-      ['user', 'Você é a Sava, uma personagem simpática e provocadora… [instrução enviada pela extensão]'],
-      ['ai', 'Oi! Eu sou a Sava 😉 Pode mandar suas perguntas, prometo ajudar… e provocar só um pouquinho.'],
-    ]);
-    const img = await live('piscadinha', 2, 900);
-    floatingSava(x, img, 940, 470, 250);
-    // botões e balão, como aparecem ao passar o mouse
-    const bx = 1110, by = 455;
-    [['💬', true], ['⚙', false], ['×', false]].forEach(([t, hl], i) => {
-      x.beginPath(); x.arc(bx + i * 40, by, 17, 0, Math.PI * 2);
-      x.fillStyle = hl ? '#6b4fd8' : 'rgba(20,16,32,.92)'; x.fill();
-      x.fillStyle = '#fff'; x.font = `600 17px ${FONT}`; x.textAlign = 'center'; x.fillText(t, bx + i * 40, by + 6); x.textAlign = 'start';
-    });
-    const tx = 868, ty = 380, tw = 300, th = 44;
-    rr(x, tx, ty, tw, th, 12); x.fillStyle = 'rgba(20,16,32,.92)'; x.fill();
-    x.fillStyle = '#f2ecff'; x.font = `600 18px ${FONT}`; x.fillText('Instrução enviada! 😉', tx + 18, ty + 29);
-    out.push(['screenshot-3-ativar.png', c]);
-  }
-
-  // 4) privacidade + presta atenção em você
-  {
-    const [c, x] = canvas(1280, 800);
-    caption(x, 'Viva, discreta e privada', 'Ela presta atenção em você, cochila quando você some, e nada da conversa sai do seu navegador.');
-    const cards = [
-      ['pensativa', 'Pensando…', 'Fica pensativa enquanto a IA prepara a resposta.'],
-      ['sonolenta', 'Cochilando', 'Dorme se você sumir por alguns minutos.'],
-      ['piscadinha', 'Privada', 'Sem servidor, sem conta e sem rastreamento.'],
-    ];
-    for (let i = 0; i < cards.length; i++) {
-      const [id, t, d] = cards[i];
-      const cx = 64 + i * 392, cy = 190, w = 360, h = 560;
-      x.save(); rr(x, cx, cy, w, h, 20); x.fillStyle = C.card; x.fill(); x.lineWidth = 2; x.strokeStyle = C.line; x.stroke(); x.restore();
-      pixelCard(x, await live(id, 2, 900), cx + 40, cy + 40, 270, 8);
-      x.fillStyle = C.ink; x.font = `800 30px ${FONT}`; x.fillText(t, cx + 40, cy + 380);
-      x.fillStyle = C.muted; x.font = `500 21px ${FONT}`;
-      wrapText(x, d, w - 80).forEach((l, j) => x.fillText(l, cx + 40, cy + 420 + j * 30));
+    // 1) reage às respostas
+    {
+      const [c, x] = canvas(1280, 800);
+      caption(x, T.s1[0], T.s1[1]);
+      chatWindow(x, 64, 180, 1152, 580, T.chat1);
+      floatingSava(x, await live('feliz', 3, 900), 940, 470, 250);
+      out.push([`${L}-screenshot-1.png`, c]);
     }
-    out.push(['screenshot-4-detalhes.png', c]);
-  }
 
-  // 5) bloco promocional pequeno 440x280
-  {
-    const [c, x] = canvas(440, 280);
-    const g = x.createLinearGradient(0, 0, 440, 280); g.addColorStop(0, '#2f8f99'); g.addColorStop(1, '#1f6670');
-    x.fillStyle = g; x.fillRect(0, 0, 440, 280);
-    pixelCard(x, await live('feliz', 2, 900), 262, 58, 150, 6);
-    x.fillStyle = '#fff'; x.font = `900 56px ${FONT}`; x.fillText('Sava', 26, 112);
-    x.font = `600 19px ${FONT}`; x.fillStyle = '#e4f6f8';
-    ['Personagem em pixel art', 'que reage aos seus', 'chats de IA'].forEach((l, i) => x.fillText(l, 28, 150 + i * 26));
-    rr(x, 26, 226, 170, 32, 10); x.fillStyle = '#e89b2c'; x.fill();
-    x.fillStyle = '#16303a'; x.font = `800 15px ${FONT}`; x.fillText('Claude · Gemini', 44, 247);
-    out.push(['promo-440x280.png', c]);
+    // 2) 18 expressões
+    {
+      const [c, x] = canvas(1280, 800);
+      caption(x, T.s2[0], T.s2[1]);
+      const ids = pack.frameIds; const S = 170, G = 22, cols = 6;
+      const X0 = (1280 - (cols * S + (cols - 1) * G)) / 2;
+      ids.forEach((id, i) => {
+        const cx = X0 + (i % cols) * (S + G), cy = 176 + Math.floor(i / cols) * (S + 30);
+        x.save(); rr(x, cx, cy, S, S, 16); x.clip(); x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+        x.drawImage(still(id), cx, cy, S, S); x.restore();
+        x.save(); rr(x, cx, cy, S, S, 16); x.lineWidth = 3; x.strokeStyle = C.ink; x.stroke(); x.restore();
+        x.fillStyle = C.ink; x.font = `700 17px ${FONT}`; x.textAlign = 'center';
+        x.fillText(label(id), cx + S / 2, cy + S + 21); x.textAlign = 'start';
+      });
+      out.push([`${L}-screenshot-2.png`, c]);
+    }
+
+    // 3) um clique para ativar
+    {
+      const [c, x] = canvas(1280, 800);
+      caption(x, T.s3[0], T.s3[1]);
+      chatWindow(x, 64, 180, 1152, 580, T.chat3);
+      floatingSava(x, await live('piscadinha', 2, 900), 940, 470, 250);
+      const bx = 1110, by = 455;
+      [['💬', true], ['⚙', false], ['×', false]].forEach(([t, hl], i) => {
+        x.beginPath(); x.arc(bx + i * 40, by, 17, 0, Math.PI * 2);
+        x.fillStyle = hl ? '#6b4fd8' : 'rgba(20,16,32,.92)'; x.fill();
+        x.fillStyle = '#fff'; x.font = `600 17px ${FONT}`; x.textAlign = 'center'; x.fillText(t, bx + i * 40, by + 6); x.textAlign = 'start';
+      });
+      x.font = `600 18px ${FONT}`;
+      const tw = Math.max(240, x.measureText(T.toast).width + 36), th = 44, tx = 1168 - tw, ty = 380;
+      rr(x, tx, ty, tw, th, 12); x.fillStyle = 'rgba(20,16,32,.92)'; x.fill();
+      x.fillStyle = '#f2ecff'; x.fillText(T.toast, tx + 18, ty + 29);
+      out.push([`${L}-screenshot-3.png`, c]);
+    }
+
+    // 4) atenta, cochilo e privacidade
+    {
+      const [c, x] = canvas(1280, 800);
+      caption(x, T.s4[0], T.s4[1]);
+      const ids = ['pensativa', 'sonolenta', 'piscadinha'];
+      for (let i = 0; i < 3; i++) {
+        const [t, d] = T.cards[i];
+        const cx = 64 + i * 392, cy = 190, w = 360, h = 560;
+        x.save(); rr(x, cx, cy, w, h, 20); x.fillStyle = C.card; x.fill(); x.lineWidth = 2; x.strokeStyle = C.line; x.stroke(); x.restore();
+        pixelCard(x, await live(ids[i], 2, 900), cx + 40, cy + 40, 270, 8);
+        x.fillStyle = C.ink; x.font = `800 30px ${FONT}`; x.fillText(t, cx + 40, cy + 380);
+        x.fillStyle = C.muted; x.font = `500 21px ${FONT}`;
+        wrapText(x, d, w - 80).forEach((l, j) => x.fillText(l, cx + 40, cy + 420 + j * 30));
+      }
+      out.push([`${L}-screenshot-4.png`, c]);
+    }
+
+    // 5) bloco promocional pequeno 440x280
+    {
+      const [c, x] = canvas(440, 280);
+      const g = x.createLinearGradient(0, 0, 440, 280); g.addColorStop(0, '#2f8f99'); g.addColorStop(1, '#1f6670');
+      x.fillStyle = g; x.fillRect(0, 0, 440, 280);
+      pixelCard(x, await live('feliz', 2, 900), 262, 58, 150, 6);
+      x.fillStyle = '#fff'; x.font = `900 56px ${FONT}`; x.fillText('Sava', 26, 112);
+      x.font = `600 ${L === 'ja' ? 17 : 19}px ${FONT}`; x.fillStyle = '#e4f6f8';
+      T.promo.forEach((l, i) => { if (l) x.fillText(l, 28, 150 + i * 26); });
+      rr(x, 26, 226, 170, 32, 10); x.fillStyle = '#e89b2c'; x.fill();
+      x.fillStyle = '#16303a'; x.font = `800 15px ${FONT}`; x.fillText('Claude · Gemini', 44, 247);
+      out.push([`${L}-promo-440x280.png`, c]);
+    }
   }
 
   const box = document.getElementById('out');

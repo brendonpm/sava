@@ -104,6 +104,80 @@
     ],
   };
 
+  // Espanhol, francês e alemão (o que não repete as listas acima) e japonês. O japonês não separa
+  // palavras com espaço, então é buscado direto no texto (raw), sem fronteira de palavra.
+  const MORE = {
+    vergonha: [
+      [words('vergüenza', 'avergonzad[ao]', 'perdón', 'lo siento', 'ups', 'gênée?', 'désolée?', 'pardon', 'oups', 'verlegen', 'peinlich', 'entschuldigung', 'tut mir leid', 'hoppla'), 2],
+      [raw('恥ずかし|照れ|ごめん|すみません'), 2],
+    ],
+    raiva: [
+      [words('enojad[ao]', 'furios[ao]', 'inaceptable', 'qué rabia', 'en colère', 'furieu(?:x|se)', 'inacceptable', 'wütend', 'sauer', 'ärgerlich', 'inakzeptabel'), 2],
+      [raw('怒|ムカつ|許せない'), 2],
+    ],
+    feliz: [
+      [words('ja(?:ja)+', 'jeje', 'me alegra', 'qué bien', 'genial', 'hihi', 'trop bien', 'heureu(?:x|se)', 'ravie?', 'juhu', 'toll', 'freut mich', 'glücklich'), 2],
+      [raw('笑|嬉し|うれし|楽し'), 2],
+    ],
+    contente: [
+      [words('por supuesto', 'espero que (?:te )?ayude', 'bien sûr', 'avec plaisir', 'de rien', "j'espère que (?:ça|cela) aide", 'gerne', 'natürlich', 'bitte schön', 'ich hoffe, das hilft'), 1],
+      [raw('もちろん|どういたしまして|お役に立て'), 1],
+    ],
+    empolgada: [
+      [words('increíble', 'maravillos[ao]', 'felicidades', 'qué emoción', 'incroyable', 'génial', 'félicitations', 'trop cool', 'unglaublich', 'fantastisch', 'glückwunsch', 'wahnsinn'), 2],
+      [raw('すごい|最高|おめでとう|やった'), 2],
+    ],
+    provocar: [
+      [words('no te creo', 'admítelo', 'ni lo sueñes', 'hé hé', 'avoue', 'même pas en rêve', 'gib es zu', 'träum weiter'), 2],
+      [raw('ふふん|ニヤ'), 2],
+    ],
+    reticente: [
+      [words('no sé', 'no estoy segur[ao]', 'no puedo', 'je ne sais pas', 'pas sûre?', 'je ne peux pas', 'ich weiß nicht', 'nicht sicher', 'ich kann nicht'), 2],
+      [raw('うーん|えっと'), 2],
+    ],
+    triste: [
+      [words('lamentablemente', 'lo siento mucho', 'qué pena', 'malheureusement', 'dommage', 'traurig', 'leider', 'das tut mir leid'), 2],
+      [raw('悲し|かなし|残念|つらい'), 2],
+    ],
+    surpresa: [
+      [words('en serio', 'no puede ser', 'vaya', 'sérieux', 'pas possible', 'oh là là', 'wirklich', 'echt jetzt', 'krass'), 2],
+      [raw('えっ|まじ|本当に[？?]|びっくり'), 2],
+    ],
+    pensativa: [
+      [words('déjame pensar', 'interesante', 'por un lado', 'laisse-moi réfléchir', 'intéressant', "d'un côté", 'lass mich nachdenken', 'interessant', 'einerseits'), 2],
+      [raw('考えて|ふむ|なるほど'), 2],
+    ],
+    confusa: [
+      [words('confundid[ao]', 'no entiendo', 'cómo así', 'perplexe', 'je ne comprends pas', 'comment ça', 'verwirrt', 'ich verstehe nicht', 'wie meinst du'), 2],
+      [raw('どういうこと|わからない|混乱'), 2],
+    ],
+    orgulhosa: [
+      [words('orgullos[ao]', 'te lo dije', 'pan comido', 'fière?', "je te l'avais dit", 'trop facile', 'stolz', 'hab ich doch gesagt', 'kinderleicht'), 2],
+      [raw('ドヤ|楽勝'), 2],
+    ],
+    apaixonada: [
+      [words('te quiero', 'qué lindo', 'enamorad[ao]', "je t'adore", 'trop mignon', 'amoureuse', 'süß', 'verliebt', 'hab dich lieb'), 2],
+      [raw('かわいい|可愛い|大好き'), 2],
+    ],
+    assustada: [
+      [words('miedo', 'asustad[ao]', 'peligros[ao]', 'au secours', 'peur', 'effrayée?', 'dangereu(?:x|se)', 'hilfe', 'angst', 'gefährlich'), 2],
+      [raw('こわい|怖い|やばい|助けて'), 2],
+    ],
+    sonolenta: [
+      [words('sueño', 'buenas noches', 'fatiguée?', 'bonne nuit', 'dodo', 'müde', 'gute nacht', 'schläfrig'), 2],
+      [raw('眠い|ねむい|おやすみ|あくび'), 2],
+    ],
+    piscadinha: [
+      [words('entre nosotros', 'nuestro secreto', 'entre nous', 'notre secret', 'unter uns', 'unser geheimnis'), 2],
+      [raw('ここだけの話|内緒|ナイショ'), 2],
+    ],
+    entediada: [
+      [words('aburrid[ao]', 'qué aburrido', 'me da igual', 'ennuyeu(?:x|se)', "je m'ennuie", 'bof', 'langweilig', 'gelangweilt'), 2],
+      [raw('退屈|つまらない|めんどう|面倒'), 2],
+    ],
+  };
+  for (const [emo, rules] of Object.entries(MORE)) (RULES[emo] = RULES[emo] || []).push(...rules);
+
   /**
    * Pontua cada emoção. O final da resposta pesa mais (é onde costuma estar o "tom").
    * Retorna { emotion, scores } — emotion é null se nada bateu.

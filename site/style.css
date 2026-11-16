@@ -202,3 +202,12 @@ footer .wrap { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space
 .doc h2 { font-size: 1.3rem; margin-top: 2em; }
 .doc li { margin: 6px 0; }
 .doc .updated { color: var(--muted); }
+
+/* seletor de idioma */
+.lang-pick { display: flex; align-items: center; gap: 4px; margin-left: 8px; }
+.lang-pick select {
+  font: inherit; font-size: .9rem; font-weight: 600; color: var(--text); background: var(--card);
+  border: 1px solid var(--line); border-radius: 8px; padding: 4px 6px; cursor: pointer;
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 720px) { .top nav { margin-left: auto; } }

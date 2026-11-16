@@ -78,9 +78,11 @@ Tudo isso pode ser desligado ou ajustado nas opções. Quem prefere menos movime
 
 ```
 manifest.json
+_locales/                  textos da interface em 6 idiomas (gerados de tools/locales.json)
 src/
   background.js            abre as opções (ícone e botão ⚙)
   shared/settings.js       padrões + chrome.storage.sync
+  shared/i18n.js           idiomas: nomes das emoções e textos da interface
   shared/instruction.js    texto de instrução da Sava (opções e botão 💬)
   content/
     adapters/              um arquivo por site, só com seletores
@@ -147,6 +149,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File dev/serve.ps1
 ```
 
 Depois abra http://localhost:8765/dev/playground.html. As opções podem ser vistas em http://localhost:8765/dev/options-dev.html.
+
+## Idiomas
+
+A extensão, o site e a página da loja estão em **inglês (padrão)**, português, espanhol, francês, alemão e japonês.
+
+- **Interface da extensão:** os textos ficam em `tools/locales.json` (uma linha por texto, com os 6 idiomas). Depois de editar, rode `powershell -NoProfile -ExecutionPolicy Bypass -File tools/gen-locales.ps1` para gerar `_locales/*/messages.json`. O Chrome escolhe o idioma pelo idioma do navegador; `pt_PT` recebe os textos de `pt_BR`.
+- **Nomes das emoções e escolha de idioma:** `src/shared/i18n.js`.
+- **Instrução para a IA:** `src/shared/instruction.js`, nos 6 idiomas. Por padrão sai no idioma do navegador, e dá para escolher outro nas opções. Os nomes na etiqueta (`feliz`, `raiva`...) são códigos fixos em todos os idiomas; nos outros idiomas a instrução mostra o significado entre parênteses.
+- **Detecção por palavras-chave:** `src/emotion/detect.js` tem regras em português, inglês, espanhol, francês, alemão e japonês. Emojis valem para todos.
+- **Site:** `site/i18n.js` (página inicial e demonstração) e `site/privacy-i18n.js` (política). O site usa `?lang=xx`, a última escolha ou o idioma do navegador.
+- **Loja:** `store/TEXTOS-POR-IDIOMA.md` e `store/images/<idioma>/`, geradas por `tools/store-assets.html`.
 
 ## Site, pacote e loja
 

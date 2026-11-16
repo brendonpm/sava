@@ -37,6 +37,7 @@
     effects: true, // movimentos e partículas
     reactToTyping: true, // fica atenta enquanto você digita e pensativa depois que você envia
     sleepAfterMin: 3, // cochila depois de X minutos sem atividade (0 = nunca)
+    instructionLang: 'auto', // idioma da instrução para a IA: 'auto' (o do navegador) ou en, pt, es, fr, de, ja
     debug: false,
   };
 

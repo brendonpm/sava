@@ -1,88 +1,94 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chat Avatar — Opções</title>
+  <!-- Os textos vêm de _locales/ (data-i18n = texto, data-i18n-html = texto com <code>,
+       data-i18n-attr = "atributo:chave"). O que está escrito aqui é só o inglês de reserva. -->
+  <title data-i18n="opt_title">Sava — Options</title>
   <link rel="stylesheet" href="options.css">
 </head>
 <body>
   <main>
     <header>
-      <h1>Chat Avatar</h1>
-      <p class="sub">A Sava reage às respostas da IA no Claude e no Gemini. Tudo roda no seu navegador.</p>
+      <h1>Sava</h1>
+      <p class="sub" data-i18n="opt_sub">Sava reacts to AI replies on Claude and Gemini. Everything runs in your browser.</p>
       <span id="status" class="status" aria-live="polite"></span>
     </header>
 
     <section>
-      <h2>Sites ativos</h2>
+      <h2 data-i18n="opt_sitesH">Active sites</h2>
       <div id="sites" class="checks"></div>
     </section>
 
     <section>
-      <h2>Instrução para a IA</h2>
-      <p class="hint">Cole nas preferências do Claude ou nas instruções salvas do Gemini. A IA passa a agir como a Sava e marca a emoção de cada resposta; a extensão lê a tag, troca a expressão e esconde a tag da conversa.</p>
+      <h2 data-i18n="opt_instrH">Instruction for the AI</h2>
+      <p class="hint" data-i18n="opt_instrHint">Click 💬 on Sava to send it in the open chat, or paste it once into Claude's preferences or Gemini's saved info.</p>
+      <label class="inline"><span data-i18n="opt_instrLang">Instruction language</span>
+        <select id="instrLang"></select>
+      </label>
       <textarea id="instruction" readonly rows="11"></textarea>
-      <button id="copy" type="button">Copiar instrução</button>
+      <button id="copy" type="button" data-i18n="opt_copy">Copy instruction</button>
     </section>
 
     <section>
-      <h2>Mapa de emoções</h2>
-      <p class="hint">Cada emoção aponta para uma expressão do personagem. Clique numa linha para testar no personagem do canto. Dá para criar emoções novas (ex.: <code>surpresa</code> → Empolgada).</p>
+      <h2 data-i18n="opt_mapH">Emotion map</h2>
+      <p class="hint" data-i18n-html="opt_mapHint">Each emotion points to one of the character's expressions.</p>
       <table id="map">
-        <thead><tr><th>Emoção (nome na tag)</th><th>Expressão</th><th></th></tr></thead>
+        <thead><tr><th data-i18n="opt_colEmotion">Emotion (name in the tag)</th><th data-i18n="opt_colExpr">Expression</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
       <form id="add" class="add">
-        <input id="newName" placeholder="nova emoção" pattern="[\p{L}_\-]{1,30}" maxlength="30" aria-label="Nome da nova emoção" required>
-        <button type="submit">Adicionar</button>
-        <button type="button" id="resetMap" class="ghost">Restaurar padrão</button>
+        <input id="newName" data-i18n-attr="placeholder:opt_newPh,aria-label:opt_newAria" placeholder="new emotion" pattern="[\p{L}_\-]{1,30}" maxlength="30" aria-label="Name of the new emotion" required>
+        <button type="submit" data-i18n="opt_add">Add</button>
+        <button type="button" id="resetMap" class="ghost" data-i18n="opt_reset">Restore defaults</button>
       </form>
     </section>
 
     <section>
-      <h2>Comportamento</h2>
+      <h2 data-i18n="opt_behH">Behavior</h2>
       <div class="grid">
-        <label>Tamanho do personagem <output id="sizeOut"></output>
+        <label><span data-i18n="opt_size">Character size</span> <output id="sizeOut"></output>
           <input type="range" id="size" min="80" max="260" step="4">
         </label>
-        <label>Voltar ao neutro depois de (segundos, 0 = nunca)
+        <label><span data-i18n="opt_return">Back to neutral after (seconds, 0 = never)</span>
           <input type="number" id="returnSec" min="0" max="120" step="1">
         </label>
-        <label>Emoção quando nada for detectado
+        <label><span data-i18n="opt_fallback">Emotion when nothing is detected</span>
           <select id="fallback"></select>
         </label>
-        <label>Cochilar depois de (minutos sem atividade, 0 = nunca)
+        <label><span data-i18n="opt_sleep">Nap after (minutes without activity, 0 = never)</span>
           <input type="number" id="sleepMin" min="0" max="60" step="1">
         </label>
       </div>
       <div class="checks">
-        <label><input type="checkbox" id="effects"> Movimentos e partículas (corações, estrelas, notas…)</label>
-        <label><input type="checkbox" id="reactToTyping"> Ficar atenta enquanto eu digito e pensativa depois que eu envio</label>
-        <label><input type="checkbox" id="useKeywords"> Detectar por palavras-chave quando não houver tag</label>
-        <label><input type="checkbox" id="hideTag"> Esconder a tag <code>[emo:…]</code> da conversa</label>
-        <label><input type="checkbox" id="showLabel"> Mostrar o nome da emoção sob o personagem</label>
-        <label><input type="checkbox" id="debug"> Registrar detecções no console (depuração)</label>
+        <label><input type="checkbox" id="effects"> <span data-i18n="opt_effects">Motion and particles</span></label>
+        <label><input type="checkbox" id="reactToTyping"> <span data-i18n="opt_typing">Pay attention while I type</span></label>
+        <label><input type="checkbox" id="useKeywords"> <span data-i18n="opt_keywords">Detect by keywords when there is no tag</span></label>
+        <label><input type="checkbox" id="hideTag"> <span data-i18n-html="opt_hideTag">Hide the tag from the chat</span></label>
+        <label><input type="checkbox" id="showLabel"> <span data-i18n="opt_showLabel">Show the emotion name under the character</span></label>
+        <label><input type="checkbox" id="debug"> <span data-i18n="opt_debug">Log detections to the console</span></label>
       </div>
     </section>
 
     <section>
-      <h2>Testar detecção</h2>
-      <p class="hint">Escreva uma resposta de exemplo e veja qual emoção sairia.</p>
-      <textarea id="sample" rows="3">Ah, obrigada... fiquei até com vergonha 😳</textarea>
-      <button id="talk" type="button">Simular resposta</button>
-      <button id="think" type="button" class="ghost">Simular "pensando"</button>
-      <button id="nap" type="button" class="ghost">Simular cochilo</button>
+      <h2 data-i18n="opt_testH">Test detection</h2>
+      <p class="hint" data-i18n="opt_testHint">Write a sample reply and see which emotion comes out.</p>
+      <textarea id="sample" rows="3" data-i18n="opt_sample">Oh, thank you... now I'm blushing 😳</textarea>
+      <button id="talk" type="button" data-i18n="opt_simulate">Simulate reply</button>
+      <button id="think" type="button" class="ghost" data-i18n="opt_think">Simulate "thinking"</button>
+      <button id="nap" type="button" class="ghost" data-i18n="opt_nap">Simulate nap</button>
       <p id="result" class="result"></p>
     </section>
 
     <section class="privacy">
-      <h2>Privacidade</h2>
-      <p>O texto das conversas é lido só para escolher a expressão e nunca é enviado a lugar nenhum. A extensão pede apenas <code>storage</code> e acesso aos sites listados acima.</p>
+      <h2 data-i18n="opt_privH">Privacy</h2>
+      <p data-i18n-html="opt_privText">Chat text is read only to pick the expression and is never sent anywhere.</p>
     </section>
   </main>
 
   <script src="../shared/settings.js"></script>
+  <script src="../shared/i18n.js"></script>
   <script src="../shared/instruction.js"></script>
   <script src="../emotion/emotions.js"></script>
   <script src="../emotion/detect.js"></script>
