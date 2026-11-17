@@ -6,7 +6,15 @@ O ChatGPT foi retirado: o personagem não reagia lá de forma confiável.
 
 Tudo roda localmente. O texto das conversas não sai do navegador.
 
-## Instalar (modo desenvolvedor)
+## Instalar
+
+**Pela loja (recomendado):** https://chromewebstore.google.com/detail/liajimhfbmnjbepogfhgnhlbipmefpef
+
+Funciona no Chrome e em navegadores baseados no Chromium (Edge, Opera, Brave, Vivaldi). No Opera, instale antes o complemento "Install Chrome Extensions"; no Edge, permita extensões de outras lojas quando ele perguntar.
+
+Site do projeto: https://brendonpm.github.io/sava/
+
+### Modo desenvolvedor (a partir do código)
 
 1. Abra `chrome://extensions`.
 2. Ative o **Modo do desenvolvedor** (canto superior direito).
@@ -195,4 +203,3 @@ A arte de referência usada no protótipo não é deste projeto: fica só na có
 - Mini-classificador de emoção (Gemini Nano local ou API key do usuário, com opt-in).
 - Troca de pack no popup.
 - Perplexity, Copilot, DeepSeek etc.
-- Publicação na Chrome Web Store.
