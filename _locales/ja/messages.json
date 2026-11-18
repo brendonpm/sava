@@ -12,7 +12,7 @@
   "toastNoWrite": { "message": "メッセージ欄に書き込めなかったよ。" },
   "toastCopied": { "message": "$1 指示をコピーしたよ。チャットに貼り付けてね（Ctrl+V）。" },
   "opt_title": { "message": "Sava — 設定" },
-  "opt_sub": { "message": "SavaはClaudeとGeminiのAIの返答に反応します。すべてブラウザ内で動作します。" },
+  "opt_sub": { "message": "SavaはClaude、Geminiなど、AIチャットの返答に反応します。すべてブラウザ内で動作します。" },
   "opt_sitesH": { "message": "有効なサイト" },
   "opt_instrH": { "message": "AIへの指示" },
   "opt_instrHint": { "message": "Savaの💬をクリックすると開いているチャットに送信されます。またはClaudeの設定（プリファレンス）やGeminiの保存済み情報に一度貼り付けてください。AIはSavaとして振る舞い、返答ごとに感情タグを付けます。拡張機能がタグを読み取って表情を変え、タグはチャットから隠されます。" },
@@ -53,5 +53,14 @@
   "opt_how_fallback": { "message": "該当なし（既定）" },
   "opt_privH": { "message": "プライバシー" },
   "opt_privText": { "message": "会話のテキストは表情を選ぶためだけに読み取られ、どこにも送信されません。拡張機能が求める権限は <code>storage</code> と上記サイトへのアクセスだけです。" },
-  "opt_saved": { "message": "保存しました" }
+  "opt_saved": { "message": "保存しました" },
+  "opt_tablet": { "message": "USBタブレットにもSavaを表示（Sava Tabletアプリ）" },
+  "tabThinking": { "message": "考え中…" },
+  "tabAnswering": { "message": "回答中…" },
+  "tabAnswered": { "message": "回答しました！" },
+  "opt_sitesHint": { "message": "ClaudeとGeminiはすぐに使えます。ベータ版のサイトは、オンにしたときに動作の許可を求めます。" },
+  "opt_sitesReload": { "message": "完了！サイトのタブを再読み込みするとSavaが表示されます。" },
+  "opt_reactUser": { "message": "自分のメッセージの口調に反応する（お礼＝うれしい、叱る＝かなしい）" },
+  "opt_reactLimit": { "message": "AIが利用上限に達したらへとへとになる" },
+  "toastLimit": { "message": "ふう…AIが利用上限に達したみたい。ちょっと休憩しよう？😵‍💫" }
 }

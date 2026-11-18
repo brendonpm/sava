@@ -12,7 +12,7 @@
   "toastNoWrite": { "message": "Ich konnte nicht ins Nachrichtenfeld schreiben." },
   "toastCopied": { "message": "$1 Ich habe die Anweisung kopiert: einfach in den Chat einfügen (Strg+V)." },
   "opt_title": { "message": "Sava — Optionen" },
-  "opt_sub": { "message": "Sava reagiert auf KI-Antworten in Claude und Gemini. Alles läuft in deinem Browser." },
+  "opt_sub": { "message": "Sava reagiert auf KI-Antworten in Claude, Gemini und anderen KI-Chats. Alles läuft in deinem Browser." },
   "opt_sitesH": { "message": "Aktive Websites" },
   "opt_instrH": { "message": "Anweisung für die KI" },
   "opt_instrHint": { "message": "Klicke bei Sava auf 💬, um sie im offenen Chat zu senden, oder füge sie einmal in die Einstellungen von Claude bzw. die gespeicherten Infos von Gemini ein. Die KI verhält sich dann wie Sava und markiert die Emotion jeder Antwort; die Erweiterung liest die Markierung, ändert den Ausdruck und blendet die Markierung im Chat aus." },
@@ -53,5 +53,14 @@
   "opt_how_fallback": { "message": "keine Regel passte (Standard)" },
   "opt_privH": { "message": "Datenschutz" },
   "opt_privText": { "message": "Der Chattext wird nur gelesen, um den Ausdruck zu wählen, und nirgendwohin gesendet. Die Erweiterung benötigt nur <code>storage</code> und Zugriff auf die oben genannten Websites." },
-  "opt_saved": { "message": "Gespeichert" }
+  "opt_saved": { "message": "Gespeichert" },
+  "opt_tablet": { "message": "Sava auch auf einem USB-Tablet zeigen (App Sava Tablet)" },
+  "tabThinking": { "message": "Denke nach…" },
+  "tabAnswering": { "message": "Antworte…" },
+  "tabAnswered": { "message": "Geantwortet!" },
+  "opt_sitesHint": { "message": "Claude und Gemini funktionieren sofort. Die Beta-Websites fragen beim Einschalten nach der Berechtigung." },
+  "opt_sitesReload": { "message": "Fertig! Lade den Tab der Website neu, damit Sava erscheint." },
+  "opt_reactUser": { "message": "Auf den Ton meiner Nachrichten reagieren (Danke = glücklich, Tadel = traurig)" },
+  "opt_reactLimit": { "message": "Erschöpft aussehen, wenn die KI ihr Nutzungslimit erreicht" },
+  "toastLimit": { "message": "Puh… die KI hat ihr Nutzungslimit erreicht. Zeit für eine kleine Pause? 😵‍💫" }
 }

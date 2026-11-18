@@ -40,5 +40,20 @@
     return msgs[msgs.length - 1] || null;
   }
 
-  CA.adapters = { register, find, list, getMessages, getLastMessage };
+  // Quase todo chat mostra um botão "parar" enquanto a IA escreve. Serve de sinal genérico
+  // de "ainda gerando" (true) para sites que não marcam isso na própria mensagem.
+  const STOP = /\b(stop|parar|interromper|detener|arr[eê]ter|stopp|anhalten)\b|停止|中止/i;
+  function stopButtonVisible(extraSelectors = []) {
+    for (const sel of extraSelectors) {
+      const el = document.querySelector(sel);
+      if (el && el.getClientRects().length) return true;
+    }
+    for (const b of document.querySelectorAll('button')) {
+      const label = `${b.getAttribute('aria-label') || ''} ${b.getAttribute('data-testid') || ''} ${b.title || ''}`;
+      if (STOP.test(label) && b.getClientRects().length) return true;
+    }
+    return false;
+  }
+
+  CA.adapters = { register, find, list, getMessages, getLastMessage, stopButtonVisible };
 })();

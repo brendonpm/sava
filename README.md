@@ -1,8 +1,7 @@
 # Chat Avatar
 
-Extensão do Chrome (Manifest V3) que mostra a **Sava**, uma personagem em pixel art de cabelo verde-azulado, reagindo às respostas do **Claude** e do **Gemini**. Quando a IA termina de responder, a Sava troca de expressão: envergonhada, brava, feliz, triste etc.
+Extensão do Chrome (Manifest V3) que mostra a **Sava**, uma personagem em pixel art de cabelo verde-azulado, reagindo às respostas do **Claude** e do **Gemini** (e, em beta, do ChatGPT, Perplexity, Copilot, DeepSeek e Grok). Quando a IA termina de responder, a Sava troca de expressão: envergonhada, brava, feliz, triste etc.
 
-O ChatGPT foi retirado: o personagem não reagia lá de forma confiável.
 
 Tudo roda localmente. O texto das conversas não sai do navegador.
 
@@ -70,6 +69,17 @@ Além das emoções da IA, a Sava reage a você:
 - **Cochilo:** depois de alguns minutos sem atividade, ela cochila. Qualquer clique, tecla ou rolagem a acorda.
 
 Tudo isso pode ser desligado ou ajustado nas opções. Quem prefere menos movimento no sistema (`prefers-reduced-motion`) não vê os movimentos.
+
+## Sites
+
+- **Claude** e **Gemini**: ligados de saída.
+- **ChatGPT, Perplexity, Copilot, DeepSeek e Grok** (beta): ligue nas opções. O navegador pede a permissão daquele site na hora, e desligar devolve a permissão. Assim uma atualização nunca desativa a extensão de quem já usa (o Chrome desativa extensões que passam a exigir permissões novas). O `src/background.js` registra os scripts nesses sites conforme as permissões dadas; a lista fica em `src/shared/sites.js`.
+- Sinal de "ainda gerando" genérico: `CA.adapters.stopButtonVisible()` procura um botão de parar visível (stop, parar, interromper, 停止...).
+
+## Reações a você
+
+- **Seu tom:** quando você envia uma mensagem, o texto dela é lido uma vez, no navegador, e a Sava reage antes de ficar pensativa: obrigado e risada = feliz, elogio = envergonhada, carinho = apaixonada, bronca = triste, desculpa e cumprimento = sorriso leve. Regras em 6 idiomas em `CA.detect.detectUserTone`. Dá para desligar nas opções.
+- **Limite de uso:** quando o site avisa que o plano acabou ("You've reached your limit", "out of free messages", "atingiu o limite"...), ela fica exausta e mostra um aviso. As frases ficam em `CA.detect.isLimitNotice` e são específicas para não confundir com respostas que só falam de "rate limit".
 
 ## Usar
 
@@ -185,7 +195,7 @@ dist/          ZIPs gerados para enviar à loja
 
 ## Privacidade e permissões
 
-- Permissões: apenas `storage`, mais a injeção em claude.ai e gemini.google.com.
+- Permissões: `storage` e `scripting`, mais a injeção em claude.ai e gemini.google.com. ChatGPT, Perplexity, Copilot, DeepSeek e Grok são permissões opcionais, pedidas só quando você liga o site.
 - Não há backend nem chamadas de rede: a extensão só busca os próprios arquivos de sprite.
 - Configurações ficam em `chrome.storage.sync` e a posição do personagem em `chrome.storage.local`.
 
@@ -202,4 +212,3 @@ A arte de referência usada no protótipo não é deste projeto: fica só na có
 
 - Mini-classificador de emoção (Gemini Nano local ou API key do usuário, com opt-in).
 - Troca de pack no popup.
-- Perplexity, Copilot, DeepSeek etc.

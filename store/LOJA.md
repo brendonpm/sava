@@ -60,10 +60,16 @@ Mostrar uma personagem animada sobre os sites de chat de IA (Claude e Gemini) qu
 Guardar as configurações do usuário (tamanho da personagem, sites ativos, mapa de emoções, efeitos) e a posição da personagem na tela. Nada é enviado para fora do navegador.
 ```
 
-**Justificativa das permissões de host (claude.ai e gemini.google.com):**
+**Justificativa das permissões de host (claude.ai e gemini.google.com, e os sites opcionais):**
 
 ```
-A extensão injeta a personagem nesses dois sites e lê o texto das respostas da IA, localmente, para escolher a expressão. Também detecta quando o usuário digita ou envia uma mensagem (sem ler o conteúdo) e, quando o usuário clica no botão da personagem, escreve no campo de mensagem um texto de instrução fixo. Não roda em nenhum outro site.
+A extensão injeta a personagem nesses sites e lê o texto das respostas da IA, localmente, para escolher a expressão. Quando o usuário envia uma mensagem, lê o texto dela uma vez, localmente, para reagir ao tom (sem guardar nem enviar). Também percebe o aviso do site de limite de uso atingido. Quando o usuário clica no botão da personagem, escreve no campo de mensagem um texto de instrução fixo. Claude e Gemini vêm ativos; ChatGPT, Perplexity, Copilot, DeepSeek e Grok são permissões opcionais, pedidas só quando o usuário liga o site nas opções. Não roda em nenhum outro site.
+```
+
+**Justificativa da permissão `scripting`** (nova na 0.7.0):
+
+```
+Registrar os scripts da personagem apenas nos sites opcionais (ChatGPT, Perplexity, Copilot, DeepSeek, Grok) que o usuário ligar nas opções e autorizar pela permissão opcional do navegador. Ao desligar o site, o registro e a permissão são removidos.
 ```
 
 **Código remoto:** Não, não uso código remoto. (Todo o JavaScript está no pacote.)

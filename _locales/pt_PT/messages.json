@@ -12,7 +12,7 @@
   "toastNoWrite": { "message": "Não consegui escrever no campo." },
   "toastCopied": { "message": "$1 Copiei a instrução: é só colar no chat (Ctrl+V)." },
   "opt_title": { "message": "Sava — Opções" },
-  "opt_sub": { "message": "A Sava reage às respostas da IA no Claude e no Gemini. Tudo roda no seu navegador." },
+  "opt_sub": { "message": "A Sava reage às respostas da IA no Claude, no Gemini e em outros chats de IA. Tudo roda no seu navegador." },
   "opt_sitesH": { "message": "Sites ativos" },
   "opt_instrH": { "message": "Instrução para a IA" },
   "opt_instrHint": { "message": "Clique em 💬 na Sava para enviar no chat aberto, ou cole uma vez nas preferências do Claude ou nas instruções salvas do Gemini. A IA passa a agir como a Sava e marca a emoção de cada resposta; a extensão lê a tag, troca a expressão e esconde a tag da conversa." },
@@ -53,5 +53,14 @@
   "opt_how_fallback": { "message": "nenhuma regra bateu (padrão)" },
   "opt_privH": { "message": "Privacidade" },
   "opt_privText": { "message": "O texto das conversas é lido só para escolher a expressão e nunca é enviado a lugar nenhum. A extensão pede apenas <code>storage</code> e acesso aos sites listados acima." },
-  "opt_saved": { "message": "Salvo" }
+  "opt_saved": { "message": "Salvo" },
+  "opt_tablet": { "message": "Mostrar a Sava também no tablet USB (app Sava Tablet)" },
+  "tabThinking": { "message": "Pensando…" },
+  "tabAnswering": { "message": "Respondendo…" },
+  "tabAnswered": { "message": "Respondi!" },
+  "opt_sitesHint": { "message": "Claude e Gemini já funcionam de saída. Os sites beta pedem permissão para rodar quando você os liga." },
+  "opt_sitesReload": { "message": "Pronto! Recarregue a aba do site para a Sava aparecer." },
+  "opt_reactUser": { "message": "Reagir ao tom das minhas mensagens (obrigado = feliz, bronca = triste)" },
+  "opt_reactLimit": { "message": "Ficar exausta quando a IA atingir o limite de uso" },
+  "toastLimit": { "message": "Ufa… a IA chegou no limite de uso. Vamos dar uma pausa? 😵‍💫" }
 }

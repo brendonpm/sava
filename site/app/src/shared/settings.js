@@ -36,6 +36,8 @@
     showLabel: false, // mostra o nome da emoção sob o personagem
     effects: true, // movimentos e partículas
     reactToTyping: true, // fica atenta enquanto você digita e pensativa depois que você envia
+    reactToUser: true, // reage ao tom da sua mensagem (obrigado = feliz, bronca = triste...)
+    reactToLimit: true, // fica exausta quando o site avisa que o limite de uso acabou
     sleepAfterMin: 3, // cochila depois de X minutos sem atividade (0 = nunca)
     instructionLang: 'auto', // idioma da instrução para a IA: 'auto' (o do navegador) ou en, pt, es, fr, de, ja
     debug: false,

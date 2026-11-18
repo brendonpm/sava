@@ -72,12 +72,12 @@
     "fr": "Sava — Options", "de": "Sava — Optionen", "ja": "Sava — 設定"
   },
   "opt_sub": {
-    "en": "Sava reacts to AI replies on Claude and Gemini. Everything runs in your browser.",
-    "pt_BR": "A Sava reage às respostas da IA no Claude e no Gemini. Tudo roda no seu navegador.",
-    "es": "Sava reacciona a las respuestas de la IA en Claude y Gemini. Todo funciona en tu navegador.",
-    "fr": "Sava réagit aux réponses de l'IA sur Claude et Gemini. Tout fonctionne dans ton navigateur.",
-    "de": "Sava reagiert auf KI-Antworten in Claude und Gemini. Alles läuft in deinem Browser.",
-    "ja": "SavaはClaudeとGeminiのAIの返答に反応します。すべてブラウザ内で動作します。"
+    "en": "Sava reacts to AI replies on Claude, Gemini and other AI chats. Everything runs in your browser.",
+    "pt_BR": "A Sava reage às respostas da IA no Claude, no Gemini e em outros chats de IA. Tudo roda no seu navegador.",
+    "es": "Sava reacciona a las respuestas de la IA en Claude, Gemini y otros chats de IA. Todo funciona en tu navegador.",
+    "fr": "Sava réagit aux réponses de l'IA sur Claude, Gemini et d'autres chats IA. Tout fonctionne dans ton navigateur.",
+    "de": "Sava reagiert auf KI-Antworten in Claude, Gemini und anderen KI-Chats. Alles läuft in deinem Browser.",
+    "ja": "SavaはClaude、Geminiなど、AIチャットの返答に反応します。すべてブラウザ内で動作します。"
   },
   "opt_sitesH": {
     "en": "Active sites", "pt_BR": "Sites ativos", "es": "Sitios activos",
@@ -260,5 +260,54 @@
   },
   "opt_saved": {
     "en": "Saved", "pt_BR": "Salvo", "es": "Guardado", "fr": "Enregistré", "de": "Gespeichert", "ja": "保存しました"
+  },
+  "_tablet": "Textos do recurso interno do tablet: o tools/build.ps1 tira estes do pacote da loja.",
+  "opt_tablet": {
+    "en": "Also show Sava on a USB tablet (Sava Tablet app)", "pt_BR": "Mostrar a Sava também no tablet USB (app Sava Tablet)",
+    "es": "Mostrar a Sava también en una tableta USB (app Sava Tablet)", "fr": "Afficher aussi Sava sur une tablette USB (app Sava Tablet)",
+    "de": "Sava auch auf einem USB-Tablet zeigen (App Sava Tablet)", "ja": "USBタブレットにもSavaを表示（Sava Tabletアプリ）"
+  },
+  "tabThinking": {
+    "en": "Thinking…", "pt_BR": "Pensando…", "es": "Pensando…", "fr": "Je réfléchis…", "de": "Denke nach…", "ja": "考え中…"
+  },
+  "tabAnswering": {
+    "en": "Answering…", "pt_BR": "Respondendo…", "es": "Respondiendo…", "fr": "Je réponds…", "de": "Antworte…", "ja": "回答中…"
+  },
+  "tabAnswered": {
+    "en": "Answered!", "pt_BR": "Respondi!", "es": "¡Respondí!", "fr": "J'ai répondu !", "de": "Geantwortet!", "ja": "回答しました！"
+  },
+  "opt_sitesHint": {
+    "en": "Claude and Gemini work out of the box. The beta sites ask for permission to run when you turn them on.",
+    "pt_BR": "Claude e Gemini já funcionam de saída. Os sites beta pedem permissão para rodar quando você os liga.",
+    "es": "Claude y Gemini funcionan desde el principio. Los sitios beta piden permiso para funcionar cuando los activas.",
+    "fr": "Claude et Gemini fonctionnent d'office. Les sites bêta demandent l'autorisation quand tu les actives.",
+    "de": "Claude und Gemini funktionieren sofort. Die Beta-Websites fragen beim Einschalten nach der Berechtigung.",
+    "ja": "ClaudeとGeminiはすぐに使えます。ベータ版のサイトは、オンにしたときに動作の許可を求めます。"
+  },
+  "opt_sitesReload": {
+    "en": "Done! Reload the site's tab for Sava to appear.", "pt_BR": "Pronto! Recarregue a aba do site para a Sava aparecer.",
+    "es": "¡Listo! Recarga la pestaña del sitio para que aparezca Sava.", "fr": "C'est fait ! Recharge l'onglet du site pour voir Sava.",
+    "de": "Fertig! Lade den Tab der Website neu, damit Sava erscheint.", "ja": "完了！サイトのタブを再読み込みするとSavaが表示されます。"
+  },
+  "opt_reactUser": {
+    "en": "React to the tone of my messages (thanks = happy, scolding = sad)",
+    "pt_BR": "Reagir ao tom das minhas mensagens (obrigado = feliz, bronca = triste)",
+    "es": "Reaccionar al tono de mis mensajes (gracias = feliz, regaño = triste)",
+    "fr": "Réagir au ton de mes messages (merci = heureuse, reproche = triste)",
+    "de": "Auf den Ton meiner Nachrichten reagieren (Danke = glücklich, Tadel = traurig)",
+    "ja": "自分のメッセージの口調に反応する（お礼＝うれしい、叱る＝かなしい）"
+  },
+  "opt_reactLimit": {
+    "en": "Look exhausted when the AI hits its usage limit", "pt_BR": "Ficar exausta quando a IA atingir o limite de uso",
+    "es": "Quedar agotada cuando la IA llegue al límite de uso", "fr": "Avoir l'air épuisée quand l'IA atteint sa limite d'utilisation",
+    "de": "Erschöpft aussehen, wenn die KI ihr Nutzungslimit erreicht", "ja": "AIが利用上限に達したらへとへとになる"
+  },
+  "toastLimit": {
+    "en": "Phew… the AI hit its usage limit. Time for a little break? 😵‍💫",
+    "pt_BR": "Ufa… a IA chegou no limite de uso. Vamos dar uma pausa? 😵‍💫",
+    "es": "Uf… la IA llegó a su límite de uso. ¿Tomamos un descanso? 😵‍💫",
+    "fr": "Ouf… l'IA a atteint sa limite d'utilisation. On fait une petite pause ? 😵‍💫",
+    "de": "Puh… die KI hat ihr Nutzungslimit erreicht. Zeit für eine kleine Pause? 😵‍💫",
+    "ja": "ふう…AIが利用上限に達したみたい。ちょっと休憩しよう？😵‍💫"
   }
 }

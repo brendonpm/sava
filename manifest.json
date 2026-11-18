@@ -2,10 +2,22 @@
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "short_name": "Sava",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
-  "permissions": ["storage"],
+  "permissions": ["storage", "scripting"],
+  "optional_host_permissions": [
+    "http://127.0.0.1/*",
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://www.perplexity.ai/*",
+    "https://perplexity.ai/*",
+    "https://copilot.com/*",
+    "https://www.copilot.com/*",
+    "https://copilot.microsoft.com/*",
+    "https://chat.deepseek.com/*",
+    "https://grok.com/*"
+  ],
   "icons": {
     "16": "assets/icons/icon16.png",
     "32": "assets/icons/icon32.png",
@@ -40,6 +52,11 @@
         "src/content/adapters/registry.js",
         "src/content/adapters/claude.js",
         "src/content/adapters/gemini.js",
+        "src/content/adapters/chatgpt.js",
+        "src/content/adapters/perplexity.js",
+        "src/content/adapters/copilot.js",
+        "src/content/adapters/deepseek.js",
+        "src/content/adapters/grok.js",
         "src/content/tag-hider.js",
         "src/content/watcher.js",
         "src/content/main.js"
@@ -52,7 +69,16 @@
       "resources": ["assets/sprites/*"],
       "matches": [
         "https://claude.ai/*",
-        "https://gemini.google.com/*"
+        "https://gemini.google.com/*",
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://www.perplexity.ai/*",
+        "https://perplexity.ai/*",
+        "https://copilot.com/*",
+        "https://www.copilot.com/*",
+        "https://copilot.microsoft.com/*",
+        "https://chat.deepseek.com/*",
+        "https://grok.com/*"
       ]
     }
   ]

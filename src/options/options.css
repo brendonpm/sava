@@ -75,3 +75,6 @@ tbody tr:hover { background: var(--row-hover); }
 /* idioma da instrução e nome traduzido das emoções */
 label.inline { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-size: 14px; color: var(--muted); }
 td.name .gloss { color: var(--muted); font-size: 12px; }
+
+/* selo dos sites em teste */
+.beta { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 1px 6px; border-radius: 999px; background: rgba(232,155,44,.18); color: #e89b2c; }

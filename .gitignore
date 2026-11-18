@@ -4,6 +4,10 @@ dev/legacy/
 # Pacotes gerados por tools/build.ps1 (o da loja); o do site (site/download/) é versionado
 dist/
 
+# App do tablet: APK e quadros gerados (tablet/build.ps1 e tablet/tools/export-frames.ps1)
+tablet/build/
+tablet/app/assets/frames/
+
 # Configuração local do editor/assistente
 .claude/
 

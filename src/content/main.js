@@ -18,6 +18,27 @@
 
   const log = (...a) => settings.debug && console.log('[Chat Avatar]', ...a);
 
+  // Espelhamento opcional da expressão (recurso interno; o pacote da loja remove o bloco abaixo
+  // e esta função fica sem efeito). mirror(emoção, 'thinking' | 'answering' | 'answered', intensidade)
+  let mirror = () => {};
+  // @tablet-start
+  // Tablet USB (opção "tabletUsb"): manda só a expressão e uma frase de estado, nunca a conversa.
+  const TABLET_TEXT = {
+    thinking: ['tabThinking', 'Thinking…'],
+    answering: ['tabAnswering', 'Answering…'],
+    answered: ['tabAnswered', 'Answered!'],
+  };
+  mirror = (emotion, phase, intensity) => {
+    if (!settings.tabletUsb || !avatar) return;
+    const emo = avatar.frameFor(emotion) || emotion;
+    const [key, fallback] = TABLET_TEXT[phase];
+    const text = CA.i18n.t(key, null, fallback);
+    try {
+      chrome.runtime.sendMessage({ type: 'tablet', state: { emo, text, src: adapter.label, a: intensity } }).catch(() => {});
+    } catch (_) {} // extensão recarregada: o contexto antigo some
+  };
+  // @tablet-end
+
   const stopThinking = () => {
     clearTimeout(thinkTimer);
     if (avatar) avatar.setThinking(false);
@@ -31,10 +52,12 @@
     onStart(el) {
       log('streaming começou');
       lastActivity = Date.now();
+      clearTimeout(toneTimer);
       stopThinking();
       avatar.wake(true);
       avatar.setTalking(true);
       avatar.setEmotion('neutro');
+      mirror('neutro', 'answering');
     },
     onUpdate(el, text) {
       lastActivity = Date.now();
@@ -43,6 +66,7 @@
       if (tag && (!prev || prev.emotion !== tag.emotion || prev.intensity !== tag.intensity)) {
         tagEmotion.set(el, tag);
         avatar.setEmotion(tag.emotion, { intensity: tag.intensity });
+        mirror(tag.emotion, 'answering', tag.intensity);
         log('tag', tag.raw);
       }
       if (settings.hideTag) CA.tagHider.hide(el, true);
@@ -51,12 +75,16 @@
       lastActivity = Date.now();
       avatar.setTalking(false);
       if (settings.hideTag) CA.tagHider.hide(el);
+      // resposta curta que é, na verdade, o aviso de limite do plano
+      const plain = CA.tagHider.readableText(el);
+      if (plain.length < 800 && CA.detect.isLimitNotice(plain)) return limitReached('resposta');
       let result;
       const tag = tagEmotion.get(el);
       if (tag) result = { emotion: tag.emotion, intensity: tag.intensity, source: 'tag' };
       else result = CA.detect.detect(CA.tagHider.readableText(el), settings);
       log('streaming terminou ->', result);
       avatar.setEmotion(result.emotion, { intensity: result.intensity, returnAfter: settings.returnToNeutralMs });
+      mirror(result.emotion, 'answered', result.intensity);
     },
   };
 
@@ -80,28 +108,93 @@
     avatar.setThinking(true);
     clearTimeout(thinkTimer);
     thinkTimer = setTimeout(stopThinking, THINK_TIMEOUT_MS);
+    mirror('pensativa', 'thinking', 1);
     log('pensando');
+  }
+
+  // Você enviou uma mensagem: primeiro ela reage ao seu tom (obrigado, bronca, elogio...),
+  // depois fica pensativa esperando a resposta. O texto é lido só aqui, na hora, e não é guardado.
+  const TONE_MS = 1700;
+  let toneTimer = null;
+  function onSend(text) {
+    clearTimeout(toneTimer);
+    const tone = settings.reactToUser !== false ? CA.detect.detectUserTone(text) : null;
+    if (!tone) return startThinking();
+    log('seu tom ->', tone);
+    avatar.wake(true);
+    avatar.setEmotion(tone.emotion, { intensity: tone.intensity });
+    toneTimer = setTimeout(() => { if (!(watcher && watcher.streaming)) startThinking(); }, TONE_MS);
   }
 
   function onKey(e) {
     if (!avatar || isOurs(e)) return;
     activity();
     const ed = editableOf(e.target);
-    if (!ed || !settings.reactToTyping) return;
-    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && hasText(ed)) startThinking();
-    else if (e.key.length === 1 || e.key === 'Backspace') avatar.nudge();
+    if (!ed) return;
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && hasText(ed)) onSend(textOf(ed));
+    else if (settings.reactToTyping && (e.key.length === 1 || e.key === 'Backspace')) avatar.nudge();
   }
 
-  // Botão de enviar dos sites (Claude e Gemini usam "Send message" / "Enviar mensagem").
+  // Botão de enviar: o do adaptador do site ou um botão com "send/enviar/submit" no rótulo.
   const SEND_LABEL = /\b(send|enviar|submit)\b/i;
+  function isSendButton(btn) {
+    if ((adapter.sendSelectors || []).some((s) => { try { return btn.matches(s); } catch (_) { return false; } })) return true;
+    const label = `${btn.getAttribute('aria-label') || ''} ${btn.getAttribute('data-testid') || ''} ${btn.title || ''}`;
+    return SEND_LABEL.test(label);
+  }
   function onPointer(e) {
     if (!avatar || isOurs(e)) return;
     activity();
-    const btn = e.target instanceof Element && e.target.closest('button');
-    if (!btn || !settings.reactToTyping) return;
-    const label = `${btn.getAttribute('aria-label') || ''} ${btn.getAttribute('data-testid') || ''} ${btn.title || ''}`;
-    if (SEND_LABEL.test(label)) startThinking();
+    const btn = e.target instanceof Element && e.target.closest('button, [role="button"]');
+    if (!btn || !isSendButton(btn)) return;
+    const ed = findComposer();
+    const text = ed ? textOf(ed) : '';
+    if (text.trim()) onSend(text);
   }
+
+  // ---------- aviso de limite de uso: ela fica exausta ----------
+  const LIMIT_COOLDOWN_MS = 120000;
+  let lastLimitAt = 0;
+  function limitReached(where) {
+    if (!avatar || settings.reactToLimit === false) return;
+    if (Date.now() - lastLimitAt < LIMIT_COOLDOWN_MS) return;
+    lastLimitAt = Date.now();
+    log('limite de uso detectado em', where);
+    clearTimeout(toneTimer);
+    stopThinking();
+    avatar.setTalking(false);
+    avatar.wake(true);
+    avatar.setEmotion(avatar.frameFor('entediada') ? 'entediada' : 'triste', { intensity: 3, returnAfter: 20000 });
+    avatar.toast(CA.i18n.t('toastLimit', null, 'Phew… the AI hit its usage limit. Time for a little break? 😵‍💫'), 6000);
+    mirror('entediada', 'answered', 3);
+  }
+
+  // Avisos que os sites mostram fora da resposta (faixas, pop-ups). Olha só o que entra na página,
+  // em pedaços curtos, fora das mensagens da IA e do campo de mensagem.
+  let pendingNodes = [];
+  let limitScan = null;
+  function scanForLimit() {
+    limitScan = null;
+    const nodes = pendingNodes;
+    pendingNodes = [];
+    if (!avatar || settings.reactToLimit === false) return;
+    const messages = CA.adapters.getMessages(adapter);
+    const composer = findComposer();
+    for (const n of nodes) {
+      const el = n.nodeType === Node.TEXT_NODE ? n.parentElement : n;
+      if (!el || !el.isConnected || avatar.host.contains(el)) continue;
+      if (composer && composer.contains(el)) continue;
+      if (messages.some((m) => m.contains(el) || el.contains(m))) continue;
+      const text = (el.textContent || '').trim();
+      if (text.length < 12 || text.length > 400) continue;
+      if (CA.detect.isLimitNotice(text)) return limitReached('aviso da página');
+    }
+  }
+  new MutationObserver((records) => {
+    for (const r of records) for (const n of r.addedNodes) if (n.nodeType === Node.ELEMENT_NODE || n.nodeType === Node.TEXT_NODE) pendingNodes.push(n);
+    if (pendingNodes.length > 500) pendingNodes = pendingNodes.slice(-500);
+    if (!limitScan && pendingNodes.length) limitScan = setTimeout(scanForLimit, 600);
+  }).observe(document.documentElement, { childList: true, subtree: true });
 
   // ---------- botão 💬: escreve a instrução no campo de mensagem e envia ----------
   const sleepMs = (ms) => new Promise((r) => setTimeout(r, ms));

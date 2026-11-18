@@ -23,10 +23,7 @@
     }
   }
 
-  const SITES = [
-    { id: 'claude', label: 'Claude' },
-    { id: 'gemini', label: 'Gemini' },
-  ];
+  const SITES = CA.sites.SITES;
 
   let settings = await CA.settings.load();
   const pack = await CA.SpritePack.load(settings.pack);
@@ -46,16 +43,38 @@
   }
 
   // ---------- sites ----------
+  // Claude e Gemini já vêm com permissão. Os outros (beta) pedem a permissão do site ao ligar,
+  // e a devolvem ao desligar; o service worker registra ou retira os scripts sozinho.
+  const canAsk = !!(chrome.permissions && chrome.permissions.request);
   for (const s of SITES) {
     const label = document.createElement('label');
     const cb = document.createElement('input');
     cb.type = 'checkbox';
     cb.checked = settings.enabledSites[s.id] !== false;
-    cb.addEventListener('change', () => {
+    if (!s.builtin) {
+      cb.checked = false;
+      if (canAsk) chrome.permissions.contains({ origins: s.origins }).then((ok) => { cb.checked = ok && settings.enabledSites[s.id] !== false; });
+    }
+    cb.addEventListener('change', async () => {
+      if (!s.builtin && canAsk) {
+        if (cb.checked) {
+          const ok = await chrome.permissions.request({ origins: s.origins }).catch(() => false);
+          if (!ok) { cb.checked = false; return; }
+          $('sitesHint').hidden = false;
+        } else {
+          await chrome.permissions.remove({ origins: s.origins }).catch(() => {});
+        }
+      }
       settings.enabledSites[s.id] = cb.checked;
       save();
     });
     label.append(cb, ' ' + s.label);
+    if (s.beta) {
+      const b = document.createElement('span');
+      b.className = 'beta';
+      b.textContent = 'beta';
+      label.append(' ', b);
+    }
     $('sites').append(label);
   }
 
@@ -202,10 +221,26 @@
     save();
   });
 
-  for (const key of ['effects', 'reactToTyping', 'useKeywords', 'hideTag', 'showLabel', 'debug']) {
+  for (const key of ['effects', 'reactToTyping', 'reactToUser', 'reactToLimit', 'useKeywords', 'hideTag', 'showLabel', 'debug']) {
     $(key).checked = !!settings[key];
     $(key).addEventListener('change', (e) => { settings[key] = e.target.checked; save(); });
   }
+
+  // @tablet-start
+  // Tablet USB (recurso interno; fora do pacote da loja): pede a permissão para 127.0.0.1 só ao ligar.
+  $('tabletUsb').checked = !!settings.tabletUsb;
+  $('tabletUsb').addEventListener('change', async (e) => {
+    if (e.target.checked) {
+      const ok = await chrome.permissions.request({ origins: ['http://127.0.0.1/*'] }).catch(() => false);
+      if (!ok) {
+        e.target.checked = false;
+        return;
+      }
+    }
+    settings.tabletUsb = e.target.checked;
+    save();
+  });
+  // @tablet-end
 
   $('think').addEventListener('click', () => {
     avatar.setThinking(true);

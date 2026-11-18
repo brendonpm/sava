@@ -12,7 +12,7 @@
   "toastNoWrite": { "message": "Je n'ai pas pu écrire dans la zone de message." },
   "toastCopied": { "message": "$1 J'ai copié l'instruction : colle-la simplement dans le chat (Ctrl+V)." },
   "opt_title": { "message": "Sava — Options" },
-  "opt_sub": { "message": "Sava réagit aux réponses de l'IA sur Claude et Gemini. Tout fonctionne dans ton navigateur." },
+  "opt_sub": { "message": "Sava réagit aux réponses de l'IA sur Claude, Gemini et d'autres chats IA. Tout fonctionne dans ton navigateur." },
   "opt_sitesH": { "message": "Sites actifs" },
   "opt_instrH": { "message": "Instruction pour l'IA" },
   "opt_instrHint": { "message": "Clique sur 💬 sur Sava pour l'envoyer dans le chat ouvert, ou colle-la une fois dans les préférences de Claude ou les infos enregistrées de Gemini. L'IA se met à jouer Sava et indique l'émotion de chaque réponse ; l'extension lit la balise, change l'expression et masque la balise du chat." },
@@ -53,5 +53,14 @@
   "opt_how_fallback": { "message": "aucune règle ne correspond (par défaut)" },
   "opt_privH": { "message": "Confidentialité" },
   "opt_privText": { "message": "Le texte des conversations est lu uniquement pour choisir l'expression et n'est jamais envoyé nulle part. L'extension demande seulement <code>storage</code> et l'accès aux sites ci-dessus." },
-  "opt_saved": { "message": "Enregistré" }
+  "opt_saved": { "message": "Enregistré" },
+  "opt_tablet": { "message": "Afficher aussi Sava sur une tablette USB (app Sava Tablet)" },
+  "tabThinking": { "message": "Je réfléchis…" },
+  "tabAnswering": { "message": "Je réponds…" },
+  "tabAnswered": { "message": "J'ai répondu !" },
+  "opt_sitesHint": { "message": "Claude et Gemini fonctionnent d'office. Les sites bêta demandent l'autorisation quand tu les actives." },
+  "opt_sitesReload": { "message": "C'est fait ! Recharge l'onglet du site pour voir Sava." },
+  "opt_reactUser": { "message": "Réagir au ton de mes messages (merci = heureuse, reproche = triste)" },
+  "opt_reactLimit": { "message": "Avoir l'air épuisée quand l'IA atteint sa limite d'utilisation" },
+  "toastLimit": { "message": "Ouf… l'IA a atteint sa limite d'utilisation. On fait une petite pause ? 😵‍💫" }
 }

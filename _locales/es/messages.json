@@ -12,7 +12,7 @@
   "toastNoWrite": { "message": "No pude escribir en el campo." },
   "toastCopied": { "message": "$1 Copié la instrucción: solo pégala en el chat (Ctrl+V)." },
   "opt_title": { "message": "Sava — Opciones" },
-  "opt_sub": { "message": "Sava reacciona a las respuestas de la IA en Claude y Gemini. Todo funciona en tu navegador." },
+  "opt_sub": { "message": "Sava reacciona a las respuestas de la IA en Claude, Gemini y otros chats de IA. Todo funciona en tu navegador." },
   "opt_sitesH": { "message": "Sitios activos" },
   "opt_instrH": { "message": "Instrucción para la IA" },
   "opt_instrHint": { "message": "Haz clic en 💬 sobre Sava para enviarla en el chat abierto, o pégala una vez en las preferencias de Claude o en la información guardada de Gemini. La IA empieza a actuar como Sava y marca la emoción de cada respuesta; la extensión lee la etiqueta, cambia la expresión y la oculta del chat." },
@@ -53,5 +53,14 @@
   "opt_how_fallback": { "message": "ninguna regla coincidió (predeterminado)" },
   "opt_privH": { "message": "Privacidad" },
   "opt_privText": { "message": "El texto de las conversaciones solo se lee para elegir la expresión y nunca se envía a ningún lugar. La extensión solo pide <code>storage</code> y acceso a los sitios de arriba." },
-  "opt_saved": { "message": "Guardado" }
+  "opt_saved": { "message": "Guardado" },
+  "opt_tablet": { "message": "Mostrar a Sava también en una tableta USB (app Sava Tablet)" },
+  "tabThinking": { "message": "Pensando…" },
+  "tabAnswering": { "message": "Respondiendo…" },
+  "tabAnswered": { "message": "¡Respondí!" },
+  "opt_sitesHint": { "message": "Claude y Gemini funcionan desde el principio. Los sitios beta piden permiso para funcionar cuando los activas." },
+  "opt_sitesReload": { "message": "¡Listo! Recarga la pestaña del sitio para que aparezca Sava." },
+  "opt_reactUser": { "message": "Reaccionar al tono de mis mensajes (gracias = feliz, regaño = triste)" },
+  "opt_reactLimit": { "message": "Quedar agotada cuando la IA llegue al límite de uso" },
+  "toastLimit": { "message": "Uf… la IA llegó a su límite de uso. ¿Tomamos un descanso? 😵‍💫" }
 }

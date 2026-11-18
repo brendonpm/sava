@@ -212,5 +212,84 @@
     return { emotion: settings.fallbackEmotion || 'neutro', intensity: 1, source: 'fallback' };
   }
 
-  CA.detect = { parseTag, detectByKeywords, detect, TAG_SOURCE };
+  // ---------- o seu tom (a mensagem que você envia) ----------
+  // Agradecimento e risada deixam ela feliz, elogio deixa ela sem graça, carinho apaixonada,
+  // bronca triste, desculpa e cumprimento com um sorriso leve. Lido só na hora, no navegador.
+  const USER_RULES = {
+    feliz: [
+      [words(
+        'obrigad[ao]s?', 'valeu', 'brigad[ao]', 'muito obrigad[ao]', 'agradeço',
+        'thanks?', 'thank you', 'thx', 'ty', 'cheers', 'appreciate it',
+        'gracias', 'muchas gracias', 'merci', 'merci beaucoup', 'danke', 'vielen dank', 'danke schön',
+        'k{3,}', 'ha(?:ha)+', 'ja(?:ja)+', 'rs(?:rs)+', 'lol', 'lmao'), 2],
+      [raw('ありがとう|サンキュー|感謝|笑'), 2],
+      [raw('🙏|😄|😂|🤣|😊|👍'), 2],
+    ],
+    vergonha: [
+      [words(
+        'você é (?:incrível|demais|ótima|a melhor|genial|fofa|linda)', 'boa,? sava', 'mandou bem', 'arrasou', 'parabéns,? sava',
+        "you'?re (?:amazing|awesome|the best|great|brilliant|so smart|cute)", 'good job', 'great job', 'well done', 'nice work', 'good girl',
+        'eres (?:increíble|la mejor|genial)', 'buen trabajo', 'tu es (?:géniale|incroyable|la meilleure)', 'bien joué', 'bravo',
+        'du bist (?:toll|großartig|die beste|klasse)', 'gut gemacht', 'super gemacht'), 3],
+      [raw('すごい|天才|よくできました|えらい|さすが'), 3],
+      [raw('👏|🌟|💯'), 2],
+    ],
+    apaixonada: [
+      [words('te amo', 'amo você', 'te adoro', 'adoro você', 'love you', 'luv u', 'te quiero', "je t'aime", "je t'adore", 'ich liebe dich', 'hab dich lieb'), 3],
+      [raw('大好き|愛してる|❤️|😍|🥰|💕|💖|😘|♥'), 3],
+    ],
+    triste: [
+      [words(
+        'errad[ao]', 'você errou', 'está errado', 'tá errado', 'de novo isso', 'burra', 'inútil', 'péssim[ao]', 'horrível', 'que droga', 'não presta',
+        'wrong', 'you got it wrong', "that'?s not (?:it|right)", 'stupid', 'useless', 'terrible', 'awful', 'dumb', 'garbage', 'you suck',
+        'incorrecto', 'te equivocaste', 'tonta', 'faux', "c'est nul", 'nulle?', 'tu te trompes', 'falsch', 'das ist falsch', 'dumm', 'nutzlos', 'schlecht'), 3],
+      [raw('違う|間違|ダメ|だめ|役に立たない|ひどい'), 3],
+      [raw('😠|😡|🤬|👎|🙄|😤'), 2],
+    ],
+    contente: [
+      [words(
+        'desculpa', 'desculpe', 'foi mal', 'sorry', 'my bad', 'perdón', 'disculpa', 'pardon', 'désolée?', 'entschuldigung', 'sorry',
+        'oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite', 'hello', 'hi', 'hey', 'good morning', 'hola', 'buenos días', 'bonjour', 'salut', 'hallo', 'guten (?:morgen|tag)'), 1],
+      [raw('ごめん|すみません|こんにちは|おはよう|こんばんは'), 1],
+    ],
+  };
+
+  /** Tom da sua mensagem: {emotion, intensity} ou null se nada bateu. */
+  function detectUserTone(text) {
+    if (!text) return null;
+    const t = text.slice(0, 1500);
+    let best = null, bestScore = 0;
+    for (const [emo, rules] of Object.entries(USER_RULES)) {
+      let s = 0;
+      for (const [re, w] of rules) {
+        const m = t.match(re);
+        if (m) s += Math.min(m.length, 3) * w;
+      }
+      if (s > bestScore) { best = emo; bestScore = s; }
+    }
+    return best ? { emotion: best, intensity: bestScore >= 6 ? 3 : bestScore >= 3 ? 2 : 1 } : null;
+  }
+
+  // ---------- aviso de limite de uso ----------
+  // Frases que os sites usam quando o plano acaba ("You've reached your limit", "out of free
+  // messages", "atingiu o limite"...). Bem específicas, para não confundir com uma resposta
+  // que só fala de "rate limit" de alguma API.
+  const LIMIT = new RegExp(
+    [
+      String.raw`you(?:'ve| have)? (?:reached|hit|run out of|used up)[^.!?\n]{0,50}\b(?:limit|messages|usage|quota)`,
+      String.raw`\bout of free messages\b`,
+      String.raw`\b(?:usage|message|daily|hourly|chat) (?:limit|cap) (?:reached|exceeded|hit)\b`,
+      String.raw`\breached (?:the|your) (?:\w+ ){0,3}(?:usage |message |daily )?limit\b`,
+      String.raw`\b(?:atingiu|alcançou|chegou a[oa]|esgotou)[^.!?\n]{0,40}\blimite\b`,
+      String.raw`\blimite (?:de|diário de) (?:uso|mensagens)\b[^.!?\n]{0,30}\b(?:atingido|esgotado|alcançado)`,
+      String.raw`\b(?:alcanzado|llegado a|agotado)[^.!?\n]{0,40}\blímite\b`,
+      String.raw`\b(?:atteint|épuisé)[^.!?\n]{0,40}\blimite\b`,
+      String.raw`\b(?:nutzungslimit|nachrichtenlimit|tageslimit)\b|\blimit (?:erreicht|überschritten)\b`,
+      String.raw`上限に達|利用上限|制限に達|回数の上限`,
+    ].join('|'),
+    'iu',
+  );
+  const isLimitNotice = (text) => !!text && LIMIT.test(text);
+
+  CA.detect = { parseTag, detectByKeywords, detect, detectUserTone, isLimitNotice, TAG_SOURCE };
 })();

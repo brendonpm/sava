@@ -2,13 +2,13 @@
 window.PRIVACY_I18N = {
   en: {
     title: `Privacy policy — Sava`, h1: `Privacy policy`, install: `Install`, back: `Back to home`, indep: `independent project`,
-    updated: `Extension “Sava — pixel art companion for AI chats” · Updated November 15, 2026`,
+    updated: `Extension “Sava — pixel art companion for AI chats” · Updated November 18, 2026`,
     body: `
 <p><b>Summary:</b> Sava does not collect your data, does not store it outside your browser and does not send it to anyone. Everything it does happens on your computer.</p>
 <h2>What the extension accesses</h2>
 <ul>
-<li><b>AI reply text</b> on claude.ai and gemini.google.com. It is read to pick the character's expression, on the spot and inside your browser. The text is not saved and never leaves your computer.</li>
-<li><b>Whether you are typing or have sent a message</b> on those sites, so the character can look attentive or thoughtful. The extension only notices that a key was pressed or that the send button was clicked; what you type is not read or stored.</li>
+<li><b>AI reply text</b> on claude.ai and gemini.google.com, and on the beta sites you turn on in the options (ChatGPT, Perplexity, Copilot, DeepSeek, Grok). It is read to pick the character's expression, on the spot and inside your browser. The extension also watches for the site's own “usage limit reached” notice, so the character can look exhausted. The text is not saved and never leaves your computer.</li>
+<li><b>The text of a message you send</b> on those sites, once, at the moment you send it, to react to your tone (a thank-you makes her happy, a scolding makes her sad). While you type, the extension only notices that keys are being pressed. Nothing you write is saved or sent anywhere. You can turn this off in the options.</li>
 <li><b>The message box</b>, only when you click the character's 💬 button: at that moment the extension writes Sava's instruction text into the box and sends it to the chat, as if you had typed it. This text is fixed and visible on the options page.</li>
 </ul>
 <h2>What the extension stores</h2>
@@ -22,11 +22,13 @@ window.PRIVACY_I18N = {
 <li>It does not send data to servers: the extension has no server and makes no network requests, except to load its own images, which come from inside the extension.</li>
 <li>It does not use cookies, analytics, tracking or ads.</li>
 <li>It does not sell or share data, because it does not collect any.</li>
-<li>It does not run on any site other than claude.ai and gemini.google.com.</li>
+<li>It does not run on any site other than claude.ai and gemini.google.com, except the beta sites you turn on yourself in the options (the browser asks for your permission first, and you can withdraw it at any time).</li>
 </ul>
 <h2>Permissions</h2>
 <ul>
 <li><code>storage</code>: save the settings and the character's position.</li>
+<li><code>scripting</code>: show the character on the beta sites you turn on, and only on those.</li>
+<li>Optional access to ChatGPT, Perplexity, Copilot, DeepSeek and Grok: requested only when you turn one of those sites on in the options, and removed when you turn it off.</li>
 <li>Access to <code>https://claude.ai/*</code> and <code>https://gemini.google.com/*</code>: show the character on those sites and read the replies to pick the expression.</li>
 </ul>
 <h2>The AI sites</h2>
@@ -41,13 +43,13 @@ window.PRIVACY_I18N = {
   },
   pt: {
     title: `Política de privacidade — Sava`, h1: `Política de privacidade`, install: `Instalar`, back: `Voltar ao início`, indep: `projeto independente`,
-    updated: `Extensão “Sava — personagem para chats de IA” · Atualizada em 15 de novembro de 2026`,
+    updated: `Extensão “Sava — personagem para chats de IA” · Atualizada em 18 de novembro de 2026`,
     body: `
 <p><b>Resumo:</b> a Sava não coleta, não guarda fora do seu navegador e não envia a ninguém nenhum dado seu. Tudo o que ela faz acontece no seu computador.</p>
 <h2>O que a extensão acessa</h2>
 <ul>
-<li><b>Texto das respostas da IA</b> nos sites claude.ai e gemini.google.com. Ele é lido para escolher a expressão da personagem, na hora e no seu navegador. O texto não é salvo e não sai do seu computador.</li>
-<li><b>Se você está digitando ou enviou uma mensagem</b> nesses sites, para a personagem ficar atenta ou pensativa. A extensão só percebe que uma tecla foi pressionada ou que o botão de enviar foi clicado; o conteúdo do que você digita não é lido nem guardado.</li>
+<li><b>Texto das respostas da IA</b> nos sites claude.ai e gemini.google.com, e nos sites beta que você ligar nas opções (ChatGPT, Perplexity, Copilot, DeepSeek, Grok). Ele é lido para escolher a expressão da personagem, na hora e no seu navegador. A extensão também percebe o aviso do próprio site de “limite de uso atingido”, para a personagem ficar exausta. O texto não é salvo e não sai do seu computador.</li>
+<li><b>O texto de uma mensagem que você envia</b> nesses sites, uma vez, no momento do envio, para reagir ao seu tom (um obrigado deixa ela feliz, uma bronca deixa ela triste). Enquanto você digita, a extensão só percebe que teclas estão sendo pressionadas. Nada do que você escreve é salvo ou enviado a lugar nenhum. Dá para desligar isso nas opções.</li>
 <li><b>Campo de mensagem</b>, apenas quando você clica no botão 💬 da personagem: nesse momento a extensão escreve no campo o texto de instrução da Sava e o envia ao chat, como se você tivesse digitado. Esse texto é fixo e está visível na página de opções.</li>
 </ul>
 <h2>O que a extensão guarda</h2>
@@ -61,11 +63,13 @@ window.PRIVACY_I18N = {
 <li>Não envia dados para servidores: a extensão não tem servidor e não faz requisições de rede, a não ser para carregar as próprias imagens, que vêm de dentro dela.</li>
 <li>Não usa cookies, análise de uso, rastreamento ou anúncios.</li>
 <li>Não vende nem compartilha dados, porque não coleta nenhum.</li>
-<li>Não roda em outros sites além de claude.ai e gemini.google.com.</li>
+<li>Não roda em outros sites além de claude.ai e gemini.google.com, exceto nos sites beta que você mesmo ligar nas opções (o navegador pede a sua permissão antes, e você pode retirá-la quando quiser).</li>
 </ul>
 <h2>Permissões</h2>
 <ul>
 <li><code>storage</code>: guardar as configurações e a posição da personagem.</li>
+<li><code>scripting</code>: mostrar a personagem nos sites beta que você ligar, e só neles.</li>
+<li>Acesso opcional ao ChatGPT, Perplexity, Copilot, DeepSeek e Grok: pedido só quando você liga um desses sites nas opções, e retirado quando você desliga.</li>
 <li>Acesso a <code>https://claude.ai/*</code> e <code>https://gemini.google.com/*</code>: mostrar a personagem nesses sites e ler as respostas para escolher a expressão.</li>
 </ul>
 <h2>Os sites de IA</h2>
@@ -80,13 +84,13 @@ window.PRIVACY_I18N = {
   },
   es: {
     title: `Política de privacidad — Sava`, h1: `Política de privacidad`, install: `Instalar`, back: `Volver al inicio`, indep: `proyecto independiente`,
-    updated: `Extensión “Sava — compañera pixel art para chats de IA” · Actualizada el 15 de noviembre de 2026`,
+    updated: `Extensión “Sava — compañera pixel art para chats de IA” · Actualizada el 18 de noviembre de 2026`,
     body: `
 <p><b>Resumen:</b> Sava no recopila tus datos, no los guarda fuera de tu navegador y no los envía a nadie. Todo lo que hace ocurre en tu computadora.</p>
 <h2>A qué accede la extensión</h2>
 <ul>
-<li><b>Texto de las respuestas de la IA</b> en claude.ai y gemini.google.com. Se lee para elegir la expresión del personaje, en el momento y dentro de tu navegador. El texto no se guarda y nunca sale de tu computadora.</li>
-<li><b>Si estás escribiendo o enviaste un mensaje</b> en esos sitios, para que el personaje se muestre atento o pensativo. La extensión solo nota que se presionó una tecla o que se hizo clic en el botón de enviar; lo que escribes no se lee ni se guarda.</li>
+<li><b>Texto de las respuestas de la IA</b> en claude.ai y gemini.google.com, y en los sitios beta que actives en las opciones (ChatGPT, Perplexity, Copilot, DeepSeek, Grok). Se lee para elegir la expresión del personaje, en el momento y dentro de tu navegador. La extensión también detecta el aviso del propio sitio de “límite de uso alcanzado”, para que el personaje se vea agotado. El texto no se guarda y nunca sale de tu computadora.</li>
+<li><b>El texto de un mensaje que envías</b> en esos sitios, una vez, en el momento del envío, para reaccionar a tu tono (un gracias la pone feliz, un regaño la pone triste). Mientras escribes, la extensión solo nota que se presionan teclas. Nada de lo que escribes se guarda ni se envía a ningún lugar. Puedes desactivarlo en las opciones.</li>
 <li><b>El campo de mensaje</b>, solo cuando haces clic en el botón 💬 del personaje: en ese momento la extensión escribe en el campo el texto de instrucción de Sava y lo envía al chat, como si lo hubieras escrito tú. Este texto es fijo y se puede ver en la página de opciones.</li>
 </ul>
 <h2>Qué guarda la extensión</h2>
@@ -100,11 +104,13 @@ window.PRIVACY_I18N = {
 <li>No envía datos a servidores: la extensión no tiene servidor y no hace solicitudes de red, salvo para cargar sus propias imágenes, que vienen de dentro de ella.</li>
 <li>No usa cookies, analítica, rastreo ni anuncios.</li>
 <li>No vende ni comparte datos, porque no recopila ninguno.</li>
-<li>No funciona en otros sitios aparte de claude.ai y gemini.google.com.</li>
+<li>No funciona en otros sitios aparte de claude.ai y gemini.google.com, salvo en los sitios beta que tú mismo actives en las opciones (el navegador te pide permiso antes, y puedes retirarlo cuando quieras).</li>
 </ul>
 <h2>Permisos</h2>
 <ul>
 <li><code>storage</code>: guardar la configuración y la posición del personaje.</li>
+<li><code>scripting</code>: mostrar el personaje en los sitios beta que actives, y solo en ellos.</li>
+<li>Acceso opcional a ChatGPT, Perplexity, Copilot, DeepSeek y Grok: se pide solo cuando activas uno de esos sitios en las opciones, y se retira cuando lo desactivas.</li>
 <li>Acceso a <code>https://claude.ai/*</code> y <code>https://gemini.google.com/*</code>: mostrar el personaje en esos sitios y leer las respuestas para elegir la expresión.</li>
 </ul>
 <h2>Los sitios de IA</h2>
@@ -119,13 +125,13 @@ window.PRIVACY_I18N = {
   },
   fr: {
     title: `Politique de confidentialité — Sava`, h1: `Politique de confidentialité`, install: `Installer`, back: `Retour à l'accueil`, indep: `projet indépendant`,
-    updated: `Extension « Sava — compagne en pixel art pour les chats IA » · Mise à jour le 15 novembre 2026`,
+    updated: `Extension « Sava — compagne en pixel art pour les chats IA » · Mise à jour le 18 novembre 2026`,
     body: `
 <p><b>En bref :</b> Sava ne collecte pas tes données, ne les conserve pas en dehors de ton navigateur et ne les envoie à personne. Tout ce qu'elle fait se passe sur ton ordinateur.</p>
 <h2>Ce à quoi l'extension accède</h2>
 <ul>
-<li><b>Le texte des réponses de l'IA</b> sur claude.ai et gemini.google.com. Il est lu pour choisir l'expression du personnage, sur le moment et dans ton navigateur. Le texte n'est pas enregistré et ne quitte jamais ton ordinateur.</li>
-<li><b>Le fait que tu tapes ou que tu as envoyé un message</b> sur ces sites, pour que le personnage paraisse attentif ou pensif. L'extension remarque seulement qu'une touche a été pressée ou que le bouton d'envoi a été cliqué ; ce que tu tapes n'est ni lu ni enregistré.</li>
+<li><b>Le texte des réponses de l'IA</b> sur claude.ai et gemini.google.com, et sur les sites bêta que tu actives dans les options (ChatGPT, Perplexity, Copilot, DeepSeek, Grok). Il est lu pour choisir l'expression du personnage, sur le moment et dans ton navigateur. L'extension repère aussi l'avis du site lui-même indiquant que la « limite d'utilisation est atteinte », pour que le personnage ait l'air épuisé. Le texte n'est pas enregistré et ne quitte jamais ton ordinateur.</li>
+<li><b>Le texte d'un message que tu envoies</b> sur ces sites, une seule fois, au moment de l'envoi, pour réagir à ton ton (un merci la rend heureuse, un reproche la rend triste). Pendant que tu tapes, l'extension remarque seulement que des touches sont pressées. Rien de ce que tu écris n'est enregistré ni envoyé nulle part. Tu peux désactiver cela dans les options.</li>
 <li><b>La zone de message</b>, uniquement quand tu cliques sur le bouton 💬 du personnage : à ce moment, l'extension écrit dans la zone le texte d'instruction de Sava et l'envoie au chat, comme si tu l'avais tapé. Ce texte est fixe et visible sur la page d'options.</li>
 </ul>
 <h2>Ce que l'extension enregistre</h2>
@@ -139,11 +145,13 @@ window.PRIVACY_I18N = {
 <li>Elle n'envoie pas de données à des serveurs : l'extension n'a pas de serveur et ne fait aucune requête réseau, sauf pour charger ses propres images, qui viennent de l'extension elle-même.</li>
 <li>Elle n'utilise ni cookies, ni outils d'analyse, ni pistage, ni publicité.</li>
 <li>Elle ne vend ni ne partage de données, puisqu'elle n'en collecte aucune.</li>
-<li>Elle ne fonctionne sur aucun autre site que claude.ai et gemini.google.com.</li>
+<li>Elle ne fonctionne sur aucun autre site que claude.ai et gemini.google.com, sauf les sites bêta que tu actives toi-même dans les options (le navigateur te demande d'abord ton autorisation, et tu peux la retirer à tout moment).</li>
 </ul>
 <h2>Autorisations</h2>
 <ul>
 <li><code>storage</code> : enregistrer les réglages et la position du personnage.</li>
+<li><code>scripting</code> : afficher le personnage sur les sites bêta que tu actives, et uniquement ceux-là.</li>
+<li>Accès facultatif à ChatGPT, Perplexity, Copilot, DeepSeek et Grok : demandé seulement quand tu actives l'un de ces sites dans les options, et retiré quand tu le désactives.</li>
 <li>Accès à <code>https://claude.ai/*</code> et <code>https://gemini.google.com/*</code> : afficher le personnage sur ces sites et lire les réponses pour choisir l'expression.</li>
 </ul>
 <h2>Les sites d'IA</h2>
@@ -158,13 +166,13 @@ window.PRIVACY_I18N = {
   },
   de: {
     title: `Datenschutzerklärung — Sava`, h1: `Datenschutzerklärung`, install: `Installieren`, back: `Zur Startseite`, indep: `unabhängiges Projekt`,
-    updated: `Erweiterung „Sava — Pixel-Art-Begleiterin für KI-Chats“ · Aktualisiert am 15. November 2026`,
+    updated: `Erweiterung „Sava — Pixel-Art-Begleiterin für KI-Chats“ · Aktualisiert am 18. November 2026`,
     body: `
 <p><b>Kurz gesagt:</b> Sava sammelt deine Daten nicht, speichert sie nicht außerhalb deines Browsers und sendet sie an niemanden. Alles, was sie tut, passiert auf deinem Computer.</p>
 <h2>Worauf die Erweiterung zugreift</h2>
 <ul>
-<li><b>Text der KI-Antworten</b> auf claude.ai und gemini.google.com. Er wird gelesen, um den Ausdruck der Figur zu wählen, sofort und in deinem Browser. Der Text wird nicht gespeichert und verlässt deinen Computer nie.</li>
-<li><b>Ob du tippst oder eine Nachricht gesendet hast</b> – auf diesen Websites, damit die Figur aufmerksam oder nachdenklich wirkt. Die Erweiterung bemerkt nur, dass eine Taste gedrückt oder der Senden-Button geklickt wurde; was du tippst, wird weder gelesen noch gespeichert.</li>
+<li><b>Text der KI-Antworten</b> auf claude.ai und gemini.google.com sowie auf den Beta-Websites, die du in den Optionen einschaltest (ChatGPT, Perplexity, Copilot, DeepSeek, Grok). Er wird gelesen, um den Ausdruck der Figur zu wählen, sofort und in deinem Browser. Die Erweiterung erkennt außerdem den Hinweis der Website selbst, dass das „Nutzungslimit erreicht“ ist, damit die Figur erschöpft aussieht. Der Text wird nicht gespeichert und verlässt deinen Computer nie.</li>
+<li><b>Der Text einer Nachricht, die du sendest</b> – auf diesen Websites, einmal, im Moment des Sendens, um auf deinen Ton zu reagieren (ein Danke macht sie glücklich, ein Tadel traurig). Während du tippst, bemerkt die Erweiterung nur, dass Tasten gedrückt werden. Nichts von dem, was du schreibst, wird gespeichert oder irgendwohin gesendet. Du kannst das in den Optionen ausschalten.</li>
 <li><b>Das Nachrichtenfeld</b>, nur wenn du auf den 💬-Button der Figur klickst: In diesem Moment schreibt die Erweiterung Savas Anweisungstext in das Feld und sendet ihn an den Chat, als hättest du ihn getippt. Dieser Text ist fest und auf der Optionsseite sichtbar.</li>
 </ul>
 <h2>Was die Erweiterung speichert</h2>
@@ -178,11 +186,13 @@ window.PRIVACY_I18N = {
 <li>Sie sendet keine Daten an Server: Die Erweiterung hat keinen Server und stellt keine Netzwerkanfragen, außer um ihre eigenen Bilder zu laden, die aus der Erweiterung selbst stammen.</li>
 <li>Sie verwendet keine Cookies, keine Analyse, kein Tracking und keine Werbung.</li>
 <li>Sie verkauft oder teilt keine Daten, weil sie keine sammelt.</li>
-<li>Sie läuft auf keiner anderen Website als claude.ai und gemini.google.com.</li>
+<li>Sie läuft auf keiner anderen Website als claude.ai und gemini.google.com, außer auf den Beta-Websites, die du selbst in den Optionen einschaltest (der Browser fragt dich vorher um Erlaubnis, und du kannst sie jederzeit zurückziehen).</li>
 </ul>
 <h2>Berechtigungen</h2>
 <ul>
 <li><code>storage</code>: die Einstellungen und die Position der Figur speichern.</li>
+<li><code>scripting</code>: die Figur auf den Beta-Websites anzeigen, die du einschaltest, und nur dort.</li>
+<li>Optionaler Zugriff auf ChatGPT, Perplexity, Copilot, DeepSeek und Grok: wird nur angefragt, wenn du eine dieser Websites in den Optionen einschaltest, und beim Ausschalten wieder entfernt.</li>
 <li>Zugriff auf <code>https://claude.ai/*</code> und <code>https://gemini.google.com/*</code>: die Figur auf diesen Websites anzeigen und die Antworten lesen, um den Ausdruck zu wählen.</li>
 </ul>
 <h2>Die KI-Websites</h2>
@@ -197,13 +207,13 @@ window.PRIVACY_I18N = {
   },
   ja: {
     title: `プライバシーポリシー — Sava`, h1: `プライバシーポリシー`, install: `インストール`, back: `トップに戻る`, indep: `独立したプロジェクト`,
-    updated: `拡張機能「Sava — AIチャットのドット絵キャラクター」・2026年11月15日更新`,
+    updated: `拡張機能「Sava — AIチャットのドット絵キャラクター」・2026年11月18日更新`,
     body: `
 <p><b>概要：</b>Savaはあなたのデータを収集せず、ブラウザの外に保存せず、誰にも送信しません。すべての処理はあなたのコンピューター上で行われます。</p>
 <h2>拡張機能がアクセスするもの</h2>
 <ul>
-<li>claude.ai と gemini.google.com での<b>AIの返答テキスト</b>。キャラクターの表情を選ぶために、その場でブラウザ内で読み取ります。テキストは保存されず、コンピューターの外に出ることはありません。</li>
-<li>これらのサイトで<b>入力中かどうか、メッセージを送信したかどうか</b>。キャラクターが注目したり考え込んだりする表現のためです。拡張機能が把握するのはキーが押されたことや送信ボタンがクリックされたことだけで、入力内容は読み取りも保存もしません。</li>
+<li>claude.ai と gemini.google.com、および設定でオンにしたベータ版サイト（ChatGPT、Perplexity、Copilot、DeepSeek、Grok）での<b>AIの返答テキスト</b>。キャラクターの表情を選ぶために、その場でブラウザ内で読み取ります。また、キャラクターがへとへとになる演出のため、サイト自身が表示する「利用上限に達しました」という通知も検出します。テキストは保存されず、コンピューターの外に出ることはありません。</li>
+<li>これらのサイトで<b>あなたが送信したメッセージのテキスト</b>。送信した瞬間に一度だけ読み取り、口調に反応します（お礼でうれしく、叱られるとかなしくなります）。入力中は、キーが押されていることしか把握しません。書いた内容が保存されたり送信されたりすることはありません。この機能は設定でオフにできます。</li>
 <li><b>メッセージ欄</b>。キャラクターの 💬 ボタンをクリックしたときだけ、拡張機能がSavaの指示テキストを欄に書き込み、あなたが入力したのと同じようにチャットへ送信します。このテキストは固定で、設定ページで確認できます。</li>
 </ul>
 <h2>拡張機能が保存するもの</h2>
@@ -217,11 +227,13 @@ window.PRIVACY_I18N = {
 <li>サーバーへのデータ送信はしません。拡張機能にはサーバーがなく、拡張機能内の自分の画像を読み込む以外にネットワーク通信を行いません。</li>
 <li>Cookie、アクセス解析、トラッキング、広告は使いません。</li>
 <li>データを収集しないため、販売や共有もしません。</li>
-<li>claude.ai と gemini.google.com 以外のサイトでは動作しません。</li>
+<li>claude.ai と gemini.google.com 以外のサイトでは動作しません。ただし、設定で自分でオンにしたベータ版サイトは除きます（ブラウザが事前に許可を求め、いつでも取り消せます）。</li>
 </ul>
 <h2>権限</h2>
 <ul>
 <li><code>storage</code>：設定とキャラクターの位置を保存するため。</li>
+<li><code>scripting</code>：オンにしたベータ版サイトにだけキャラクターを表示するため。</li>
+<li>ChatGPT、Perplexity、Copilot、DeepSeek、Grokへの任意のアクセス：設定でそのサイトをオンにしたときだけ求め、オフにすると取り消します。</li>
 <li><code>https://claude.ai/*</code> と <code>https://gemini.google.com/*</code> へのアクセス：これらのサイトにキャラクターを表示し、表情を選ぶために返答を読み取るため。</li>
 </ul>
 <h2>AIサイトについて</h2>

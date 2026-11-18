@@ -18,7 +18,9 @@
 
     <section>
       <h2 data-i18n="opt_sitesH">Active sites</h2>
+      <p class="hint" data-i18n="opt_sitesHint">Claude and Gemini work out of the box. The beta sites ask for permission when you turn them on.</p>
       <div id="sites" class="checks"></div>
+      <p class="hint" id="sitesHint" hidden data-i18n="opt_sitesReload">Reload the site tab for Sava to appear.</p>
     </section>
 
     <section>
@@ -64,9 +66,14 @@
       <div class="checks">
         <label><input type="checkbox" id="effects"> <span data-i18n="opt_effects">Motion and particles</span></label>
         <label><input type="checkbox" id="reactToTyping"> <span data-i18n="opt_typing">Pay attention while I type</span></label>
+        <label><input type="checkbox" id="reactToUser"> <span data-i18n="opt_reactUser">React to the tone of my messages</span></label>
+        <label><input type="checkbox" id="reactToLimit"> <span data-i18n="opt_reactLimit">Look exhausted when the AI hits its usage limit</span></label>
         <label><input type="checkbox" id="useKeywords"> <span data-i18n="opt_keywords">Detect by keywords when there is no tag</span></label>
         <label><input type="checkbox" id="hideTag"> <span data-i18n-html="opt_hideTag">Hide the tag from the chat</span></label>
         <label><input type="checkbox" id="showLabel"> <span data-i18n="opt_showLabel">Show the emotion name under the character</span></label>
+        <!-- @tablet-start -->
+        <label><input type="checkbox" id="tabletUsb"> <span data-i18n="opt_tablet">Also show Sava on a USB tablet (Sava Tablet app)</span></label>
+        <!-- @tablet-end -->
         <label><input type="checkbox" id="debug"> <span data-i18n="opt_debug">Log detections to the console</span></label>
       </div>
     </section>
@@ -88,6 +95,7 @@
   </main>
 
   <script src="../shared/settings.js"></script>
+  <script src="../shared/sites.js"></script>
   <script src="../shared/i18n.js"></script>
   <script src="../shared/instruction.js"></script>
   <script src="../emotion/emotions.js"></script>
