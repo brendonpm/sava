@@ -10,7 +10,7 @@
     { id: 'gemini', label: 'Gemini', origins: ['https://gemini.google.com/*'], builtin: true },
     { id: 'chatgpt', label: 'ChatGPT', origins: ['https://chatgpt.com/*', 'https://chat.openai.com/*'], beta: true },
     { id: 'perplexity', label: 'Perplexity', origins: ['https://www.perplexity.ai/*', 'https://perplexity.ai/*'], beta: true },
-    { id: 'copilot', label: 'Copilot', origins: ['https://copilot.com/*', 'https://www.copilot.com/*', 'https://copilot.microsoft.com/*'], beta: true },
+    { id: 'copilot', label: 'Copilot', origins: ['https://copilot.com/*', 'https://www.copilot.com/*', 'https://copilot.microsoft.com/*', 'https://copilot.cloud.microsoft/*', 'https://m365.cloud.microsoft/*'], beta: true },
     { id: 'deepseek', label: 'DeepSeek', origins: ['https://chat.deepseek.com/*'], beta: true },
     { id: 'grok', label: 'Grok', origins: ['https://grok.com/*'], beta: true },
   ];

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "short_name": "Sava",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
   "permissions": ["storage", "scripting"],
@@ -15,6 +15,8 @@
     "https://copilot.com/*",
     "https://www.copilot.com/*",
     "https://copilot.microsoft.com/*",
+    "https://copilot.cloud.microsoft/*",
+    "https://m365.cloud.microsoft/*",
     "https://chat.deepseek.com/*",
     "https://grok.com/*"
   ],
@@ -77,6 +79,8 @@
         "https://copilot.com/*",
         "https://www.copilot.com/*",
         "https://copilot.microsoft.com/*",
+        "https://copilot.cloud.microsoft/*",
+        "https://m365.cloud.microsoft/*",
         "https://chat.deepseek.com/*",
         "https://grok.com/*"
       ]
