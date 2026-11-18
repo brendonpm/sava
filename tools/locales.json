@@ -277,12 +277,12 @@
     "en": "Answered!", "pt_BR": "Respondi!", "es": "¡Respondí!", "fr": "J'ai répondu !", "de": "Geantwortet!", "ja": "回答しました！"
   },
   "opt_sitesHint": {
-    "en": "Claude and Gemini work out of the box. The beta sites ask for permission to run when you turn them on.",
-    "pt_BR": "Claude e Gemini já funcionam de saída. Os sites beta pedem permissão para rodar quando você os liga.",
-    "es": "Claude y Gemini funcionan desde el principio. Los sitios beta piden permiso para funcionar cuando los activas.",
-    "fr": "Claude et Gemini fonctionnent d'office. Les sites bêta demandent l'autorisation quand tu les actives.",
-    "de": "Claude und Gemini funktionieren sofort. Die Beta-Websites fragen beim Einschalten nach der Berechtigung.",
-    "ja": "ClaudeとGeminiはすぐに使えます。ベータ版のサイトは、オンにしたときに動作の許可を求めます。"
+    "en": "Claude and Gemini work out of the box. The other sites ask for permission to run when you turn them on.",
+    "pt_BR": "Claude e Gemini já funcionam de saída. Os outros sites pedem permissão para rodar quando você os liga.",
+    "es": "Claude y Gemini funcionan desde el principio. Los demás sitios piden permiso para funcionar cuando los activas.",
+    "fr": "Claude et Gemini fonctionnent d'office. Les autres sites demandent l'autorisation quand tu les actives.",
+    "de": "Claude und Gemini funktionieren sofort. Die anderen Websites fragen beim Einschalten nach der Berechtigung.",
+    "ja": "ClaudeとGeminiはすぐに使えます。その他のサイトは、オンにしたときに動作の許可を求めます。"
   },
   "opt_sitesReload": {
     "en": "Done! Reload the site's tab for Sava to appear.", "pt_BR": "Pronto! Recarregue a aba do site para a Sava aparecer.",

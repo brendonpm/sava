@@ -58,7 +58,7 @@
   "tabThinking": { "message": "Denke nach…" },
   "tabAnswering": { "message": "Antworte…" },
   "tabAnswered": { "message": "Geantwortet!" },
-  "opt_sitesHint": { "message": "Claude und Gemini funktionieren sofort. Die Beta-Websites fragen beim Einschalten nach der Berechtigung." },
+  "opt_sitesHint": { "message": "Claude und Gemini funktionieren sofort. Die anderen Websites fragen beim Einschalten nach der Berechtigung." },
   "opt_sitesReload": { "message": "Fertig! Lade den Tab der Website neu, damit Sava erscheint." },
   "opt_reactUser": { "message": "Auf den Ton meiner Nachrichten reagieren (Danke = glücklich, Tadel = traurig)" },
   "opt_reactLimit": { "message": "Erschöpft aussehen, wenn die KI ihr Nutzungslimit erreicht" },

@@ -58,7 +58,7 @@
   "tabThinking": { "message": "Je réfléchis…" },
   "tabAnswering": { "message": "Je réponds…" },
   "tabAnswered": { "message": "J'ai répondu !" },
-  "opt_sitesHint": { "message": "Claude et Gemini fonctionnent d'office. Les sites bêta demandent l'autorisation quand tu les actives." },
+  "opt_sitesHint": { "message": "Claude et Gemini fonctionnent d'office. Les autres sites demandent l'autorisation quand tu les actives." },
   "opt_sitesReload": { "message": "C'est fait ! Recharge l'onglet du site pour voir Sava." },
   "opt_reactUser": { "message": "Réagir au ton de mes messages (merci = heureuse, reproche = triste)" },
   "opt_reactLimit": { "message": "Avoir l'air épuisée quand l'IA atteint sa limite d'utilisation" },

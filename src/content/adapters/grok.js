@@ -1,4 +1,4 @@
-// Grok (grok.com) — beta: ligado nas opções.
+// Grok (grok.com) — site opcional: ligado nas opções.
 ChatAvatar.adapters.register({
   id: 'grok',
   label: 'Grok',

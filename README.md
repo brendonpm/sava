@@ -1,6 +1,6 @@
 # Chat Avatar
 
-Extensão do Chrome (Manifest V3) que mostra a **Sava**, uma personagem em pixel art de cabelo verde-azulado, reagindo às respostas do **Claude** e do **Gemini** (e, em beta, do ChatGPT, Perplexity, Copilot, DeepSeek e Grok). Quando a IA termina de responder, a Sava troca de expressão: envergonhada, brava, feliz, triste etc.
+Extensão do Chrome (Manifest V3) que mostra a **Sava**, uma personagem em pixel art de cabelo verde-azulado, reagindo às respostas do **Claude** e do **Gemini** (e também do ChatGPT, Perplexity, Copilot, DeepSeek e Grok). Quando a IA termina de responder, a Sava troca de expressão: envergonhada, brava, feliz, triste etc.
 
 
 Tudo roda localmente. O texto das conversas não sai do navegador.
@@ -73,7 +73,7 @@ Tudo isso pode ser desligado ou ajustado nas opções. Quem prefere menos movime
 ## Sites
 
 - **Claude** e **Gemini**: ligados de saída.
-- **ChatGPT, Perplexity, Copilot, DeepSeek e Grok** (beta): ligue nas opções. O navegador pede a permissão daquele site na hora, e desligar devolve a permissão. Assim uma atualização nunca desativa a extensão de quem já usa (o Chrome desativa extensões que passam a exigir permissões novas). O `src/background.js` registra os scripts nesses sites conforme as permissões dadas; a lista fica em `src/shared/sites.js`.
+- **ChatGPT, Perplexity, Copilot (pessoal e Microsoft 365), DeepSeek e Grok**: ligue nas opções. O navegador pede a permissão daquele site na hora, e desligar devolve a permissão. Assim uma atualização nunca desativa a extensão de quem já usa (o Chrome desativa extensões que passam a exigir permissões novas). O `src/background.js` registra os scripts nesses sites conforme as permissões dadas; a lista fica em `src/shared/sites.js`.
 - Sinal de "ainda gerando" genérico: `CA.adapters.stopButtonVisible()` procura um botão de parar visível (stop, parar, interromper, 停止...).
 
 ## Reações a você

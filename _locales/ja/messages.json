@@ -58,7 +58,7 @@
   "tabThinking": { "message": "考え中…" },
   "tabAnswering": { "message": "回答中…" },
   "tabAnswered": { "message": "回答しました！" },
-  "opt_sitesHint": { "message": "ClaudeとGeminiはすぐに使えます。ベータ版のサイトは、オンにしたときに動作の許可を求めます。" },
+  "opt_sitesHint": { "message": "ClaudeとGeminiはすぐに使えます。その他のサイトは、オンにしたときに動作の許可を求めます。" },
   "opt_sitesReload": { "message": "完了！サイトのタブを再読み込みするとSavaが表示されます。" },
   "opt_reactUser": { "message": "自分のメッセージの口調に反応する（お礼＝うれしい、叱る＝かなしい）" },
   "opt_reactLimit": { "message": "AIが利用上限に達したらへとへとになる" },

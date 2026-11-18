@@ -1,4 +1,4 @@
-// ChatGPT (chatgpt.com e chat.openai.com) — beta: ligado nas opções.
+// ChatGPT (chatgpt.com e chat.openai.com) — site opcional: ligado nas opções.
 //
 // O ChatGPT serve versões diferentes do site. Estruturas conhecidas (novembro/2026):
 //

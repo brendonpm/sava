@@ -42,8 +42,8 @@ The AI gets an instruction to end each reply with a tag like [emo:feliz:2]. The 
 PRIVACY
 Everything runs in your browser. The extension has no server, makes no network requests, collects no data and has no ads or tracking. It only reads reply text, on the spot, to pick the expression.
 
-Works on claude.ai and gemini.google.com.
-Independent project, not affiliated with Anthropic or Google. Claude is a trademark of Anthropic and Gemini is a trademark of Google.
+Works on Claude and Gemini, and also on ChatGPT, Perplexity, Copilot, DeepSeek and Grok (turn them on in the options).
+Independent project, not affiliated with any of these companies. All product names are trademarks of their respective owners.
 ```
 
 ---
@@ -76,8 +76,8 @@ A IA recebe uma instrução para terminar cada resposta com uma etiqueta como [e
 PRIVACIDADE
 Tudo roda no seu navegador. A extensão não tem servidor, não faz requisições de rede, não coleta dados e não tem anúncios nem rastreamento. Ela só lê o texto das respostas, na hora, para escolher a expressão.
 
-Funciona em claude.ai e gemini.google.com.
-Projeto independente, sem ligação com a Anthropic ou o Google. Claude é marca da Anthropic e Gemini é marca do Google.
+Funciona no Claude e no Gemini, e também no ChatGPT, Perplexity, Copilot, DeepSeek e Grok (é só ligar nas opções).
+Projeto independente, sem ligação com nenhuma dessas empresas. Os nomes dos produtos são marcas de seus respectivos donos.
 ```
 
 ---
@@ -110,8 +110,8 @@ La IA recibe una instrucción para terminar cada respuesta con una etiqueta como
 PRIVACIDAD
 Todo funciona en tu navegador. La extensión no tiene servidor, no hace solicitudes de red, no recopila datos y no tiene anuncios ni rastreo. Solo lee el texto de las respuestas, en el momento, para elegir la expresión.
 
-Funciona en claude.ai y gemini.google.com.
-Proyecto independiente, sin relación con Anthropic ni Google. Claude es una marca de Anthropic y Gemini es una marca de Google.
+Funciona en Claude y Gemini, y también en ChatGPT, Perplexity, Copilot, DeepSeek y Grok (actívalos en las opciones).
+Proyecto independiente, sin relación con ninguna de estas empresas. Los nombres de los productos son marcas de sus respectivos dueños.
 ```
 
 ---
@@ -144,8 +144,8 @@ L'IA reçoit une instruction pour terminer chaque réponse par une balise comme 
 CONFIDENTIALITÉ
 Tout fonctionne dans ton navigateur. L'extension n'a pas de serveur, ne fait aucune requête réseau, ne collecte aucune donnée et n'a ni publicité ni pistage. Elle lit seulement le texte des réponses, sur le moment, pour choisir l'expression.
 
-Fonctionne sur claude.ai et gemini.google.com.
-Projet indépendant, sans lien avec Anthropic ni Google. Claude est une marque d'Anthropic et Gemini est une marque de Google.
+Fonctionne sur Claude et Gemini, et aussi sur ChatGPT, Perplexity, Copilot, DeepSeek et Grok (à activer dans les options).
+Projet indépendant, sans lien avec aucune de ces entreprises. Les noms des produits sont des marques de leurs propriétaires respectifs.
 ```
 
 ---
@@ -178,8 +178,8 @@ Die KI bekommt die Anweisung, jede Antwort mit einer Markierung wie [emo:feliz:2
 DATENSCHUTZ
 Alles läuft in deinem Browser. Die Erweiterung hat keinen Server, stellt keine Netzwerkanfragen, sammelt keine Daten und hat weder Werbung noch Tracking. Sie liest nur den Antworttext, sofort, um den Ausdruck zu wählen.
 
-Funktioniert auf claude.ai und gemini.google.com.
-Unabhängiges Projekt ohne Verbindung zu Anthropic oder Google. Claude ist eine Marke von Anthropic und Gemini eine Marke von Google.
+Funktioniert mit Claude und Gemini sowie mit ChatGPT, Perplexity, Copilot, DeepSeek und Grok (in den Optionen einschalten).
+Unabhängiges Projekt ohne Verbindung zu einem dieser Unternehmen. Alle Produktnamen sind Marken ihrer jeweiligen Inhaber.
 ```
 
 ---
@@ -212,6 +212,6 @@ AIには、各返答の最後に [emo:feliz:2] のようなタグを付けるよ
 プライバシー
 すべてブラウザ内で動作します。拡張機能にはサーバーがなく、ネットワーク通信もデータ収集も行わず、広告やトラッキングもありません。表情を選ぶために、返答のテキストをその場で読み取るだけです。
 
-claude.ai と gemini.google.com で動作します。
-AnthropicやGoogleとは関係のない独立したプロジェクトです。ClaudeはAnthropicの商標、GeminiはGoogleの商標です。
+ClaudeとGeminiで動作し、ChatGPT・Perplexity・Copilot・DeepSeek・Grokにも対応しています（設定でオンにします）。
+これらの企業とは関係のない独立したプロジェクトです。各製品名はそれぞれの所有者の商標です。
 ```

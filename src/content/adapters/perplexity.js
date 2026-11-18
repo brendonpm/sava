@@ -1,4 +1,4 @@
-// Perplexity (perplexity.ai) — beta: ligado nas opções.
+// Perplexity (perplexity.ai) — site opcional: ligado nas opções.
 ChatAvatar.adapters.register({
   id: 'perplexity',
   label: 'Perplexity',

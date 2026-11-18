@@ -1,4 +1,4 @@
-// DeepSeek (chat.deepseek.com) — beta: ligado nas opções.
+// DeepSeek (chat.deepseek.com) — site opcional: ligado nas opções.
 // As respostas ficam em .ds-markdown; o raciocínio ("pensamento") aparece em outro bloco e é ignorado.
 ChatAvatar.adapters.register({
   id: 'deepseek',

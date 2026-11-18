@@ -1,7 +1,6 @@
-// Microsoft Copilot — beta: ligado nas opções. Dois produtos:
+// Microsoft Copilot — site opcional: ligado nas opções. Dois produtos:
 //  - Copilot pessoal: copilot.com (o antigo copilot.microsoft.com redireciona para lá);
 //  - Microsoft 365 Copilot (conta do Office/trabalho): copilot.cloud.microsoft e m365.cloud.microsoft.
-// Os seletores do Microsoft 365 ainda são palpites: confirme com o diagnóstico da depuração.
 ChatAvatar.adapters.register({
   id: 'copilot',
   label: 'Copilot',

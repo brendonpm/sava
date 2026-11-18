@@ -43,7 +43,7 @@
   }
 
   // ---------- sites ----------
-  // Claude e Gemini já vêm com permissão. Os outros (beta) pedem a permissão do site ao ligar,
+  // Claude e Gemini já vêm com permissão. Os outros sites pedem a permissão do site ao ligar,
   // e a devolvem ao desligar; o service worker registra ou retira os scripts sozinho.
   const canAsk = !!(chrome.permissions && chrome.permissions.request);
   for (const s of SITES) {
@@ -79,7 +79,7 @@
     $('sites').append(label);
   }
 
-  // diagnóstico (só com "depuração" ligada): onde os scripts dos sites beta estão registrados
+  // diagnóstico (só com "depuração" ligada): onde os scripts dos outros sites estão registrados
   function showSitesDiag() {
     const box = $('sitesDiag');
     if (!settings.debug || !canAsk) { box.hidden = true; return; }
@@ -88,7 +88,7 @@
         box.hidden = false;
         box.textContent = Array.isArray(list) && list.length
           ? list.map((s) => `${s.id}: ${s.matches.join(', ')}`).join('\n')
-          : '(nenhum site beta registrado)';
+          : '(nenhum outro site registrado)';
       });
     } catch (_) { box.hidden = true; }
   }
