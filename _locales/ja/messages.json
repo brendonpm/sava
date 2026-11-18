@@ -54,7 +54,7 @@
   "opt_privH": { "message": "プライバシー" },
   "opt_privText": { "message": "会話のテキストは表情を選ぶためだけに読み取られ、どこにも送信されません。拡張機能が求める権限は <code>storage</code> と上記サイトへのアクセスだけです。" },
   "opt_saved": { "message": "保存しました" },
-  "opt_tablet": { "message": "USBタブレットにもSavaを表示（Sava Tabletアプリ）" },
+  "opt_tablet": { "message": "USBタブレットにもSavaを表示（Sava Tabletアプリ・開発中、未公開）" },
   "tabThinking": { "message": "考え中…" },
   "tabAnswering": { "message": "回答中…" },
   "tabAnswered": { "message": "回答しました！" },

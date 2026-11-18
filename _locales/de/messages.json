@@ -54,7 +54,7 @@
   "opt_privH": { "message": "Datenschutz" },
   "opt_privText": { "message": "Der Chattext wird nur gelesen, um den Ausdruck zu wählen, und nirgendwohin gesendet. Die Erweiterung benötigt nur <code>storage</code> und Zugriff auf die oben genannten Websites." },
   "opt_saved": { "message": "Gespeichert" },
-  "opt_tablet": { "message": "Sava auch auf einem USB-Tablet zeigen (App Sava Tablet)" },
+  "opt_tablet": { "message": "Sava auch auf einem USB-Tablet zeigen (App Sava Tablet — in Entwicklung, noch nicht verfügbar)" },
   "tabThinking": { "message": "Denke nach…" },
   "tabAnswering": { "message": "Antworte…" },
   "tabAnswered": { "message": "Geantwortet!" },

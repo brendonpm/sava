@@ -54,7 +54,7 @@
   "opt_privH": { "message": "Confidentialité" },
   "opt_privText": { "message": "Le texte des conversations est lu uniquement pour choisir l'expression et n'est jamais envoyé nulle part. L'extension demande seulement <code>storage</code> et l'accès aux sites ci-dessus." },
   "opt_saved": { "message": "Enregistré" },
-  "opt_tablet": { "message": "Afficher aussi Sava sur une tablette USB (app Sava Tablet)" },
+  "opt_tablet": { "message": "Afficher aussi Sava sur une tablette USB (app Sava Tablet — en développement, pas encore disponible)" },
   "tabThinking": { "message": "Je réfléchis…" },
   "tabAnswering": { "message": "Je réponds…" },
   "tabAnswered": { "message": "J'ai répondu !" },

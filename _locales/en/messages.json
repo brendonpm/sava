@@ -54,7 +54,7 @@
   "opt_privH": { "message": "Privacy" },
   "opt_privText": { "message": "Chat text is read only to pick the expression and is never sent anywhere. The extension only asks for <code>storage</code> and access to the sites listed above." },
   "opt_saved": { "message": "Saved" },
-  "opt_tablet": { "message": "Also show Sava on a USB tablet (Sava Tablet app)" },
+  "opt_tablet": { "message": "Also show Sava on a USB tablet (Sava Tablet app — in development, not available yet)" },
   "tabThinking": { "message": "Thinking…" },
   "tabAnswering": { "message": "Answering…" },
   "tabAnswered": { "message": "Answered!" },

@@ -263,9 +263,9 @@
   },
   "_tablet": "Textos do recurso interno do tablet: o tools/build.ps1 tira estes do pacote da loja.",
   "opt_tablet": {
-    "en": "Also show Sava on a USB tablet (Sava Tablet app)", "pt_BR": "Mostrar a Sava também no tablet USB (app Sava Tablet)",
-    "es": "Mostrar a Sava también en una tableta USB (app Sava Tablet)", "fr": "Afficher aussi Sava sur une tablette USB (app Sava Tablet)",
-    "de": "Sava auch auf einem USB-Tablet zeigen (App Sava Tablet)", "ja": "USBタブレットにもSavaを表示（Sava Tabletアプリ）"
+    "en": "Also show Sava on a USB tablet (Sava Tablet app — in development, not available yet)", "pt_BR": "Mostrar a Sava também no tablet USB (app Sava Tablet — em desenvolvimento, ainda não disponível)",
+    "es": "Mostrar a Sava también en una tableta USB (app Sava Tablet — en desarrollo, aún no disponible)", "fr": "Afficher aussi Sava sur une tablette USB (app Sava Tablet — en développement, pas encore disponible)",
+    "de": "Sava auch auf einem USB-Tablet zeigen (App Sava Tablet — in Entwicklung, noch nicht verfügbar)", "ja": "USBタブレットにもSavaを表示（Sava Tabletアプリ・開発中、未公開）"
   },
   "tabThinking": {
     "en": "Thinking…", "pt_BR": "Pensando…", "es": "Pensando…", "fr": "Je réfléchis…", "de": "Denke nach…", "ja": "考え中…"
