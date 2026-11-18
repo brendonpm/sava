@@ -4,6 +4,9 @@
 (async () => {
   const CA = globalThis.ChatAvatar;
   const adapter = CA.adapters.find(location.hostname);
+  const version = (chrome.runtime.getManifest && chrome.runtime.getManifest().version) || '?';
+  // sempre registra no console que carregou: ajuda a saber se o script entrou no site
+  console.info(`[Sava] ${version} carregada em ${location.hostname}`, adapter ? `(adaptador: ${adapter.id})` : '(nenhum adaptador para este site)');
   if (!adapter) return;
 
   let settings = await CA.settings.load();
@@ -308,6 +311,32 @@
   document.addEventListener('pointerdown', onPointer, true);
   addEventListener('wheel', activity, { passive: true, capture: true });
 
+  // ---------- diagnóstico na tela (opção "depuração") ----------
+  // Mostra sob a personagem o que ela enxerga: site, quantas respostas achou e por qual seletor,
+  // se a IA está escrevendo e se o campo de mensagem foi encontrado. Um print disso basta.
+  setInterval(() => {
+    if (!avatar) return;
+    if (!settings.debug) return avatar.setDebugText('');
+    let idx = -1, count = 0;
+    adapter.messageSelectors.some((sel, i) => {
+      const n = document.querySelectorAll(sel).length;
+      if (n) { idx = i; count = n; return true; }
+      return false;
+    });
+    const last = CA.adapters.getLastMessage(adapter);
+    const live = adapter.isStreaming && last ? adapter.isStreaming(last) : undefined;
+    const parts = [
+      adapter.id,
+      `msgs ${count}${idx >= 0 ? ' #' + (idx + 1) : ''}`,
+      `len ${last ? last.textContent.length : 0}`,
+      `gen ${live === true ? 'sim' : live === false ? 'não' : '?'}`,
+      `fala ${watcher && watcher.streaming ? 'sim' : 'não'}`,
+      `campo ${findComposer() ? 'ok' : 'não'}`,
+      'v' + ((chrome.runtime.getManifest && chrome.runtime.getManifest().version) || '?'),
+    ];
+    avatar.setDebugText(parts.join(' · '));
+  }, 1000);
+
   // ---------- cochilo ----------
   setInterval(() => {
     if (!avatar || !settings.sleepAfterMin || avatar.sleeping || avatar.thinking) return;
@@ -347,4 +376,4 @@
 
   await sync();
   CA._debug = { get avatar() { return avatar; }, get watcher() { return watcher; } };
-})().catch((e) => console.warn('[Chat Avatar]', e));
+})().catch((e) => console.warn('[Sava] erro ao iniciar:', e));

@@ -86,7 +86,13 @@
       if (el === this.el && text === this.text) return;
       this.lastChangeAt = now;
 
-      if (el !== this.el && this.streaming) this._finish(); // nova mensagem antes de a anterior "assentar"
+      if (el !== this.el && this.streaming) {
+        // O site trocou o elemento da resposta no meio do streaming (o ChatGPT troca o "rascunho"
+        // vazio pelo definitivo): é a mesma resposta, segue falando. Só encerra a anterior se ela
+        // ainda está na página com texto, ou seja, é mesmo uma mensagem nova.
+        const replaced = !this.el || !this.el.isConnected || !(this.el.textContent || '').trim();
+        if (!replaced) this._finish();
+      }
       this.el = el;
       if (!this.streaming) {
         this.streaming = true;

@@ -53,7 +53,8 @@
     cb.checked = settings.enabledSites[s.id] !== false;
     if (!s.builtin) {
       cb.checked = false;
-      if (canAsk) chrome.permissions.contains({ origins: s.origins }).then((ok) => { cb.checked = ok && settings.enabledSites[s.id] !== false; });
+      // ligado se pelo menos um endereço do site tem permissão (o Copilot tem três)
+      if (canAsk) Promise.all(s.origins.map((o) => chrome.permissions.contains({ origins: [o] }))).then((r) => { cb.checked = r.some(Boolean) && settings.enabledSites[s.id] !== false; });
     }
     cb.addEventListener('change', async () => {
       if (!s.builtin && canAsk) {
@@ -77,6 +78,22 @@
     }
     $('sites').append(label);
   }
+
+  // diagnóstico (só com "depuração" ligada): onde os scripts dos sites beta estão registrados
+  function showSitesDiag() {
+    const box = $('sitesDiag');
+    if (!settings.debug || !canAsk) { box.hidden = true; return; }
+    try {
+      chrome.runtime.sendMessage({ type: 'sava-sites-diag' }, (list) => {
+        box.hidden = false;
+        box.textContent = Array.isArray(list) && list.length
+          ? list.map((s) => `${s.id}: ${s.matches.join(', ')}`).join('\n')
+          : '(nenhum site beta registrado)';
+      });
+    } catch (_) { box.hidden = true; }
+  }
+  showSitesDiag();
+  $('debug').addEventListener('change', () => setTimeout(showSitesDiag, 300));
 
   // ---------- instrução ----------
   function renderInstruction() {

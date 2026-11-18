@@ -1,1 +1,1 @@
-﻿window.SAVA_VERSION = '0.7.1';
+﻿window.SAVA_VERSION = '0.7.2';

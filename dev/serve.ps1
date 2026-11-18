@@ -15,6 +15,7 @@ while ($l.IsListening) {
     $ext = [IO.Path]::GetExtension($path)
     $ctx.Response.ContentType = $(if ($types[$ext]) { $types[$ext] } else { 'application/octet-stream' })
     $ctx.Response.Headers.Add('Cache-Control', 'no-store')
+    $ctx.Response.Headers.Add('Access-Control-Allow-Origin', '*') # permite testes injetando o código em outros sites
     $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
   } else { $ctx.Response.StatusCode = 404 }
   $ctx.Response.Close()

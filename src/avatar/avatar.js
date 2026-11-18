@@ -78,6 +78,7 @@
     .label {
       padding: 2px 8px; border-radius: 999px;
       background: rgba(20,16,32,.82); color: #f2ecff; letter-spacing: .02em;
+      max-width: 300px; text-align: center; overflow-wrap: anywhere;
     }
     .label[hidden] { display: none; }
     .btns {
@@ -311,8 +312,16 @@
       this.canvas.style.width = s + 'px';
       this.canvas.style.height = s + 'px';
       this.canvas.classList.toggle('pixelated', s >= this.pack.cell.w);
-      this.label.hidden = !this.settings.showLabel;
+      this.label.hidden = !this.settings.showLabel && !this.debugText;
       if (this.settings.effects === false) this.particles = [];
+      this._updateLabel();
+    }
+
+    /** Linha de diagnóstico sob a personagem (modo depuração); vazio = esconde. */
+    setDebugText(text) {
+      if (text === this.debugText) return;
+      this.debugText = text || '';
+      this.label.hidden = !this.settings.showLabel && !this.debugText;
       this._updateLabel();
     }
 
@@ -320,7 +329,7 @@
       const tail = this.sleeping ? ' 💤' : this.thinking ? ' 💭' : this.intensity >= 3 ? '!' : '';
       // emoções padrão aparecem traduzidas; as criadas pelo usuário, com o nome que ele deu
       const known = CA.i18n && CA.i18n.LABELS.en[this.emotion];
-      this.label.textContent = (known ? CA.i18n.label(this.emotion) : this.emotion) + tail;
+      this.label.textContent = (known ? CA.i18n.label(this.emotion) : this.emotion) + tail + (this.debugText ? ' · ' + this.debugText : '');
     }
 
     get effects() { return this.settings.effects !== false; }
