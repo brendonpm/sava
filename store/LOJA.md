@@ -107,4 +107,4 @@ Os motivos mais comuns, e o que já está coberto:
 - **Permissões amplas demais:** a extensão pede só `storage` e dois sites.
 - **Política de privacidade ausente ou incoerente:** a página `privacidade.html` descreve exatamente o que a extensão faz.
 - **Uso de marcas:** o nome não usa "Claude" nem "Gemini". A descrição só diz que funciona nesses sites e deixa claro que o projeto é independente. As imagens não usam logos.
-- **Descrição enganosa ou com palavras-chave em excesso:** a descrição só fala do que a extensão faz.
+- **Palavras-chave em excesso ("Yellow Argon"):** aconteceu na 0.7.4, porque a descrição listava sete chats de IA (Claude, Gemini, ChatGPT, Perplexity, Copilot, DeepSeek, Grok). Na descrição, cite no máximo dois nomes de produtos e diga "e outros chats de IA"; a lista completa fica nas opções e no site.
